@@ -1,0 +1,1 @@
+enum CustomInputFieldType { text, password }
