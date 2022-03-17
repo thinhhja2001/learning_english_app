@@ -1,22 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:learning_english_app/providers/signin_provider.dart';
 import 'package:learning_english_app/utils/constants.dart';
 import 'package:learning_english_app/widgets/custom_error_box.dart';
+import 'package:provider/provider.dart';
 
 import '../widgets/custom_input_field.dart';
 
-class SignInScreen extends StatefulWidget {
+class SignInScreen extends StatelessWidget {
   const SignInScreen({Key? key}) : super(key: key);
 
   @override
-  State<SignInScreen> createState() => _SignInScreenState();
-}
-
-class _SignInScreenState extends State<SignInScreen> {
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-  bool _isValid = true;
-  @override
   Widget build(BuildContext context) {
+    final signInProvider = Provider.of<SignInProvider>(context);
+    TextEditingController _emailController = TextEditingController();
+    TextEditingController _passwordController = TextEditingController();
+    void signIn() {
+      if (_emailController.text.isEmpty || _passwordController.text.isEmpty) {
+        signInProvider.changeIsValidValue();
+      }
+    }
+
     return Scaffold(
       body: Stack(
         children: [
@@ -73,7 +76,9 @@ class _SignInScreenState extends State<SignInScreen> {
                               customInputFieldType:
                                   CustomInputFieldType.password,
                               controller: _passwordController),
-                          _isValid ? Container() : const CustomErrorBox(),
+                          signInProvider.isValid
+                              ? Container()
+                              : const CustomErrorBox(),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
@@ -123,17 +128,5 @@ class _SignInScreenState extends State<SignInScreen> {
         ],
       ),
     );
-  }
-
-  void signIn() {
-    if (_emailController.text.isEmpty || _passwordController.text.isEmpty) {
-      setState(() {
-        _isValid = false;
-      });
-    } else {
-      setState(() {
-        _isValid = true;
-      });
-    }
   }
 }
