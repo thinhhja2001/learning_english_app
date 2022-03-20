@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class CustomErrorBox extends StatelessWidget {
-  const CustomErrorBox({Key? key}) : super(key: key);
+  final String message;
+  const CustomErrorBox({Key? key, required this.message}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -12,10 +13,10 @@ class CustomErrorBox extends StatelessWidget {
         decoration: const BoxDecoration(
             color: Colors.red,
             borderRadius: BorderRadius.all(Radius.circular(5))),
-        child: const Padding(
+        child: Padding(
           padding: EdgeInsets.only(left: 5, top: 5, bottom: 5),
           child: Text(
-            "Please fill up all the field",
+            message,
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
           ),
         ),

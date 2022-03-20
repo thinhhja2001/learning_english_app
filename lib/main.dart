@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:learning_english_app/providers/resetpassword_provider.dart';
 import 'package:learning_english_app/providers/signin_provider.dart';
-import 'package:learning_english_app/screens/resetpassword_screen.dart';
+// import 'package:learning_english_app/screens/resetpassword_screen.dart';
 import 'package:learning_english_app/screens/signin_screen.dart';
 import 'package:learning_english_app/screens/successreset_screen.dart';
-// import 'package:learning_english_app/screens/signin_screen.dart';
+import 'package:learning_english_app/providers/signup_provider.dart';
+// import 'package:learning_english_app/screens/signup_screen.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -22,7 +23,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<SignInProvider>(
             create: (context) => SignInProvider()),
         ChangeNotifierProvider<ResetPasswordProvider>(
-            create: (context) => ResetPasswordProvider())
+            create: (context) => ResetPasswordProvider()),
+        ChangeNotifierProvider<SignUpProvider>(
+            create: (context) => SignUpProvider())
       ],
       child: MaterialApp(
           title: 'Flutter Demo',
