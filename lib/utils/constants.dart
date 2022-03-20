@@ -1,12 +1,6 @@
 import 'package:flutter/material.dart';
 
-enum CustomInputFieldType {
-  text,
-  password,
-  mail,
-  confirmPassword,
-  mobileNumber
-}
+enum CustomInputFieldType { text, password }
 
 // horizontal spacing
 

@@ -30,15 +30,6 @@ class _CustomeSignUpFieldState extends State<CustomeSignUpField> {
     return SizedBox(
       width: double.infinity,
       // height: 70,
-      // decoration: BoxDecoration(
-      //     color: Colors.white,
-      //     borderRadius: BorderRadius.all(
-      //       Radius.circular(5),
-      //     ),
-      //     border: Border.all(
-      //       color: kcPrimaryTextColor,
-      //       width: 1,
-      //     )),
       child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -100,6 +91,9 @@ class _CustomeSignUpFieldState extends State<CustomeSignUpField> {
                                     color: kcEyeIconColor,
                                   ))
                               : null),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) return null;
+                      },
                     ),
                   )),
                 ],
