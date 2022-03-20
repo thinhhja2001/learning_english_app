@@ -78,7 +78,8 @@ class SignInScreen extends StatelessWidget {
                               controller: _passwordController),
                           signInProvider.isValid
                               ? Container()
-                              : const CustomErrorBox(),
+                              : const CustomErrorBox(
+                                  message: "Please fill up all the field"),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
