@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:learning_english_app/providers/resetpassword_provider.dart';
 import 'package:learning_english_app/providers/signin_provider.dart';
+import 'package:learning_english_app/screens/resetpassword_screen.dart';
 // import 'package:learning_english_app/screens/resetpassword_screen.dart';
 import 'package:learning_english_app/screens/signin_screen.dart';
+import 'package:learning_english_app/screens/signup_screen.dart';
 import 'package:learning_english_app/screens/successreset_screen.dart';
 import 'package:learning_english_app/providers/signup_provider.dart';
 // import 'package:learning_english_app/screens/signup_screen.dart';
@@ -46,9 +48,7 @@ class MyApp extends StatelessWidget {
           home: const SignInScreen(),
           routes: <String, WidgetBuilder>{
             '/successpassword': (BuildContext context) =>
-                const SuccessResetScreen(
-                  heightCard: 600.0,
-                ),
+                const SuccessResetScreen(),
             '/signin': (BuildContext context) => const SignInScreen(),
           }),
     );

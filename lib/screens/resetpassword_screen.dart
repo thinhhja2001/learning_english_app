@@ -7,9 +7,7 @@ import 'package:provider/provider.dart';
 import '../../utils/colors.dart';
 
 class ResetPasswordScreen extends StatelessWidget {
-  final double heightCard;
-  const ResetPasswordScreen({Key? key, required this.heightCard})
-      : super(key: key);
+  const ResetPasswordScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +16,6 @@ class ResetPasswordScreen extends StatelessWidget {
     TextEditingController _confirmPasswordController = TextEditingController();
 
     return Scaffold(
-      resizeToAvoidBottomInset: false,
       body: Stack(
         children: [
           ShaderMask(
@@ -43,7 +40,6 @@ class ResetPasswordScreen extends StatelessWidget {
             children: [
               Resetpasswordwidget(
                   resetPasswordProvider: resetpasswordProvider,
-                  heightCard: heightCard,
                   passwordController: _passwordController,
                   confirmPasswordController: _confirmPasswordController),
             ],
@@ -59,17 +55,14 @@ class Resetpasswordwidget extends StatelessWidget {
       {Key? key,
       required TextEditingController passwordController,
       required TextEditingController confirmPasswordController,
-      required ResetPasswordProvider resetPasswordProvider,
-      required double heightCard})
+      required ResetPasswordProvider resetPasswordProvider})
       : _resetPasswordProvider = resetPasswordProvider,
         _passwordController = passwordController,
         _confirmPasswordController = confirmPasswordController,
-        _heightCard = heightCard,
         super(key: key);
 
   final TextEditingController _passwordController;
   final TextEditingController _confirmPasswordController;
-  final double _heightCard;
   final ResetPasswordProvider _resetPasswordProvider;
 
   @override
@@ -97,7 +90,6 @@ class Resetpasswordwidget extends StatelessWidget {
 
     return SizedBox(
       width: double.infinity,
-      height: _heightCard,
       child: SafeArea(
           child: Container(
         decoration: const BoxDecoration(
@@ -105,9 +97,11 @@ class Resetpasswordwidget extends StatelessWidget {
             borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(30), topRight: Radius.circular(30))),
         child: Padding(
-          padding: EdgeInsets.symmetric(
-              horizontal: MediaQuery.of(context).size.width * 0.05,
-              vertical: MediaQuery.of(context).size.height * 0.05),
+          padding: EdgeInsets.only(
+              left: MediaQuery.of(context).size.width * 0.05,
+              right: MediaQuery.of(context).size.width * 0.05,
+              top: MediaQuery.of(context).size.height * 0.01,
+              bottom: MediaQuery.of(context).size.height * 0.03),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

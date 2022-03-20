@@ -3,9 +3,7 @@ import 'package:flutter/material.dart';
 import '../utils/colors.dart';
 
 class SuccessResetScreen extends StatelessWidget {
-  final double heightCard;
-  const SuccessResetScreen({Key? key, required this.heightCard})
-      : super(key: key);
+  const SuccessResetScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -33,9 +31,7 @@ class SuccessResetScreen extends StatelessWidget {
           Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              SuccessPasswordWidget(
-                heightCard: heightCard,
-              ),
+              SuccessPasswordWidget(),
             ],
           )
         ],
@@ -45,13 +41,7 @@ class SuccessResetScreen extends StatelessWidget {
 }
 
 class SuccessPasswordWidget extends StatelessWidget {
-  const SuccessPasswordWidget({
-    required double heightCard,
-    Key? key,
-  })  : _heightCard = heightCard,
-        super(key: key);
-
-  final double _heightCard;
+  const SuccessPasswordWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +51,6 @@ class SuccessPasswordWidget extends StatelessWidget {
 
     return SizedBox(
       width: double.infinity,
-      height: _heightCard,
       child: SafeArea(
           child: Container(
         decoration: const BoxDecoration(
@@ -69,38 +58,47 @@ class SuccessPasswordWidget extends StatelessWidget {
             borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(30), topRight: Radius.circular(30))),
         child: Padding(
-          padding: EdgeInsets.symmetric(
-              horizontal: MediaQuery.of(context).size.width * 0.05,
-              vertical: MediaQuery.of(context).size.height * 0.05),
+          padding: EdgeInsets.only(
+              left: MediaQuery.of(context).size.width * 0.05,
+              right: MediaQuery.of(context).size.width * 0.05,
+              top: MediaQuery.of(context).size.height * 0.01,
+              bottom: MediaQuery.of(context).size.height * 0.03),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Expanded(
                     child: Container(),
                     flex: 1,
                   ),
-                  const Expanded(
+                  Expanded(
                     flex: 8,
-                    child: Text(
-                      "Password Reset\nSuccessful",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontFamily: 'Roboto',
-                          fontWeight: FontWeight.bold,
-                          fontSize: 24,
-                          height: 1,
-                          letterSpacing: -0.025),
+                    child: Padding(
+                      padding: EdgeInsets.only(
+                          top: MediaQuery.of(context).size.height * 0.03),
+                      child: const Text(
+                        "Password Reset\nSuccessful",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontFamily: 'Roboto',
+                            fontWeight: FontWeight.bold,
+                            fontSize: 24,
+                            height: 1,
+                            letterSpacing: -0.025),
+                      ),
                     ),
                   ),
                   Expanded(
                     flex: 1,
-                    child: IconButton(
-                      onPressed: changeToSignIn,
-                      icon: const Icon(Icons.close),
+                    child: Padding(
+                      padding: EdgeInsets.only(
+                          top: MediaQuery.of(context).size.height * 0.01),
+                      child: IconButton(
+                        onPressed: changeToSignIn,
+                        icon: const Icon(Icons.close),
+                      ),
                     ),
                   ),
                 ],
@@ -121,7 +119,7 @@ class SuccessPasswordWidget extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 32),
+                padding: const EdgeInsets.only(top: 28),
                 child: SizedBox(
                   width: double.infinity,
                   height: 50,
