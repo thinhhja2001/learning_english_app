@@ -7,33 +7,13 @@ class SuccessResetScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: Stack(
+    Size screenSize = MediaQuery.of(context).size;
+    return Container(
+      height: screenSize.height*0.7,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          ShaderMask(
-            shaderCallback: (rect) {
-              return const LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [Colors.transparent, Colors.black])
-                  .createShader(
-                      Rect.fromLTRB(0, -140, rect.width, rect.height * 0.8));
-            },
-            blendMode: BlendMode.darken,
-            child: Container(
-              decoration: const BoxDecoration(
-                  image: DecorationImage(
-                      image: ExactAssetImage("assets/images/background.jpg"),
-                      fit: BoxFit.fill)),
-            ),
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              SuccessPasswordWidget(),
-            ],
-          )
+          SuccessPasswordWidget(),
         ],
       ),
     );
@@ -46,7 +26,7 @@ class SuccessPasswordWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     void changeToSignIn() {
-      Navigator.pushReplacementNamed(context, '/signin');
+      Navigator.pop(context);
     }
 
     return SizedBox(

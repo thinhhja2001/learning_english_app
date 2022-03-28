@@ -1,5 +1,156 @@
 import 'package:flutter/material.dart';
 
+import '../providers/resetpassword_provider.dart';
+import '../utils/colors.dart';
+import '../utils/constants.dart';
+
+
+class GeneralResetScreen extends StatefulWidget {
+  const GeneralResetScreen({ Key? key }) : super(key: key);
+
+  @override
+  State<GeneralResetScreen> createState() => _GeneralResetScreenState();
+}
+
+class _GeneralResetScreenState extends State<GeneralResetScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      
+    );
+  }
+}
+
+class ResetPassword extends StatefulWidget {
+   final TextEditingController _passwordController;
+  final TextEditingController _confirmPasswordController;
+  final ResetPasswordProvider _resetPasswordProvider;
+  const ResetPassword(
+      {Key? key,
+      required TextEditingController passwordController,
+      required TextEditingController confirmPasswordController,
+      required ResetPasswordProvider resetPasswordProvider})
+      : _resetPasswordProvider = resetPasswordProvider,
+        _passwordController = passwordController,
+        _confirmPasswordController = confirmPasswordController,
+        super(key: key);
+    
+ 
+
+  @override
+  State<ResetPassword> createState() => _ResetPasswordState();
+}
+
+class _ResetPasswordState extends State<ResetPassword> {
+
+  @override
+  Widget build(BuildContext context) {
+      void changeToSuccess(){
+      
+    }
+
+    void changeToSignIn() {
+      Navigator.pop(context);
+    }
+
+    void _isEnableButton() {
+      final text = widget._passwordController.value.text;
+      final compareText = widget._confirmPasswordController.value.text;
+
+      if (text.isEmpty ||
+          compareText.isEmpty ||
+          text.length < 8 ||
+          text.compareTo(compareText) != 0) {
+      } else {
+        
+      }
+    }
+
+    return SizedBox(
+      width: double.infinity,
+      child: SafeArea(
+          child: Container(
+        decoration: const BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(30), topRight: Radius.circular(30))),
+        child: Padding(
+          padding: EdgeInsets.only(
+              left: MediaQuery.of(context).size.width * 0.05,
+              right: MediaQuery.of(context).size.width * 0.05,
+              top: MediaQuery.of(context).size.height * 0.01,
+              bottom: MediaQuery.of(context).size.height * 0.03),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Expanded(
+                    flex: 9,
+                    child: Text(
+                      "Reset Password",
+                      style: TextStyle(
+                          fontFamily: 'Roboto',
+                          fontWeight: FontWeight.bold,
+                          fontSize: 24,
+                          height: 2,
+                          letterSpacing: -0.025),
+                    ),
+                  ),
+                  Expanded(
+                      flex: 1,
+                      child: IconButton(
+                          onPressed: changeToSignIn,
+                          icon: const Icon(Icons.close))),
+                ],
+              ),
+              const Padding(
+                padding: EdgeInsets.symmetric(vertical: defaultPadding),
+                child: Text(
+                    "Please make sure your new password must be different from previous used passwords.",
+                    style: TextStyle(
+                        fontFamily: 'Roboto',
+                        fontWeight: FontWeight.w400,
+                        fontSize: 14,
+                        height: 1.5)),
+              ),
+              const SizedBox(
+                height: 12,
+              ),
+              ResetPasswordWidget(
+                passwordTextController: widget._passwordController,
+                confirmPasswordTextController: widget._confirmPasswordController,
+              ),
+              SizedBox(
+                width: double.infinity,
+                height: 50,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary: kPrimaryColor,
+                    onPrimary: Colors.white,
+                  ),
+                  onPressed: _isEnableButton,
+                  child: const Text(
+                    'Reset Password',
+                    style: TextStyle(
+                        fontFamily: 'Roboto',
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                        letterSpacing: -0.025),
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
+      )),
+    );
+  }
+}
+
+
 class ResetPasswordWidget extends StatefulWidget {
   final TextEditingController passwordTextController;
   final TextEditingController confirmPasswordTextController;
