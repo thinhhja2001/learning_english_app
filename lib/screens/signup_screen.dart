@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:learning_english_app/providers/signup_provider.dart';
 import 'package:learning_english_app/utils/constants.dart';
 import 'package:learning_english_app/utils/styles.dart';
-import 'package:learning_english_app/widgets/custom_error_box.dart';
-import 'package:learning_english_app/widgets/custom_sign_up_field.dart';
-import 'package:provider/provider.dart';
 import 'package:flutter/services.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -96,7 +92,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       if (value!.isEmpty) {
                         return "Mobile Number is required.";
                       }
-                      if (value!.length != 10) {
+                      if (value.length != 10) {
                         return "Mobile Number must have 10 characters.";
                       }
                       return null;
