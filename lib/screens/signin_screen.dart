@@ -84,7 +84,7 @@ class SignInScreen extends StatelessWidget {
                           signInProvider.isValid
                               ? Container()
                               : CustomErrorBox(
-                                  message: signInProvider.invalidError),
+                                  message: signInProvider.errorMessage),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [

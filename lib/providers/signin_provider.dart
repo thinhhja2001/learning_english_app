@@ -6,23 +6,23 @@ class SignInProvider extends ChangeNotifier {
   bool _isLoading = false;
   bool get isLoading => _isLoading;
   bool get isValid => _isValid;
-  String _invalidError = "";
-  String get invalidError => _invalidError;
+  String _errorMessage = "";
+  String get errorMessage => _errorMessage;
   Future<String> loginUser(
       {required String email, required String password}) async {
     if (email.isEmpty || password.isEmpty) {
       _isValid = false;
-      _invalidError = "Please fill up all the field";
+      _errorMessage = "Please fill up all the field";
       notifyListeners();
-      return _invalidError;
+      return _errorMessage;
     }
 
     _isLoading = true;
     notifyListeners();
 
-    _invalidError =
+    _errorMessage =
         await AuthMethods().loginUser(email: email, password: password);
-    if (_invalidError == "Login success") {
+    if (_errorMessage == "Login success") {
       _isValid = true;
     } else {
       _isValid = false;
@@ -30,7 +30,7 @@ class SignInProvider extends ChangeNotifier {
 
     _isLoading = false;
     notifyListeners();
-    return _invalidError;
+    return _errorMessage;
   }
 
   void changeIsValidValue() {
