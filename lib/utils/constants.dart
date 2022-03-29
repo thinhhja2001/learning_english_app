@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 enum CustomInputFieldType { text, password }
 
+const double defaultPadding = 4.0;
 // horizontal spacing
 
 const Widget horizontalSpaceTiny = SizedBox(width: 5.0);

@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:learning_english_app/providers/signin_provider.dart';
+import 'package:learning_english_app/screens/resetpassword_screen.dart';
+import 'package:learning_english_app/screens/signup_screen.dart';
+import 'package:learning_english_app/screens/successreset_screen.dart';
 import 'package:learning_english_app/utils/constants.dart';
 import 'package:learning_english_app/widgets/custom_error_box.dart';
+import 'package:learning_english_app/widgets/forget_password_widget.dart';
+import 'package:learning_english_app/widgets/reset_password_widget.dart';
 import 'package:provider/provider.dart';
 
 import '../widgets/custom_input_field.dart';
@@ -84,7 +89,21 @@ class SignInScreen extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               TextButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    showModalBottomSheet(
+                                      context: context,
+                                      builder: (context) =>
+                                          ForgetPassword(),
+                                      isScrollControlled: true,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: new BorderRadius.only(
+                                            topLeft:
+                                                const Radius.circular(30.0),
+                                            topRight:
+                                                const Radius.circular(30.0)),
+                                      ),
+                                    );
+                                  },
                                   child: const Text(
                                     "Forget Password?",
                                     style: TextStyle(
@@ -108,7 +127,21 @@ class SignInScreen extends StatelessWidget {
                                 style: TextStyle(color: Colors.white),
                               ),
                               TextButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    showModalBottomSheet(
+                                      context: context,
+                                      builder: (context) =>
+                                          SignUpScreen(),
+                                      isScrollControlled: true,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: new BorderRadius.only(
+                                            topLeft:
+                                                const Radius.circular(30.0),
+                                            topRight:
+                                                const Radius.circular(30.0)),
+                                      ),
+                                    );
+                                  },
                                   child: const Text(
                                     "Register here",
                                     style: TextStyle(
