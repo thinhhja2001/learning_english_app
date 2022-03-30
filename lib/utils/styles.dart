@@ -22,6 +22,8 @@ const TextStyle ktsSmallRuleText =
 const TextStyle ktsButton =
     TextStyle(fontWeight: FontWeight.bold, fontSize: h4);
 
+const TextStyle kBottomNavigationItemStyle =
+    TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
 //FontSize
 const double h1 = 32;
 const double h2 = 24;

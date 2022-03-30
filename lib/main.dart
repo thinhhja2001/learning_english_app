@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:learning_english_app/providers/resetpassword_provider.dart';
 import 'package:learning_english_app/firebase_options.dart';
 import 'package:learning_english_app/providers/signin_provider.dart';
+import 'package:learning_english_app/screens/home_screen.dart';
 import 'package:learning_english_app/screens/resetpassword_screen.dart';
 // import 'package:learning_english_app/screens/resetpassword_screen.dart';
 import 'package:learning_english_app/screens/signin_screen.dart';
 import 'package:learning_english_app/screens/successreset_screen.dart';
 import 'package:learning_english_app/providers/signup_provider.dart';
-// import 'package:learning_english_app/screens/signup_screen.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<ResetPasswordProvider>(
             create: (context) => ResetPasswordProvider()),
         ChangeNotifierProvider<SignUpProvider>(
-            create: (context) => SignUpProvider())
+            create: (context) => SignUpProvider()),
       ],
       child: MaterialApp(
           title: 'Flutter Demo',
@@ -48,7 +48,7 @@ class MyApp extends StatelessWidget {
             fontFamily: 'Roboto',
             primarySwatch: Colors.blue,
           ),
-          home: SignInScreen(),
+          home: const HomeScreen(),
           routes: <String, WidgetBuilder>{
             '/successpassword': (BuildContext context) =>
                 const SuccessResetScreen(),
