@@ -25,6 +25,8 @@ const TextStyle ktsTitleAppBar =
 
 const TextStyle ktsTitleWidget = TextStyle(color: kcPrimaryColor, fontSize: h3);
 
+const TextStyle kBottomNavigationItemStyle =
+    TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
 //FontSize
 const double h1 = 32;
 const double h2 = 24;

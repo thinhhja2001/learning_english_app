@@ -2,14 +2,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:learning_english_app/providers/email_verify_provider.dart';
 import 'package:learning_english_app/screens/signin_screen.dart';
 import 'package:learning_english_app/utils/colors.dart';
 import 'package:learning_english_app/utils/constants.dart';
 import 'package:learning_english_app/utils/styles.dart';
 import 'package:learning_english_app/widgets/draw_half_circle.dart';
-// import 'package:learning_english_app/widgets/custom_button.dart';
-import 'package:provider/provider.dart';
 
 class EmailVerifyScreen extends StatelessWidget {
   EmailVerifyScreen({Key? key}) : super(key: key);
@@ -20,8 +17,6 @@ class EmailVerifyScreen extends StatelessWidget {
   String buttonContent = "Go to Login";
   @override
   Widget build(BuildContext context) {
-    // final emailVerificationProvider = Provider.of<EmailVerifyProvider>(context);
-
     return Scaffold(
         backgroundColor: kcWhiteColor,
         body: SafeArea(
@@ -32,7 +27,6 @@ class EmailVerifyScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // MyArc(diameter: 300),
                 IconButton(
                     //Back Button
                     onPressed: () {
@@ -47,6 +41,7 @@ class EmailVerifyScreen extends StatelessWidget {
                   flex: 3,
                   child: Center(
                     child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         SvgPicture.asset("assets/images/Rating.svg"),
                         verticalSpaceMedium,
@@ -81,17 +76,13 @@ class EmailVerifyScreen extends StatelessWidget {
                           padding: EdgeInsets.symmetric(
                               horizontal:
                                   MediaQuery.of(context).size.width * 0.05),
-                          // child: CustomButton(
-                          //     onPress: emailVerificationProvider.onSubmitClick,
-                          //     content: emailVerificationProvider.buttonContent,
-                          //     isLoading: emailVerificationProvider.isLoading),
                           child: ButtonTheme(
                             height: 39,
                             minWidth: 259,
                             child: ElevatedButton(
                                 // onPressed: emailVerificationProvider.onSubmitClick,
                                 onPressed: () {
-                                  Get.to(const SignInScreen());
+                                  Get.to(SignInScreen());
                                 },
                                 child: new Text(
                                   buttonContent,
@@ -100,25 +91,6 @@ class EmailVerifyScreen extends StatelessWidget {
                                 )),
                           ),
                         ),
-                        // Row(
-                        //   mainAxisAlignment: MainAxisAlignment.center,
-                        //   children: [
-                        //     Text(
-                        //       "You have an account?",
-                        //       style: ktsAnotherFunction,
-                        //     ),
-                        //     TextButton(
-                        //         onPressed: () {
-                        //           Get.to(const SignInScreen());
-                        //         },
-                        //         child: Text(
-                        //           "Login",
-                        //           style: ktsAnotherFunction.copyWith(
-                        //             fontWeight: FontWeight.bold,
-                        //           ),
-                        //         ))
-                        //   ],
-                        // )
                       ],
                     ),
                   ),

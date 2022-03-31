@@ -14,13 +14,13 @@ import 'package:provider/provider.dart';
 import '../widgets/custom_input_field.dart';
 
 class SignInScreen extends StatelessWidget {
-  const SignInScreen({Key? key}) : super(key: key);
-
+  SignInScreen({Key? key}) : super(key: key);
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     final signInProvider = Provider.of<SignInProvider>(context);
-    TextEditingController _emailController = TextEditingController();
-    TextEditingController _passwordController = TextEditingController();
+
     void signIn() {
       if (_emailController.text.isEmpty || _passwordController.text.isEmpty) {
         signInProvider.changeIsValidValue();
@@ -85,8 +85,8 @@ class SignInScreen extends StatelessWidget {
                               controller: _passwordController),
                           signInProvider.isValid
                               ? Container()
-                              : const CustomErrorBox(
-                                  message: "Please fill up all the field"),
+                              : CustomErrorBox(
+                                  message: signInProvider.errorMessage),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
@@ -94,14 +94,12 @@ class SignInScreen extends StatelessWidget {
                                   onPressed: () {
                                     showModalBottomSheet(
                                       context: context,
-                                      builder: (context) => ForgetPassword(),
+                                      builder: (context) => StatisticsScreen(),
                                       isScrollControlled: true,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: new BorderRadius.only(
-                                            topLeft:
-                                                const Radius.circular(30.0),
-                                            topRight:
-                                                const Radius.circular(30.0)),
+                                      shape: const RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.only(
+                                            topLeft: Radius.circular(30.0),
+                                            topRight: Radius.circular(30.0)),
                                       ),
                                     );
                                   },
@@ -117,8 +115,17 @@ class SignInScreen extends StatelessWidget {
                               width: double.infinity,
                               height: 50,
                               child: ElevatedButton(
-                                  onPressed: signIn,
-                                  child: const Text("Sign In"))),
+                                  onPressed: () async {
+                                    String result =
+                                        await signInProvider.loginUser(
+                                            email: _emailController.text,
+                                            password: _passwordController.text);
+                                  },
+                                  child: signInProvider.isLoading
+                                      ? const CircularProgressIndicator(
+                                          color: Colors.white,
+                                        )
+                                      : const Text("Sign In"))),
                           Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -133,12 +140,10 @@ class SignInScreen extends StatelessWidget {
                                       context: context,
                                       builder: (context) => SignUpScreen(),
                                       isScrollControlled: true,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: new BorderRadius.only(
-                                            topLeft:
-                                                const Radius.circular(30.0),
-                                            topRight:
-                                                const Radius.circular(30.0)),
+                                      shape: const RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.only(
+                                            topLeft: Radius.circular(30.0),
+                                            topRight: Radius.circular(30.0)),
                                       ),
                                     );
                                   },

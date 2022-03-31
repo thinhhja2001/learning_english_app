@@ -8,3 +8,4 @@ const kcEyeIconColor = Color(0xff9FA5C0);
 const kcWhiteColor = Color(0xffFFFFFF);
 const kcBlackColor = Color(0xff000000);
 const kcGreyColor = Color(0xffE5E5E5);
+const kUnselectedIconColor = Colors.grey;

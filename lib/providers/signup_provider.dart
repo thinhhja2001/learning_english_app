@@ -23,7 +23,7 @@ class SignUpProvider extends ChangeNotifier {
     _isLoading = true;
     notifyListeners();
 
-    _errorMessage = await FireAuth().registerUsingEmailPassword(
+    _errorMessage = await AuthMethods().registerUsingEmailPassword(
       name: name,
       email: email,
       password: password,
