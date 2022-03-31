@@ -1,5 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:learning_english_app/providers/email_verify_provider.dart';
 import 'package:learning_english_app/providers/resetpassword_provider.dart';
 import 'package:learning_english_app/firebase_options.dart';
 import 'package:learning_english_app/providers/signin_provider.dart';
@@ -31,8 +33,10 @@ class MyApp extends StatelessWidget {
             create: (context) => ResetPasswordProvider()),
         ChangeNotifierProvider<SignUpProvider>(
             create: (context) => SignUpProvider()),
+        ChangeNotifierProvider<EmailVerifyProvider>(
+            create: (context) => EmailVerifyProvider())
       ],
-      child: MaterialApp(
+      child: GetMaterialApp(
           title: 'Flutter Demo',
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
@@ -48,7 +52,7 @@ class MyApp extends StatelessWidget {
             fontFamily: 'Roboto',
             primarySwatch: Colors.blue,
           ),
-          home: const HomeScreen(),
+          home: SignInScreen(),
           routes: <String, WidgetBuilder>{
             '/successpassword': (BuildContext context) =>
                 const SuccessResetScreen(),

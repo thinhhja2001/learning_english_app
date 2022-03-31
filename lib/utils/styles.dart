@@ -1,10 +1,5 @@
-//Colors
 import 'package:flutter/material.dart';
-
-const kcPrimaryColor = Color(0xff31A7EA);
-const kcPrimaryTextColor = Color(0xff5B5B5B);
-const kcPrimaryHintColor = Color(0xff838383);
-const kcEyeIconColor = Color(0xff9FA5C0);
+import 'package:learning_english_app/utils/colors.dart';
 
 //TextStyles
 const TextStyle ktsMediumTitleText =
@@ -21,6 +16,14 @@ const TextStyle ktsSmallRuleText =
 
 const TextStyle ktsButton =
     TextStyle(fontWeight: FontWeight.bold, fontSize: h4);
+
+const TextStyle ktsAnotherFunction =
+    TextStyle(color: kcBlackColor, fontSize: h5);
+
+const TextStyle ktsTitleAppBar =
+    TextStyle(color: kcBlackColor, fontWeight: FontWeight.bold, fontSize: h2);
+
+const TextStyle ktsTitleWidget = TextStyle(color: kcPrimaryColor, fontSize: h3);
 
 const TextStyle kBottomNavigationItemStyle =
     TextStyle(fontSize: 30, fontWeight: FontWeight.bold);

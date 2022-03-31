@@ -1,9 +1,13 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:learning_english_app/providers/signup_provider.dart';
+import 'package:learning_english_app/resources/auth_methods.dart';
+import 'package:learning_english_app/utils/colors.dart';
 import 'package:learning_english_app/utils/constants.dart';
 import 'package:learning_english_app/utils/styles.dart';
-import 'package:learning_english_app/widgets/custom_error_box.dart';
-import 'package:learning_english_app/widgets/custom_sign_up_field.dart';
+import 'package:flutter/services.dart';
+import 'package:learning_english_app/widgets/custom_button.dart';
 import 'package:provider/provider.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -14,176 +18,297 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
+  final formKey = GlobalKey<FormState>();
   final String welcome = "Join the exciting adventure!";
   final String rule = "- Password should be 8-20 characters\n" +
       "- Password should have a lower case letter\n" +
       "- Password should have a upper case letter\n" +
       "- Password should have a number or acceptable characters";
-
-  TextEditingController _firstnameController = TextEditingController();
-  TextEditingController _lastNameController = TextEditingController();
-  TextEditingController _phoneController = TextEditingController();
-  TextEditingController _emailController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
-  TextEditingController _confirmPasswordController = TextEditingController();
+  late bool _passwordVisible;
+  late bool _confirmPasswordVisible;
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _passwordVisible = false;
+    _confirmPasswordVisible = false;
+  }
+
+  final TextEditingController _firstName = TextEditingController();
+  final TextEditingController _lastName = TextEditingController();
+  final TextEditingController _email = TextEditingController();
+  final TextEditingController _pass = TextEditingController();
+  final TextEditingController _confirmPass = TextEditingController();
+
+  var _isProcessing = false;
+  var _isClose = false;
+
+  Future signUp() async {
+    final isValid = formKey.currentState!.validate();
+    if (!isValid) return;
+
+    // setState(() {
+    //   _isProcessing = true;
+    // });
+    // User? user = await FireAuth.registerUsingEmailPassword(
+    //   name: _firstName.text + " " + _lastName.text,
+    //   email: _email.text,
+    //   password: _pass.text,
+    // );
+
+    // setState(() {
+    //   _isProcessing = false;
+    // });
+
+    // if (user != null) {
+    //   showAlertDialog(context);
+    //   Navigator.pop(context);
+    //   print("Done");
+    // }
+  }
+
+  bool _isValid = true;
+  @override
   Widget build(BuildContext context) {
+    Future.delayed(Duration.zero, () {
+      showAlertDialog(BuildContext context) {
+        // set up the button
+        // Widget okButton = TextButton(
+        //   child: Text("OK"),
+        //   onPressed: () {
+        //     Navigator.pop(context);
+        //   },
+        // );
+
+        // // set up the AlertDialog
+        // AlertDialog alert = AlertDialog(
+        //   title: Text("Verify"),
+        //   content: Text("We had sent you a verification. Please check your email."),
+        //   actions: [
+        //     okButton,
+        //   ],
+        // );
+
+        // // show the dialog
+        // showDialog(
+        //   context: context,
+        //   builder: (BuildContext context) {
+        //     return alert;
+        //   },
+        // );
+        AwesomeDialog(
+          context: context,
+          dialogType: DialogType.INFO,
+          animType: AnimType.BOTTOMSLIDE,
+          title: 'Dialog Title',
+          desc: 'Dialog description here.............',
+          btnCancelOnPress: () {},
+          btnOkOnPress: () {},
+        )..show();
+      }
+    });
     final signUpProvider = Provider.of<SignUpProvider>(context);
-
-    void validate() {
-      //Validate all field
-      String isEmpty = "";
-      isEmpty += _firstnameController.text.isEmpty ? "1" : "0";
-      isEmpty += _lastNameController.text.isEmpty ? "1" : "0";
-      isEmpty += "0"; //Mobile Phone is not required
-      isEmpty += _emailController.text.isEmpty ? "1" : "0";
-      signUpProvider.isEmpty(isEmpty);
-
-      //Valide mail
-      signUpProvider.isValidEmail = RegExp(
-              r"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
-          .hasMatch(_emailController.text);
-
-      //Validate Password
-      signUpProvider.isValidPassword =
-          RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,20}$')
-                  .hasMatch(_passwordController.text) ||
-              RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[!@#\$&*~]).{8,20}$')
-                  .hasMatch(_passwordController.text);
-
-      //Check confirm password
-      signUpProvider.checkConfirm(
-          _passwordController.text, _confirmPasswordController.text);
-    }
     Size screenSize = MediaQuery.of(context).size;
-    return Container(
-      height: screenSize.height * 0.95,
+    return Form(
+      key: formKey,
       child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: ListView(
-              children: [
-                verticalSpaceTiny,
-                Text(
-                  welcome,
-                  style: ktsMediumTitleText,
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: ListView(
+            children: [
+              verticalSpaceLarge,
+              Text(
+                welcome,
+                style: ktsMediumTitleText,
+              ),
+              verticalSpaceMedium,
+              Container(
+                  height: screenSize.height * 0.1,
+                  child: TextFormField(
+                    controller: _firstName,
+                    decoration: InputDecoration(
+                      labelText: 'First Name',
+                      border: OutlineInputBorder(),
+                    ),
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return "First name is required.";
+                      } else {
+                        return null;
+                      }
+                    },
+                  )),
+              // verticalSpaceSmall,
+              Container(
+                  height: screenSize.height * 0.1,
+                  child: TextFormField(
+                    controller: _lastName,
+                    decoration: InputDecoration(
+                      labelText: 'Last Name',
+                      border: OutlineInputBorder(),
+                    ),
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return "Last name is required.";
+                      } else {
+                        return null;
+                      }
+                    },
+                  )),
+              // verticalSpaceSmall,
+              // Container(
+              //     height: screenSize.height * 0.1,
+              //     child: TextFormField(
+              //       keyboardType: TextInputType.number,
+              //       inputFormatters: <TextInputFormatter>[
+              //         FilteringTextInputFormatter.digitsOnly
+              //       ], // Only n
+              //       decoration: InputDecoration(
+              //         labelText: 'Mobile Number',
+              //         border: OutlineInputBorder(),
+              //       ),
+              //       validator: (value) {
+              //         if (value!.isEmpty) {
+              //           return "Mobile Number is required.";
+              //         }
+              //         if (value.length != 10) {
+              //           return "Mobile Number must have 10 characters.";
+              //         }
+              //         return null;
+              //       },
+              //     )),
+              // verticalSpaceSmall,
+              Container(
+                  height: screenSize.height * 0.1,
+                  child: TextFormField(
+                    keyboardType: TextInputType.number,
+                    controller: _email,
+                    decoration: InputDecoration(
+                      labelText: 'Email Address',
+                      border: OutlineInputBorder(),
+                    ),
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return "Email Address is required.";
+                      }
+                      if (!RegExp(
+                              r"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
+                          .hasMatch(value)) {
+                        return "Email Address is wrong format.";
+                      }
+                      if (!signUpProvider.isValid) {
+                        signUpProvider.isValid = true;
+                        return signUpProvider.errorMessage;
+                      }
+
+                      return null;
+                    },
+                  )),
+              // verticalSpaceSmall,
+              Container(
+                height: screenSize.height * 0.1,
+                child: TextFormField(
+                  controller: _pass,
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: "Password",
+                      suffixIcon: IconButton(
+                          onPressed: () {
+                            setState(() {
+                              _passwordVisible = !_passwordVisible;
+                            });
+                          },
+                          icon: Icon(
+                            _passwordVisible
+                                ? Icons.visibility
+                                : Icons.visibility_off,
+                            color: const Color(0xff9FA5C0),
+                          ))),
+                  obscureText: !_passwordVisible,
+                  validator: (val) {
+                    if (val!.isEmpty) return 'Password is required.';
+                    if (!(RegExp(
+                                r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,20}$')
+                            .hasMatch(val) ||
+                        RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[!@#\$&*~]).{8,20}$')
+                            .hasMatch(val))) return 'Password is wrong format.';
+                    return null;
+                  },
+                  onSaved: (val) => _pass.text = val!,
                 ),
-                verticalSpaceMedium,
-                CustomeSignUpField(
-                    customInputFieldType: CustomInputFieldType.text,
-                    controller: _firstnameController,
-                    isShowIcon: false,
-                    label: 'First Name',
-                    hintText: 'Jezeniel'),
-                signUpProvider.isEmptyField[0]
-                    ? const CustomErrorBox(
-                        message: "First Name is required",
-                      )
-                    : Container(),
-                verticalSpaceSmall,
-                CustomeSignUpField(
-                    customInputFieldType: CustomInputFieldType.text,
-                    controller: _lastNameController,
-                    isShowIcon: false,
-                    label: 'Last Name',
-                    hintText: 'Zapanta'),
-                signUpProvider.isEmptyField[1]
-                    ? const CustomErrorBox(
-                        message: "Second Name is required",
-                      )
-                    : Container(),
-                verticalSpaceSmall,
-                CustomeSignUpField(
-                    customInputFieldType: CustomInputFieldType.text,
-                    controller: _phoneController,
-                    isShowIcon: false,
-                    label: 'Mobile Number',
-                    hintText: 'Enter your mobile number'),
-                signUpProvider.isEmptyField[2]
-                    ? const CustomErrorBox(
-                        message: "Mobile Phone is required",
-                      )
-                    : Container(),
-                verticalSpaceSmall,
-                CustomeSignUpField(
-                    customInputFieldType: CustomInputFieldType.text,
-                    controller: _emailController,
-                    isShowIcon: false,
-                    label: 'Email Address',
-                    hintText: 'Enter your email address'),
-                signUpProvider.isEmptyField[3]
-                    ? const CustomErrorBox(
-                        message: "Email is required",
-                      )
-                    : signUpProvider.isValidEmail
-                        ? Container()
-                        : const CustomErrorBox(
-                            message: "Email is invalid",
-                          ),
-                verticalSpaceSmall,
-                CustomeSignUpField(
-                    customInputFieldType: CustomInputFieldType.password,
-                    controller: _passwordController,
-                    isShowIcon: false,
-                    label: 'Password',
-                    hintText: 'Enter Password'),
-                signUpProvider.isValidPassword
-                    ? Container()
-                    : const CustomErrorBox(
-                        message: "Password is invalid",
-                      ),
-                verticalSpaceSmall,
-                Text(rule, style: ktsMediumInputText),
-                verticalSpaceSmall,
-                CustomeSignUpField(
-                    customInputFieldType: CustomInputFieldType.password,
-                    controller: _confirmPasswordController,
-                    isShowIcon: false,
-                    label: 'Comfirm Password',
-                    hintText: 'Re-type password'),
-                signUpProvider.isMatch
-                    ? Container()
-                    : const CustomErrorBox(
-                        message: "Confirm Password is not match",
-                      ),
-                verticalSpaceSmall,
-                Row(children: [
-                  Expanded(
-                    child: OutlinedButton(
-                      child: Text(
-                        "Back",
-                        style: ktsButton,
-                      ),
-                      style: OutlinedButton.styleFrom(
-                        fixedSize: const Size(165, 50),
-                        primary: kcPrimaryColor,
-                        side: BorderSide(width: 1.0, color: kcPrimaryColor),
-                      ),
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
+              ),
+              // verticalSpaceSmall,
+              Text(rule, style: ktsMediumInputText),
+              verticalSpaceMedium,
+              Container(
+                height: screenSize.height * 0.1,
+                child: TextFormField(
+                  controller: _confirmPass,
+                  obscureText: !_confirmPasswordVisible,
+                  validator: (val) {
+                    if (val!.isEmpty) return 'Confirm password is required';
+                    if (val != _pass.text)
+                      return 'Confirm password does not match';
+                    return null;
+                  },
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: "Confirm Password",
+                      suffixIcon: IconButton(
+                          onPressed: () {
+                            setState(() {
+                              _confirmPasswordVisible =
+                                  !_confirmPasswordVisible;
+                            });
+                          },
+                          icon: Icon(
+                            _confirmPasswordVisible
+                                ? Icons.visibility
+                                : Icons.visibility_off,
+                            color: const Color(0xff9FA5C0),
+                          ))),
+                ),
+              ),
+              verticalSpaceSmall,
+              // signUpProvider.isValid ? Container() : showAlertDialog(context),
+              // signUpProvider.isValid ? Container() : Text("this is errorText"),
+              Row(children: [
+                Expanded(
+                  child: OutlinedButton(
+                    child: Text(
+                      "Back",
+                      style: ktsButton,
                     ),
-                  ),
-                  horizontalSpaceSmall,
-                  Expanded(
-                    child: ElevatedButton(
-                      style: ButtonStyle(
-                        fixedSize:
-                            MaterialStateProperty.all<Size?>(const Size(165, 50)),
-                        backgroundColor:
-                            MaterialStateProperty.all<Color>(kcPrimaryColor),
-                      ),
-                      onPressed: validate,
-                      child: Text(
-                        'Sign Up',
-                        style: ktsButton,
-                      ),
+                    style: OutlinedButton.styleFrom(
+                      fixedSize: const Size(165, 50),
+                      primary: kcPrimaryColor,
+                      side: BorderSide(width: 1.0, color: kcPrimaryColor),
                     ),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
                   ),
-                ]),
-              ],
-            )),
+                ),
+                horizontalSpaceSmall,
+                Expanded(
+                  child: CustomButton(
+                    onPress: () async {
+                      if (formKey.currentState!.validate())
+                        await signUpProvider.signUp(
+                          name: _firstName.text + " " + _lastName.text,
+                          email: _email.text,
+                          password: _pass.text,
+                        );
+                      if (!signUpProvider.isValid)
+                        formKey.currentState!.validate();
+                    },
+                    content: "Sign up",
+                    isLoading: signUpProvider.isLoading,
+                  ),
+                ),
+              ]),
+            ],
+          )),
     );
-    
   }
 }
