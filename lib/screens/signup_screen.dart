@@ -1,7 +1,14 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:learning_english_app/providers/signup_provider.dart';
+import 'package:learning_english_app/resources/auth_methods.dart';
+import 'package:learning_english_app/utils/colors.dart';
 import 'package:learning_english_app/utils/constants.dart';
 import 'package:learning_english_app/utils/styles.dart';
 import 'package:flutter/services.dart';
+import 'package:learning_english_app/widgets/custom_button.dart';
+import 'package:provider/provider.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({Key? key}) : super(key: key);
@@ -28,10 +35,80 @@ class _SignUpScreenState extends State<SignUpScreen> {
     _confirmPasswordVisible = false;
   }
 
+  final TextEditingController _firstName = TextEditingController();
+  final TextEditingController _lastName = TextEditingController();
+  final TextEditingController _email = TextEditingController();
   final TextEditingController _pass = TextEditingController();
   final TextEditingController _confirmPass = TextEditingController();
+
+  var _isProcessing = false;
+  var _isClose = false;
+
+  Future signUp() async {
+    final isValid = formKey.currentState!.validate();
+    if (!isValid) return;
+
+    // setState(() {
+    //   _isProcessing = true;
+    // });
+    // User? user = await FireAuth.registerUsingEmailPassword(
+    //   name: _firstName.text + " " + _lastName.text,
+    //   email: _email.text,
+    //   password: _pass.text,
+    // );
+
+    // setState(() {
+    //   _isProcessing = false;
+    // });
+
+    // if (user != null) {
+    //   showAlertDialog(context);
+    //   Navigator.pop(context);
+    //   print("Done");
+    // }
+  }
+
+  bool _isValid = true;
   @override
   Widget build(BuildContext context) {
+    Future.delayed(Duration.zero, () {
+      showAlertDialog(BuildContext context) {
+        // set up the button
+        // Widget okButton = TextButton(
+        //   child: Text("OK"),
+        //   onPressed: () {
+        //     Navigator.pop(context);
+        //   },
+        // );
+
+        // // set up the AlertDialog
+        // AlertDialog alert = AlertDialog(
+        //   title: Text("Verify"),
+        //   content: Text("We had sent you a verification. Please check your email."),
+        //   actions: [
+        //     okButton,
+        //   ],
+        // );
+
+        // // show the dialog
+        // showDialog(
+        //   context: context,
+        //   builder: (BuildContext context) {
+        //     return alert;
+        //   },
+        // );
+        AwesomeDialog(
+          context: context,
+          dialogType: DialogType.INFO,
+          animType: AnimType.BOTTOMSLIDE,
+          title: 'Dialog Title',
+          desc: 'Dialog description here.............',
+          btnCancelOnPress: () {},
+          btnOkOnPress: () {},
+        )..show();
+      }
+    });
+    final signUpProvider = Provider.of<SignUpProvider>(context);
     Size screenSize = MediaQuery.of(context).size;
     return Form(
       key: formKey,
@@ -48,6 +125,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               Container(
                   height: screenSize.height * 0.1,
                   child: TextFormField(
+                    controller: _firstName,
                     decoration: InputDecoration(
                       labelText: 'First Name',
                       border: OutlineInputBorder(),
@@ -64,6 +142,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               Container(
                   height: screenSize.height * 0.1,
                   child: TextFormField(
+                    controller: _lastName,
                     decoration: InputDecoration(
                       labelText: 'Last Name',
                       border: OutlineInputBorder(),
@@ -77,32 +156,33 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     },
                   )),
               // verticalSpaceSmall,
-              Container(
-                  height: screenSize.height * 0.1,
-                  child: TextFormField(
-                    keyboardType: TextInputType.number,
-                    inputFormatters: <TextInputFormatter>[
-                      FilteringTextInputFormatter.digitsOnly
-                    ], // Only n
-                    decoration: InputDecoration(
-                      labelText: 'Mobile Number',
-                      border: OutlineInputBorder(),
-                    ),
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return "Mobile Number is required.";
-                      }
-                      if (value.length != 10) {
-                        return "Mobile Number must have 10 characters.";
-                      }
-                      return null;
-                    },
-                  )),
+              // Container(
+              //     height: screenSize.height * 0.1,
+              //     child: TextFormField(
+              //       keyboardType: TextInputType.number,
+              //       inputFormatters: <TextInputFormatter>[
+              //         FilteringTextInputFormatter.digitsOnly
+              //       ], // Only n
+              //       decoration: InputDecoration(
+              //         labelText: 'Mobile Number',
+              //         border: OutlineInputBorder(),
+              //       ),
+              //       validator: (value) {
+              //         if (value!.isEmpty) {
+              //           return "Mobile Number is required.";
+              //         }
+              //         if (value.length != 10) {
+              //           return "Mobile Number must have 10 characters.";
+              //         }
+              //         return null;
+              //       },
+              //     )),
               // verticalSpaceSmall,
               Container(
                   height: screenSize.height * 0.1,
                   child: TextFormField(
                     keyboardType: TextInputType.number,
+                    controller: _email,
                     decoration: InputDecoration(
                       labelText: 'Email Address',
                       border: OutlineInputBorder(),
@@ -116,6 +196,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           .hasMatch(value)) {
                         return "Email Address is wrong format.";
                       }
+                      if (!signUpProvider.isValid) {
+                        signUpProvider.isValid = true;
+                        return signUpProvider.errorMessage;
+                      }
+
                       return null;
                     },
                   )),
@@ -185,6 +270,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
               ),
               verticalSpaceSmall,
+              // signUpProvider.isValid ? Container() : showAlertDialog(context),
+              // signUpProvider.isValid ? Container() : Text("this is errorText"),
               Row(children: [
                 Expanded(
                   child: OutlinedButton(
@@ -204,24 +291,19 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
                 horizontalSpaceSmall,
                 Expanded(
-                  child: ElevatedButton(
-                    style: ButtonStyle(
-                      fixedSize:
-                          MaterialStateProperty.all<Size?>(const Size(165, 50)),
-                      backgroundColor:
-                          MaterialStateProperty.all<Color>(kcPrimaryColor),
-                    ),
-                    // onPressed: validate,
-                    onPressed: () {
-                      if (formKey.currentState!.validate()) {
-                        //Register successfully
-                        Navigator.pop(context);
-                      }
+                  child: CustomButton(
+                    onPress: () async {
+                      if (formKey.currentState!.validate())
+                        await signUpProvider.signUp(
+                          name: _firstName.text + " " + _lastName.text,
+                          email: _email.text,
+                          password: _pass.text,
+                        );
+                      if (!signUpProvider.isValid)
+                        formKey.currentState!.validate();
                     },
-                    child: Text(
-                      'Sign Up',
-                      style: ktsButton,
-                    ),
+                    content: "Sign up",
+                    isLoading: signUpProvider.isLoading,
                   ),
                 ),
               ]),

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:learning_english_app/providers/signin_provider.dart';
+import 'package:learning_english_app/screens/email_verify_screen.dart';
 import 'package:learning_english_app/screens/resetpassword_screen.dart';
 import 'package:learning_english_app/screens/signup_screen.dart';
+import 'package:learning_english_app/screens/statistics_screen.dart';
 import 'package:learning_english_app/screens/successreset_screen.dart';
 import 'package:learning_english_app/utils/constants.dart';
 import 'package:learning_english_app/widgets/custom_error_box.dart';
@@ -92,8 +94,7 @@ class SignInScreen extends StatelessWidget {
                                   onPressed: () {
                                     showModalBottomSheet(
                                       context: context,
-                                      builder: (context) =>
-                                          ForgetPassword(),
+                                      builder: (context) => ForgetPassword(),
                                       isScrollControlled: true,
                                       shape: RoundedRectangleBorder(
                                         borderRadius: new BorderRadius.only(
@@ -130,8 +131,7 @@ class SignInScreen extends StatelessWidget {
                                   onPressed: () {
                                     showModalBottomSheet(
                                       context: context,
-                                      builder: (context) =>
-                                          SignUpScreen(),
+                                      builder: (context) => SignUpScreen(),
                                       isScrollControlled: true,
                                       shape: RoundedRectangleBorder(
                                         borderRadius: new BorderRadius.only(

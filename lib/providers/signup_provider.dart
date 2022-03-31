@@ -1,74 +1,60 @@
 import 'package:flutter/cupertino.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:get/get.dart';
+import 'package:learning_english_app/resources/auth_methods.dart';
+import 'package:learning_english_app/screens/email_verify_screen.dart';
 
 class SignUpProvider extends ChangeNotifier {
-  // String? _Email, _Uid;
+  bool _isLoading = false;
+  bool get isLoading => _isLoading;
 
-  // FirebaseAuth _auth = FirebaseAuth.instance;
+  bool _isValid = true;
+  bool get isValid => this._isValid;
 
-  // Future<bool> CreateUserAccount(String email, String password) async {
-  //   bool result = false;
-  //   try {
-  //     UserCredential userCredential = await _auth
-  //         .createUserWithEmailAndPassword(email: email, password: password);
+  set isValid(bool value) => this._isValid = value;
 
-  //     if (userCredential != null) {
-  //       _Uid = userCredential.user!.uid;
-  //       _Email = userCredential.user!.email;
-  //       return result = true;
-  //     }
-  //   } catch (e) {}
-  //   return result;
-  // }
+  String _errorMessage = "";
+  String get errorMessage => _errorMessage;
 
-  bool _isValidEmail = true;
-  get isValidEmail => this._isValidEmail;
-  set isValidEmail(value) {
-    this._isValidEmail = value;
+  Future<String> signUp(
+      {required String email,
+      required String password,
+      required String name}) async {
+    _isLoading = true;
     notifyListeners();
-  }
 
-  bool _isValidPassword = true;
-  get isValidPassword => this._isValidPassword;
-  set isValidPassword(value) {
-    this._isValidPassword = value;
-    notifyListeners();
-  }
+    _errorMessage = await FireAuth().registerUsingEmailPassword(
+      name: name,
+      email: email,
+      password: password,
+    );
 
-  bool _isMatch = true;
-  bool get isMatch => this._isMatch;
-  set isMatch(bool value) => this._isMatch = value;
-  //0. First Name
-  //1. Second Name
-  //2. Mobile Phone
-  //3. Email
-  List<bool> _isEmptyField = new List.filled(4, false);
-  List<bool> get isEmptyField => this._isEmptyField;
-  set isEmptyField(List<bool> value) => this._isEmptyField = value;
-
-  void isEmpty(String isEmpty) {
-    //0. First Name
-    //1. Second Name
-    //2. Mobile Phone
-    //3. Email
-    List<bool> isEmptyCheckField = new List.filled(4, true);
-    for (int i = 0; i < isEmpty.length; i++) {
-      if (isEmpty[i] == "1")
-        isEmptyCheckField[i] = true;
-      else
-        isEmptyCheckField[i] = false;
+    if (_errorMessage == "Success") {
+      _isValid = true;
+      Get.to(EmailVerifyScreen());
+    } else {
+      _isValid = false;
+      notifyListeners();
     }
-    isEmptyField = isEmptyCheckField;
+    _isLoading = false;
     notifyListeners();
-  }
 
-  void changeIsValidValue() {
-    // _isValid = !_isValid;
-    notifyListeners();
-  }
+    // if (user != null) {
+    // await user.sendEmailVerification();
+    // AwesomeDialog(
+    //   context: context,
+    //   dialogType: DialogType.INFO,
+    //   animType: AnimType.BOTTOMSLIDE,
+    //   title: 'Dialog Title',
+    //   desc: 'Dialog description here.............',
+    //   btnOkOnPress: () {
+    //     Navigator.pop(context);
+    //   },
+    // )..show();
+    // print("Done");
+    // Navigator.pop(context);
 
-  void checkConfirm(String password, String confirmPassword) {
-    isMatch = password == confirmPassword;
-    notifyListeners();
+    // }
+    return _errorMessage;
   }
 }
