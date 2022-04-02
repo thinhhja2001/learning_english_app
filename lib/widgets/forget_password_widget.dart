@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class ForgetPassword extends StatefulWidget {
@@ -9,6 +10,7 @@ class ForgetPassword extends StatefulWidget {
 
 class _ForgetPasswordState extends State<ForgetPassword> {
   final formKey = GlobalKey<FormState>();
+  final auth = FirebaseAuth.instance;
 
   int? switchScreen;
 
@@ -36,6 +38,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
 
   Widget forgetPassword(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
+    final TextEditingController _email = TextEditingController();
     return Form(
       key: formKey,
       child: Padding(
@@ -97,6 +100,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
             Container(
                 height: screenSize.height * 0.1,
                 child: TextFormField(
+                  controller: _email,
                   decoration: InputDecoration(
                     prefixIcon: Icon(Icons.email),
                     hintText: 'Email address',
@@ -121,6 +125,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
               child: ElevatedButton(
                 onPressed: () {
                   if (formKey.currentState!.validate()) {
+                    auth.sendPasswordResetEmail(email: _email.text);
                     setState(() {
                       switchScreen = 2;
                     });
