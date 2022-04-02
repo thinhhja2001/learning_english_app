@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:learning_english_app/screens/statistics_screen.dart';
 import 'package:learning_english_app/utils/colors.dart';
 import 'package:learning_english_app/utils/styles.dart';
 
@@ -27,10 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     ),
     Center(
-      child: Text(
-        'Index 2: Statistics',
-        style: kBottomNavigationItemStyle,
-      ),
+      child: StatisticsScreen(),
     ),
     Center(
       child: Text(
