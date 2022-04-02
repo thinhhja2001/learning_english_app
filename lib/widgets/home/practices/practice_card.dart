@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:learning_english_app/screens/practice_selection_screen.dart';
 import 'package:learning_english_app/utils/constants.dart';
 import 'package:learning_english_app/utils/styles.dart';
 
@@ -31,7 +33,7 @@ class PracticeCard extends StatelessWidget {
     final deviceSize = MediaQuery.of(context).size.width;
     return InkWell(
       onTap: () {
-        print("Clicked");
+        Get.to(PracticeSelectionScreen(practiceType: practiceType));
       },
       child: Container(
         height: 90,

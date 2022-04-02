@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:learning_english_app/utils/colors.dart';
 import 'package:learning_english_app/utils/constants.dart';
 import 'package:learning_english_app/utils/styles.dart';
-import 'package:learning_english_app/widgets/drop_down_time.dart';
-import 'package:learning_english_app/widgets/estimate_score.dart';
-import 'package:learning_english_app/widgets/overall.dart';
-import 'package:learning_english_app/widgets/time_learned_recently.dart';
+import 'package:learning_english_app/widgets/home/statistics/drop_down_time.dart';
+import 'package:learning_english_app/widgets/home/statistics/estimate_score.dart';
+import 'package:learning_english_app/widgets/home/statistics/overall.dart';
+import 'package:learning_english_app/widgets/home/statistics/time_learned_recently.dart';
 
 class StatisticsScreen extends StatelessWidget {
   const StatisticsScreen({Key? key}) : super(key: key);
@@ -27,7 +27,7 @@ class StatisticsScreen extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Column(
+        child: ListView(
           children: [
             EstimateScore(),
             verticalSpaceSmall,

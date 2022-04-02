@@ -25,7 +25,8 @@ const TextStyle ktsAnotherFunction =
 const TextStyle ktsTitleAppBar =
     TextStyle(color: kcBlackColor, fontWeight: FontWeight.bold, fontSize: h2);
 
-const TextStyle ktsTitleWidget = TextStyle(color: kcPrimaryColor, fontSize: h3);
+const TextStyle ktsTitleWidget =
+    TextStyle(color: kcPrimaryColor, fontWeight: FontWeight.bold, fontSize: h3);
 
 const TextStyle kBottomNavigationItemStyle =
     TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
@@ -66,6 +67,8 @@ const TextStyle ktsDescription = TextStyle(
     fontWeight: FontWeight.normal,
     fontFamily: "Roboto",
     color: Colors.black);
+const TextStyle ktsBoldText =
+    TextStyle(fontSize: h4, fontWeight: FontWeight.bold);
 //FontSize
 const double h1 = 32;
 const double h2 = 24;
