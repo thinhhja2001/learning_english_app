@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:learning_english_app/providers/signin_provider.dart';
 import 'package:learning_english_app/screens/email_verify_screen.dart';
-import 'package:learning_english_app/screens/resetpassword_screen.dart';
 import 'package:learning_english_app/screens/signup_screen.dart';
 import 'package:learning_english_app/screens/statistics_screen.dart';
-import 'package:learning_english_app/screens/successreset_screen.dart';
 import 'package:learning_english_app/utils/constants.dart';
 import 'package:learning_english_app/widgets/custom_error_box.dart';
 import 'package:learning_english_app/widgets/forget_password_widget.dart';

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:learning_english_app/utils/colors.dart';
 import 'package:learning_english_app/utils/styles.dart';
 import 'package:learning_english_app/widgets/home/practices/practice_widget.dart';
+import 'package:learning_english_app/widgets/home/vocabulary/vocabulary_widget.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -16,12 +17,7 @@ class _HomeScreenState extends State<HomeScreen> {
   ///Thay widget cua minh vao day
   static List<Widget> _widgetOptions = <Widget>[
     PracticeWidget(),
-    Center(
-      child: Text(
-        'Index 1: Vocabulary',
-        style: kBottomNavigationItemStyle,
-      ),
-    ),
+    VocabularyGeneral(),
     Center(
       child: Text(
         'Index 2: Statistics',

@@ -29,6 +29,31 @@ const TextStyle ktsTitleWidget = TextStyle(color: kcPrimaryColor, fontSize: h3);
 
 const TextStyle kBottomNavigationItemStyle =
     TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+
+const TextStyle ktsCircleProgress = TextStyle(
+    fontSize: h5,
+    fontWeight: FontWeight.normal,
+    fontFamily: "Roboto",
+    color: Colors.green);
+
+const TextStyle ktsTitle = TextStyle(
+    fontSize: h3,
+    fontWeight: FontWeight.w500,
+    fontFamily: "Roboto",
+    color: Colors.green);
+
+const TextStyle ktsDescriptionItalic = TextStyle(
+    fontSize: h4,
+    fontWeight: FontWeight.normal,
+    fontStyle: FontStyle.italic,
+    fontFamily: "Roboto",
+    color: Colors.black);
+
+const TextStyle ktsDescription = TextStyle(
+    fontSize: h4,
+    fontWeight: FontWeight.normal,
+    fontFamily: "Roboto",
+    color: Colors.black);
 //FontSize
 const double h1 = 32;
 const double h2 = 24;

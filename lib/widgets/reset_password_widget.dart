@@ -1,301 +1,303 @@
 import 'package:flutter/material.dart';
+import 'package:learning_english_app/providers/resetpassword_provider.dart';
+import 'package:provider/provider.dart';
 
-import '../providers/resetpassword_provider.dart';
-import '../utils/colors.dart';
-import '../utils/constants.dart';
-
-
-class GeneralResetScreen extends StatefulWidget {
-  const GeneralResetScreen({ Key? key }) : super(key: key);
-
-  @override
-  State<GeneralResetScreen> createState() => _GeneralResetScreenState();
-}
-
-class _GeneralResetScreenState extends State<GeneralResetScreen> {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      
-    );
-  }
-}
+import '../resources/auth.dart';
 
 class ResetPassword extends StatefulWidget {
-   final TextEditingController _passwordController;
-  final TextEditingController _confirmPasswordController;
-  final ResetPasswordProvider _resetPasswordProvider;
-  const ResetPassword(
-      {Key? key,
-      required TextEditingController passwordController,
-      required TextEditingController confirmPasswordController,
-      required ResetPasswordProvider resetPasswordProvider})
-      : _resetPasswordProvider = resetPasswordProvider,
-        _passwordController = passwordController,
-        _confirmPasswordController = confirmPasswordController,
-        super(key: key);
-    
- 
+  const ResetPassword({Key? key}) : super(key: key);
 
   @override
-  State<ResetPassword> createState() => _ResetPasswordState();
+  _ResetPasswordState createState() => _ResetPasswordState();
 }
 
 class _ResetPasswordState extends State<ResetPassword> {
+  final formKey = GlobalKey<FormState>();
 
-  @override
-  Widget build(BuildContext context) {
-      void changeToSuccess(){
-      
-    }
+  int? switchScreen;
 
-    void changeToSignIn() {
-      Navigator.pop(context);
-    }
-
-    void _isEnableButton() {
-      final text = widget._passwordController.value.text;
-      final compareText = widget._confirmPasswordController.value.text;
-
-      if (text.isEmpty ||
-          compareText.isEmpty ||
-          text.length < 8 ||
-          text.compareTo(compareText) != 0) {
-      } else {
-        
-      }
-    }
-
-    return SizedBox(
-      width: double.infinity,
-      child: SafeArea(
-          child: Container(
-        decoration: const BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(30), topRight: Radius.circular(30))),
-        child: Padding(
-          padding: EdgeInsets.only(
-              left: MediaQuery.of(context).size.width * 0.05,
-              right: MediaQuery.of(context).size.width * 0.05,
-              top: MediaQuery.of(context).size.height * 0.01,
-              bottom: MediaQuery.of(context).size.height * 0.03),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Expanded(
-                    flex: 9,
-                    child: Text(
-                      "Reset Password",
-                      style: TextStyle(
-                          fontFamily: 'Roboto',
-                          fontWeight: FontWeight.bold,
-                          fontSize: 24,
-                          height: 2,
-                          letterSpacing: -0.025),
-                    ),
-                  ),
-                  Expanded(
-                      flex: 1,
-                      child: IconButton(
-                          onPressed: changeToSignIn,
-                          icon: const Icon(Icons.close))),
-                ],
-              ),
-              const Padding(
-                padding: EdgeInsets.symmetric(vertical: defaultPadding),
-                child: Text(
-                    "Please make sure your new password must be different from previous used passwords.",
-                    style: TextStyle(
-                        fontFamily: 'Roboto',
-                        fontWeight: FontWeight.w400,
-                        fontSize: 14,
-                        height: 1.5)),
-              ),
-              const SizedBox(
-                height: 12,
-              ),
-              ResetPasswordWidget(
-                passwordTextController: widget._passwordController,
-                confirmPasswordTextController: widget._confirmPasswordController,
-              ),
-              SizedBox(
-                width: double.infinity,
-                height: 50,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    primary: kPrimaryColor,
-                    onPrimary: Colors.white,
-                  ),
-                  onPressed: _isEnableButton,
-                  child: const Text(
-                    'Reset Password',
-                    style: TextStyle(
-                        fontFamily: 'Roboto',
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                        letterSpacing: -0.025),
-                  ),
-                ),
-              )
-            ],
-          ),
-        ),
-      )),
-    );
-  }
-}
-
-
-class ResetPasswordWidget extends StatefulWidget {
-  final TextEditingController passwordTextController;
-  final TextEditingController confirmPasswordTextController;
-  final void doTaskResetPassword;
-  const ResetPasswordWidget(
-      {Key? key,
-      required this.passwordTextController,
-      required this.confirmPasswordTextController,
-      this.doTaskResetPassword})
-      : super(key: key);
-
-  @override
-  _ResetPasswordWidgetState createState() => _ResetPasswordWidgetState();
-}
-
-class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
   bool _isPasswordObscure = true;
   bool _isConfirmPasswordObscure = true;
 
-  // dispose it when the widget is unmounted
+  TextEditingController passwordTextController = TextEditingController();
+  TextEditingController confirmPasswordTextController = TextEditingController();
+
+  Future<void> resetPassword(String newPassword) async {
+    await AuthServices().changePassword(newPassword);
+  }
+
+  bool _isloading = false;
+
   @override
-  void dispose() {
-    widget.passwordTextController.dispose();
-    widget.confirmPasswordTextController.dispose();
-    super.dispose();
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    switchScreen = 1;
+  }
+
+  Widget switchToAnotherScreen(BuildContext context) {
+    if (switchScreen == 1) {
+      return ResetPasswordModel(context);
+    } else {
+      return SuccessModel(context);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        const Text(
-          "Password",
-          style: TextStyle(
-              fontFamily: 'Roboto',
-              fontWeight: FontWeight.w400,
-              fontSize: 14,
-              height: 1,
-              letterSpacing: -0.025),
-        ),
-        const SizedBox(height: 12),
-        TextField(
-          onChanged: (_) => setState(() {}),
-          controller: widget.passwordTextController,
-          obscureText: _isPasswordObscure,
-          textInputAction: TextInputAction.done,
-          decoration: InputDecoration(
-            errorText: _errorPasswordText,
-            helperText: "Must be at least 8 characters.",
-            helperStyle: const TextStyle(
-                fontSize: 14,
-                fontStyle: FontStyle.italic,
-                height: 1,
-                letterSpacing: -0.025),
-            hintText: 'Password',
-            prefixIcon: const Icon(Icons.lock),
-            suffixIcon: IconButton(
+    Size screenSize = MediaQuery.of(context).size;
+    return Container(
+        height: screenSize.height * 0.7, child: switchToAnotherScreen(context));
+  }
+
+  Widget ResetPasswordModel(BuildContext context) {
+    final resetPasswordProvider = Provider.of<ResetPasswordProvider>(context);
+    Size screenSize = MediaQuery.of(context).size;
+    return Form(
+      key: formKey,
+      child: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    child: Text(
+                      "Reset Password",
+                      style: TextStyle(
+                        color: Color.fromRGBO(40, 40, 40, 1),
+                        fontFamily: "Roboto",
+                        fontWeight: FontWeight.bold,
+                        fontSize: 24,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: screenSize.height * 0.015,
+                  ),
+                  Container(
+                    child: Text(
+                      "Please make sure your new password must be different from previous used passwords.",
+                      style: TextStyle(
+                        color: Color.fromRGBO(40, 40, 40, 1),
+                        fontFamily: "Roboto",
+                        fontWeight: FontWeight.normal,
+                        fontSize: 14,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 5,
+            ),
+            Text(
+              "Password",
+              style: TextStyle(
+                color: Color.fromRGBO(40, 40, 40, 1),
+                fontFamily: "Roboto",
+                fontWeight: FontWeight.normal,
+                fontSize: 12,
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Container(
+                height: screenSize.height * 0.1,
+                child: TextFormField(
+                  controller: passwordTextController,
+                  obscureText: _isPasswordObscure,
+                  decoration: InputDecoration(
+                    prefixIcon: Icon(Icons.lock),
+                    helperText: "Must be at least 8 characters.",
+                    suffixIcon: IconButton(
+                        onPressed: () {
+                          setState(() {
+                            _isPasswordObscure = !_isPasswordObscure;
+                          });
+                        },
+                        icon: Icon(
+                          _isPasswordObscure
+                              ? Icons.visibility_off
+                              : Icons.visibility,
+                          color: const Color(0xff9FA5C0),
+                        )),
+                    hintText: 'Password',
+                    border: OutlineInputBorder(),
+                  ),
+                  validator: (value) {
+                    if (value!.isEmpty || value.length < 8) {
+                      return "Password is too short.";
+                    } else {
+                      return null;
+                    }
+                  },
+                )),
+            SizedBox(
+              height: screenSize.height * 0.01,
+            ),
+            SizedBox(
+              height: 5,
+            ),
+            Text(
+              "Confirm Password",
+              style: TextStyle(
+                color: Color.fromRGBO(40, 40, 40, 1),
+                fontFamily: "Roboto",
+                fontWeight: FontWeight.normal,
+                fontSize: 12,
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Container(
+                height: screenSize.height * 0.1,
+                child: TextFormField(
+                  controller: confirmPasswordTextController,
+                  obscureText: _isConfirmPasswordObscure,
+                  decoration: InputDecoration(
+                    prefixIcon: Icon(Icons.lock),
+                    helperText: "Both password must match.",
+                    suffixIcon: IconButton(
+                        onPressed: () {
+                          setState(() {
+                            _isConfirmPasswordObscure =
+                                !_isConfirmPasswordObscure;
+                          });
+                        },
+                        icon: Icon(
+                          _isConfirmPasswordObscure
+                              ? Icons.visibility_off
+                              : Icons.visibility,
+                          color: const Color(0xff9FA5C0),
+                        )),
+                    hintText: 'Password',
+                    border: OutlineInputBorder(),
+                  ),
+                  validator: (value) {
+                    if (value?.compareTo(passwordTextController.text) != 0) {
+                      return "Confirm Password does not match";
+                    } else {
+                      return null;
+                    }
+                  },
+                )),
+            SizedBox(
+              height: 10,
+            ),
+            SizedBox(
+              height: screenSize.height * 0.01,
+            ),
+            Container(
+              width: screenSize.width,
+              height: 50,
+              child: ElevatedButton(
                 onPressed: () {
                   setState(() {
-                    _isPasswordObscure = !_isPasswordObscure;
+                    _isloading = true;
                   });
+                  if (formKey.currentState!.validate()) {
+                    resetPassword(passwordTextController.text);
+                    setState(() {
+                      _isloading = false;
+                      switchScreen = 2;
+                    });
+                  }
                 },
-                icon: Icon(
-                  _isPasswordObscure ? Icons.visibility_off : Icons.visibility,
-                  color: const Color(0xff9FA5C0),
-                )),
-            border: const OutlineInputBorder(),
-          ),
+                child: _isloading
+                    ? const CircularProgressIndicator(
+                        color: Colors.white,
+                      )
+                    : Text(
+                        "Reset Password",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontFamily: "Roboto",
+                          fontWeight: FontWeight.bold,
+                          fontSize: 15,
+                        ),
+                      ),
+              ),
+            )
+          ],
         ),
-        const SizedBox(height: 16),
-        const Text(
-          "Confirm Password",
-          style: TextStyle(
-              fontFamily: 'Roboto',
-              fontWeight: FontWeight.w400,
-              fontSize: 14,
-              height: 1,
-              letterSpacing: -0.025),
-        ),
-        const SizedBox(height: 12),
-        TextField(
-          onChanged: (_) => setState(() {}),
-          controller: widget.confirmPasswordTextController,
-          obscureText: _isConfirmPasswordObscure,
-          textInputAction: TextInputAction.done,
-          decoration: InputDecoration(
-            errorText: _errorConfirmPasswordText,
-            helperText: "Both password must match.",
-            helperStyle: const TextStyle(
-                fontSize: 14,
-                fontStyle: FontStyle.italic,
-                height: 1,
-                letterSpacing: -0.025),
-            hintText: 'Confirm Password',
-            prefixIcon: const Icon(Icons.lock),
-            suffixIcon: IconButton(
-                onPressed: () {
-                  setState(() {
-                    _isConfirmPasswordObscure = !_isConfirmPasswordObscure;
-                  });
-                },
-                icon: Icon(
-                  _isConfirmPasswordObscure
-                      ? Icons.visibility_off
-                      : Icons.visibility,
-                  color: const Color(0xff9FA5C0),
-                )),
-            border: const OutlineInputBorder(),
-          ),
-        ),
-        const SizedBox(height: 24),
-      ],
+      ),
     );
   }
 
-  String? get _errorPasswordText {
-    // at any time, we can get the text from _controller.value.text
-    final text = widget.passwordTextController.value.text;
-    // Note: you can do your own custom validation here
-    // Move this logic this outside the widget for more testable code
-    if (text.isEmpty) {
-      return 'Password can\'t be empty';
-    }
-    if (text.length < 8) {
-      return 'Password is too short';
-    }
-    // return null if the text is valid
-    return null;
-  }
-
-  String? get _errorConfirmPasswordText {
-    // at any time, we can get the text from _controller.value.text
-    final text = widget.confirmPasswordTextController.value.text;
-    final compareText = widget.passwordTextController.value.text;
-    // Note: you can do your own custom validation here
-    // Move this logic this outside the widget for more testable code
-    if (text.isEmpty) {
-      return 'Confirm Password can\'t be empty';
-    }
-    if (text.compareTo(compareText) != 0 || compareText.length < 8) {
-      return 'Confirm Password does not match';
-    }
-    // return null if the text is valid
-    return null;
+  Widget SuccessModel(BuildContext context) {
+    Size screenSize = MediaQuery.of(context).size;
+    return Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: Column(
+                  children: [
+                    Text(
+                      "Password Reset Successful",
+                      style: TextStyle(
+                        color: Color.fromRGBO(40, 40, 40, 1),
+                        fontFamily: "Roboto",
+                        fontWeight: FontWeight.bold,
+                        fontSize: 24,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      "Awesome! You’ve successfully updated your password.",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Color.fromRGBO(40, 40, 40, 1),
+                        fontFamily: "Roboto",
+                        fontWeight: FontWeight.normal,
+                        fontSize: 14,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                width: screenSize.width,
+                height: 50,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text(
+                    "Go back to Sign in",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontFamily: "Roboto",
+                      fontWeight: FontWeight.bold,
+                      fontSize: 15,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
   }
 }
