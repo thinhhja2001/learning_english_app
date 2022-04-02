@@ -53,13 +53,21 @@ class _VocabularyDetailedListState extends State<VocabularyDetailedListScreen> {
                   width: MediaQuery.of(context).size.width * 0.45,
                   child: FloatingActionButton.extended(
                     onPressed: () {},
-                    label: Text(
-                      "Learn new words",
-                      style: TextStyle(
-                          fontSize: h4,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: "Roboto"),
+                    label: Row(
+                      children: [
+                        Icon(Icons.fiber_new_rounded, color: Colors.white),
+                        SizedBox(width: 8),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.25,
+                          child: Text(
+                            "Learn new words",
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            softWrap: false,
+                            style: ktsWhiteTitle,
+                          ),
+                        ),
+                      ],
                     ),
                     shape: BeveledRectangleBorder(
                         borderRadius: BorderRadius.circular(4)),
@@ -71,13 +79,15 @@ class _VocabularyDetailedListState extends State<VocabularyDetailedListScreen> {
                   child: FloatingActionButton.extended(
                     backgroundColor: Colors.green.shade300,
                     onPressed: () {},
-                    label: Text(
-                      "Flashcard",
-                      style: TextStyle(
-                          fontSize: h4,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: "Roboto"),
+                    label: Row(
+                      children: [
+                        Icon(Icons.flip, color: Colors.white),
+                        SizedBox(width: 8),
+                        Text(
+                          "Flashcard",
+                          style: ktsWhiteTitle,
+                        ),
+                      ],
                     ),
                     shape: BeveledRectangleBorder(
                         borderRadius: BorderRadius.circular(4)),

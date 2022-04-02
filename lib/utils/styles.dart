@@ -42,6 +42,18 @@ const TextStyle ktsTitle = TextStyle(
     fontFamily: "Roboto",
     color: Colors.green);
 
+const TextStyle ktsBlackTitle = TextStyle(
+    fontSize: h4,
+    fontWeight: FontWeight.w500,
+    fontFamily: "Roboto",
+    color: Colors.black);
+
+const TextStyle ktsWhiteTitle = TextStyle(
+    fontSize: h4,
+    fontWeight: FontWeight.w500,
+    fontFamily: "Roboto",
+    color: Colors.white);
+
 const TextStyle ktsDescriptionItalic = TextStyle(
     fontSize: h4,
     fontWeight: FontWeight.normal,

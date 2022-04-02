@@ -61,6 +61,19 @@ class _VocabularyGeneralState extends State<VocabularyGeneral> {
             SizedBox(
               height: screenSize.height * 0.015,
             ),
+            Center(
+              child: Column(children: [
+                SizedBox(
+                    width: 60,
+                    height: 60,
+                    child: SvgPicture.asset('assets/images/empty-box.svg')),
+                SizedBox(height: 8),
+                Text(
+                  'No item here!',
+                  style: ktsBlackTitle,
+                )
+              ]),
+            )
           ],
         ),
       ),

@@ -47,13 +47,15 @@ class _VocabularyListState extends State<VocabularyListScreen> {
             width: MediaQuery.of(context).size.width * 0.9,
             child: FloatingActionButton.extended(
               onPressed: () {},
-              label: Text(
-                "Learn new words",
-                style: TextStyle(
-                    fontSize: h4,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: "Roboto"),
+              label: Row(
+                children: [
+                  Icon(Icons.fiber_new_rounded, color: Colors.white),
+                  SizedBox(width: 12),
+                  Text(
+                    "Learn new words",
+                    style: ktsWhiteTitle,
+                  ),
+                ],
               ),
               shape: BeveledRectangleBorder(
                   borderRadius: BorderRadius.circular(4)),
