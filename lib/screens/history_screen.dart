@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:learning_english_app/utils/colors.dart';
+import 'package:learning_english_app/utils/constants.dart';
 import 'package:learning_english_app/utils/styles.dart';
 
 class HistoryScreen extends StatelessWidget {
@@ -79,6 +80,7 @@ class HistoryScreen extends StatelessWidget {
               width: 100,
             ),
             Text("No item here!"),
+            verticalSpaceSmall,
             ElevatedButton(
               onPressed: () {},
               child: Text("Try again"),

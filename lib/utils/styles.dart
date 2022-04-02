@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:learning_english_app/utils/colors.dart';
 
 //TextStyles
+const TextStyle kDefaultTextStyle =
+    TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: h4);
 const TextStyle ktsMediumTitleText =
     TextStyle(color: kcPrimaryColor, fontWeight: FontWeight.bold, fontSize: h2);
 
