@@ -6,6 +6,7 @@ import 'package:learning_english_app/providers/resetpassword_provider.dart';
 import 'package:learning_english_app/firebase_options.dart';
 import 'package:learning_english_app/providers/signin_provider.dart';
 import 'package:learning_english_app/screens/home_screen.dart';
+import 'package:learning_english_app/screens/practice_selection_screen.dart';
 import 'package:learning_english_app/screens/resetpassword_screen.dart';
 // import 'package:learning_english_app/screens/resetpassword_screen.dart';
 import 'package:learning_english_app/screens/signin_screen.dart';
@@ -52,7 +53,7 @@ class MyApp extends StatelessWidget {
             fontFamily: 'Roboto',
             primarySwatch: Colors.blue,
           ),
-          home: HomeScreen(),
+          home: const HomeScreen(),
           routes: <String, WidgetBuilder>{
             '/successpassword': (BuildContext context) =>
                 const SuccessResetScreen(),
