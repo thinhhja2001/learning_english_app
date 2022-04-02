@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:learning_english_app/utils/colors.dart';
 import 'package:learning_english_app/utils/constants.dart';
 import 'package:learning_english_app/utils/styles.dart';
 import 'package:learning_english_app/widgets/custom_error_box.dart';
@@ -12,8 +13,6 @@ class PracticeWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<Map> myProducts = List.generate(
-        100000, (index) => {"id": index, "name": "Product $index"}).toList();
     return SafeArea(
       child: Column(
         children: [
@@ -48,7 +47,7 @@ class PracticeWidget extends StatelessWidget {
               flex: 8,
               child: Container(
                   width: double.infinity,
-                  decoration: const BoxDecoration(color: Color(0xffc3ced4)),
+                  decoration: const BoxDecoration(color: kcGreyColor),
                   child: Padding(
                       padding: const EdgeInsets.symmetric(
                           vertical: defaultPadding * 2,
