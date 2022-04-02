@@ -7,6 +7,8 @@ const kcPrimaryHintColor = Color(0xff838383);
 const kcEyeIconColor = Color(0xff9FA5C0);
 
 //TextStyles
+const TextStyle kDefaultTextStyle =
+    TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: h4);
 const TextStyle ktsMediumTitleText =
     TextStyle(color: kcPrimaryColor, fontWeight: FontWeight.bold, fontSize: h2);
 
