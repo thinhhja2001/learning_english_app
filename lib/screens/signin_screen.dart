@@ -6,7 +6,7 @@ import 'package:learning_english_app/screens/statistics_screen.dart';
 import 'package:learning_english_app/utils/constants.dart';
 import 'package:learning_english_app/widgets/custom_error_box.dart';
 import 'package:learning_english_app/widgets/forget_password_widget.dart';
-import 'package:learning_english_app/widgets/reset_password_widget.dart';
+import 'package:learning_english_app/widgets/reset_password/reset_password_widget.dart';
 import 'package:provider/provider.dart';
 
 import '../widgets/custom_input_field.dart';

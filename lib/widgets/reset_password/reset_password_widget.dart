@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:learning_english_app/providers/resetpassword_provider.dart';
 import 'package:provider/provider.dart';
 
-import '../resources/auth.dart';
+import '../../resources/auth.dart';
 
 class ResetPassword extends StatefulWidget {
   const ResetPassword({Key? key}) : super(key: key);
