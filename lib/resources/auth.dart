@@ -3,14 +3,14 @@ import 'dart:convert';
 import "package:http/http.dart" as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
+// Key: AIzaSyCHL8W3koZiGQkMUwId-tLJ5s5Lxnwjfek
 class AuthServices {
   late String _token;
 
   Future<void> _authenticate(
       String email, String password, String urlSegment) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    final url =
-        'https://identitytoolkit..com/v1/accounts:$urlSegment?key="AIzaSyCHL8W3koZiGQkMUwId-tLJ5s5Lxnwjfek"';
+    final url = 'https://identitytoolkit..com/v1/accounts:$urlSegment?key=""';
     final response = await http.post(
       Uri.parse(url),
       body: json.encode(
@@ -39,7 +39,7 @@ class AuthServices {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     _token = sharedPreferences.getString("token")!;
     final url =
-        'https://identitytoolkit.googleapis.com/v1/accounts:update?key="AIzaSyCHL8W3koZiGQkMUwId-tLJ5s5Lxnwjfek"';
+        'https://identitytoolkit.googleapis.com/v1/accounts:update?key=""';
     try {
       await http.post(
         Uri.parse(url),
