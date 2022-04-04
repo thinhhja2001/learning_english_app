@@ -19,9 +19,7 @@ class _HomeScreenState extends State<HomeScreen> {
   static List<Widget> _widgetOptions = <Widget>[
     PracticeWidget(),
     VocabularyGeneral(),
-    Center(
-      child: StatisticsScreen(),
-    ),
+    StatisticsScreen(),
     Center(
       child: Text(
         'Index 3: Favorite',

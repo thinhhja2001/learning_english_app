@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
 import 'package:learning_english_app/resources/auth_methods.dart';
+import 'package:learning_english_app/screens/home_screen.dart';
 
 class SignInProvider extends ChangeNotifier {
   bool _isValid = true;
@@ -24,6 +26,7 @@ class SignInProvider extends ChangeNotifier {
         await AuthMethods().loginUser(email: email, password: password);
     if (_errorMessage == "Login success") {
       _isValid = true;
+      Get.to(const HomeScreen());
     } else {
       _isValid = false;
     }

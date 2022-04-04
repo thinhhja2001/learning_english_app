@@ -181,7 +181,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               Container(
                   height: screenSize.height * 0.1,
                   child: TextFormField(
-                    keyboardType: TextInputType.number,
+                    keyboardType: TextInputType.emailAddress,
                     controller: _email,
                     decoration: InputDecoration(
                       labelText: 'Email Address',
