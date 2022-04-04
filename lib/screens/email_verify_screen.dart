@@ -42,6 +42,7 @@ class EmailVerifyScreen extends StatelessWidget {
                   child: Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         SvgPicture.asset("assets/images/Rating.svg"),
                         verticalSpaceMedium,
@@ -51,10 +52,15 @@ class EmailVerifyScreen extends StatelessWidget {
                               ktsMediumTitleText.copyWith(color: kcBlackColor),
                         ),
                         verticalSpaceTiny,
-                        Text(
-                          description,
-                          style:
-                              ktsMediumInputText.copyWith(color: kcBlackColor),
+                        SizedBox(
+                          width: double.infinity,
+                          child: Text(
+                            description,
+                            style: ktsMediumInputText.copyWith(
+                              color: kcBlackColor,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
                         ),
                         verticalSpaceRegular,
                         Text(

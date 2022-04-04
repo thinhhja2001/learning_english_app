@@ -9,6 +9,7 @@ import 'package:learning_english_app/screens/home_screen.dart';
 import 'package:learning_english_app/screens/practice_selection_screen.dart';
 import 'package:learning_english_app/screens/signin_screen.dart';
 import 'package:learning_english_app/providers/signup_provider.dart';
+import 'package:learning_english_app/screens/signup_screen.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
@@ -50,7 +51,7 @@ class MyApp extends StatelessWidget {
             fontFamily: 'Roboto',
             primarySwatch: Colors.blue,
           ),
-          home: const HomeScreen(),
+          home: SignInScreen(),
           routes: <String, WidgetBuilder>{
             '/signin': (BuildContext context) => SignInScreen(),
           }),
