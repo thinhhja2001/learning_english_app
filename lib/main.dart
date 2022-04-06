@@ -51,7 +51,7 @@ class MyApp extends StatelessWidget {
             fontFamily: 'Roboto',
             primarySwatch: Colors.blue,
           ),
-          home: SignInScreen(),
+          home: HomeScreen(),
           routes: <String, WidgetBuilder>{
             '/signin': (BuildContext context) => SignInScreen(),
           }),
