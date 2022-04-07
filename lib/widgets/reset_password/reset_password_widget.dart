@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:learning_english_app/providers/resetpassword_provider.dart';
-import 'package:provider/provider.dart';
 
 import '../../resources/auth.dart';
 
@@ -30,7 +28,6 @@ class _ResetPasswordState extends State<ResetPassword> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     switchScreen = 1;
   }
@@ -46,12 +43,12 @@ class _ResetPasswordState extends State<ResetPassword> {
   @override
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
-    return Container(
+    return SizedBox(
         height: screenSize.height * 0.7, child: switchToAnotherScreen(context));
   }
 
+  // ignore: non_constant_identifier_names
   Widget ResetPasswordModel(BuildContext context) {
-    final resetPasswordProvider = Provider.of<ResetPasswordProvider>(context);
     Size screenSize = MediaQuery.of(context).size;
     return Form(
       key: formKey,
@@ -68,38 +65,34 @@ class _ResetPasswordState extends State<ResetPassword> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Container(
-                    child: Text(
-                      "Reset Password",
-                      style: TextStyle(
-                        color: Color.fromRGBO(40, 40, 40, 1),
-                        fontFamily: "Roboto",
-                        fontWeight: FontWeight.bold,
-                        fontSize: 24,
-                      ),
+                  const Text(
+                    "Reset Password",
+                    style: TextStyle(
+                      color: Color.fromRGBO(40, 40, 40, 1),
+                      fontFamily: "Roboto",
+                      fontWeight: FontWeight.bold,
+                      fontSize: 24,
                     ),
                   ),
                   SizedBox(
                     height: screenSize.height * 0.015,
                   ),
-                  Container(
-                    child: Text(
-                      "Please make sure your new password must be different from previous used passwords.",
-                      style: TextStyle(
-                        color: Color.fromRGBO(40, 40, 40, 1),
-                        fontFamily: "Roboto",
-                        fontWeight: FontWeight.normal,
-                        fontSize: 14,
-                      ),
+                  const Text(
+                    "Please make sure your new password must be different from previous used passwords.",
+                    style: TextStyle(
+                      color: Color.fromRGBO(40, 40, 40, 1),
+                      fontFamily: "Roboto",
+                      fontWeight: FontWeight.normal,
+                      fontSize: 14,
                     ),
                   ),
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 5,
             ),
-            Text(
+            const Text(
               "Password",
               style: TextStyle(
                 color: Color.fromRGBO(40, 40, 40, 1),
@@ -108,16 +101,16 @@ class _ResetPasswordState extends State<ResetPassword> {
                 fontSize: 12,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
-            Container(
+            SizedBox(
                 height: screenSize.height * 0.1,
                 child: TextFormField(
                   controller: passwordTextController,
                   obscureText: _isPasswordObscure,
                   decoration: InputDecoration(
-                    prefixIcon: Icon(Icons.lock),
+                    prefixIcon: const Icon(Icons.lock),
                     helperText: "Must be at least 8 characters.",
                     suffixIcon: IconButton(
                         onPressed: () {
@@ -132,7 +125,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                           color: const Color(0xff9FA5C0),
                         )),
                     hintText: 'Password',
-                    border: OutlineInputBorder(),
+                    border: const OutlineInputBorder(),
                   ),
                   validator: (value) {
                     if (value!.isEmpty || value.length < 8) {
@@ -145,10 +138,10 @@ class _ResetPasswordState extends State<ResetPassword> {
             SizedBox(
               height: screenSize.height * 0.01,
             ),
-            SizedBox(
+            const SizedBox(
               height: 5,
             ),
-            Text(
+            const Text(
               "Confirm Password",
               style: TextStyle(
                 color: Color.fromRGBO(40, 40, 40, 1),
@@ -157,16 +150,16 @@ class _ResetPasswordState extends State<ResetPassword> {
                 fontSize: 12,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
-            Container(
+            SizedBox(
                 height: screenSize.height * 0.1,
                 child: TextFormField(
                   controller: confirmPasswordTextController,
                   obscureText: _isConfirmPasswordObscure,
                   decoration: InputDecoration(
-                    prefixIcon: Icon(Icons.lock),
+                    prefixIcon: const Icon(Icons.lock),
                     helperText: "Both password must match.",
                     suffixIcon: IconButton(
                         onPressed: () {
@@ -182,7 +175,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                           color: const Color(0xff9FA5C0),
                         )),
                     hintText: 'Password',
-                    border: OutlineInputBorder(),
+                    border: const OutlineInputBorder(),
                   ),
                   validator: (value) {
                     if (value?.compareTo(passwordTextController.text) != 0) {
@@ -192,7 +185,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                     }
                   },
                 )),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             SizedBox(
@@ -218,7 +211,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                     ? const CircularProgressIndicator(
                         color: Colors.white,
                       )
-                    : Text(
+                    : const Text(
                         "Reset Password",
                         style: TextStyle(
                           color: Colors.white,
@@ -235,6 +228,7 @@ class _ResetPasswordState extends State<ResetPassword> {
     );
   }
 
+  // ignore: non_constant_identifier_names
   Widget SuccessModel(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
     return Padding(
@@ -247,7 +241,7 @@ class _ResetPasswordState extends State<ResetPassword> {
               Padding(
                 padding: const EdgeInsets.all(15.0),
                 child: Column(
-                  children: [
+                  children: const [
                     Text(
                       "Password Reset Successful",
                       style: TextStyle(
@@ -257,9 +251,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                         fontSize: 24,
                       ),
                     ),
-                    SizedBox(
-                      height: 10,
-                    ),
+                    SizedBox(height: 10),
                     Text(
                       "Awesome! You’ve successfully updated your password.",
                       textAlign: TextAlign.center,
@@ -270,20 +262,18 @@ class _ResetPasswordState extends State<ResetPassword> {
                         fontSize: 14,
                       ),
                     ),
-                    SizedBox(
-                      height: 10,
-                    ),
+                    SizedBox(height: 10),
                   ],
                 ),
               ),
-              Container(
+              SizedBox(
                 width: screenSize.width,
                 height: 50,
                 child: ElevatedButton(
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
-                  child: Text(
+                  child: const Text(
                     "Go back to Sign in",
                     style: TextStyle(
                       color: Colors.white,

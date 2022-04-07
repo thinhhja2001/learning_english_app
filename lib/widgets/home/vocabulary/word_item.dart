@@ -46,14 +46,12 @@ class WordItem extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(
-              width: 24,
-            ),
+            const SizedBox(width: 24),
             Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("abide by", style: ktsTitle),
+                const Text("abide by", style: ktsGreenBigTitle),
                 Row(
                   children: [
                     Text(

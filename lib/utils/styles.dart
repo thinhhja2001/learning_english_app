@@ -37,11 +37,17 @@ const TextStyle ktsCircleProgress = TextStyle(
     fontFamily: "Roboto",
     color: Colors.green);
 
-const TextStyle ktsTitle = TextStyle(
+const TextStyle ktsGreenBigTitle = TextStyle(
     fontSize: h3,
     fontWeight: FontWeight.w500,
     fontFamily: "Roboto",
     color: Colors.green);
+
+const TextStyle ktsBlackBigTitle = TextStyle(
+    fontSize: h3,
+    fontWeight: FontWeight.w500,
+    fontFamily: "Roboto",
+    color: Color.fromRGBO(40, 40, 40, 1));
 
 const TextStyle ktsBlackTitle = TextStyle(
     fontSize: h4,
@@ -67,6 +73,13 @@ const TextStyle ktsDescription = TextStyle(
     fontWeight: FontWeight.normal,
     fontFamily: "Roboto",
     color: Colors.black);
+
+const TextStyle ktsMiniDescription = TextStyle(
+    fontSize: h6,
+    fontWeight: FontWeight.bold,
+    fontFamily: "Roboto",
+    color: Colors.blue);
+
 const TextStyle ktsBoldText =
     TextStyle(fontSize: h4, fontWeight: FontWeight.bold);
 //FontSize

@@ -2,20 +2,19 @@ import 'package:flutter/material.dart';
 
 import '../../../utils/styles.dart';
 
+// ignore: must_be_immutable
 class VocabularyGenralPoint extends StatelessWidget {
-  const VocabularyGenralPoint({
-    Key? key,
-    required this.pointText,
-    required this.reviewText,
-  }) : super(key: key);
+  VocabularyGenralPoint(
+      {Key? key, required this.totalWord, required this.totalWordLearned})
+      : super(key: key);
 
-  final String pointText;
-  final String reviewText;
+  late int totalWordLearned;
+  late int totalWord;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(20.0)),
           color: Colors.white),
       child: Padding(
@@ -23,39 +22,17 @@ class VocabularyGenralPoint extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Icon(
+            const SizedBox(width: 4),
+            const Icon(
               Icons.check_circle_rounded,
               color: Colors.blue,
             ),
-            SizedBox(
-              width: 2,
-            ),
+            const SizedBox(width: 2),
             Text(
-              pointText,
-              style: TextStyle(
-                  fontSize: h6,
-                  color: Colors.blue,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: "Roboto"),
+              "$totalWordLearned / $totalWord learned",
+              style: ktsMiniDescription,
             ),
-            SizedBox(
-              width: 8,
-            ),
-            Icon(
-              Icons.timelapse,
-              color: Colors.blue,
-            ),
-            SizedBox(
-              width: 2,
-            ),
-            Text(
-              reviewText,
-              style: TextStyle(
-                  fontSize: h6,
-                  color: Colors.blue,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: "Roboto"),
-            )
+            const SizedBox(width: 8),
           ],
         ),
       ),

@@ -1,36 +1,47 @@
+import 'dart:core';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:learning_english_app/models/vocabulary/vocabulary_document.dart';
+import 'package:learning_english_app/providers/vocabulary/vocabulary_controller.dart';
 import 'package:learning_english_app/widgets/home/vocabulary/vocabulary_general_point.dart';
 
-import '../../../screens/vocabulary/vocabulary_list_screen.dart';
+import '../../../screens/vocabulary/vocabularytopic_list_screen.dart';
 import '../../../utils/styles.dart';
 
+// ignore: must_be_immutable
 class VocabularyGeneralContainer extends StatelessWidget {
-  const VocabularyGeneralContainer({
+  VocabularyGeneralContainer({
     Key? key,
     required this.screenSize,
-    required this.title,
+    required this.vocabularyDocument,
+    required this.index,
   }) : super(key: key);
 
   final Size screenSize;
-  final String title;
+  VocabularyDocument vocabularyDocument;
+  int index;
 
   @override
   Widget build(BuildContext context) {
-    final double categoryHeight = screenSize.height * 0.30 - 80;
+    VocabularyController _vocabularyController =
+        Get.put(VocabularyController());
+    final double categoryHeight = screenSize.height * 0.30 - 60;
+    final double pointWidth = screenSize.width * 0.5 - 40;
     return Container(
-      width: screenSize.width * 0.45,
-      margin: EdgeInsets.only(right: 20),
+      width: screenSize.width * 0.5,
+      margin: const EdgeInsets.only(right: 20),
       height: categoryHeight,
-      decoration:
-          BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(20.0))),
+      decoration: const BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(20.0))),
       child: InkWell(
-        onTap: () {
-          Get.to(VocabularyListScreen());
+        onTap: () => {
+          _vocabularyController.clickItemInVocabularyDocument(index),
+          Get.to(const VocabularyTopicListScreen())
         },
         child: Stack(children: [
           ClipRRect(
-            borderRadius: BorderRadius.all(Radius.circular(20.0)),
+            borderRadius: const BorderRadius.all(Radius.circular(20.0)),
             child: ShaderMask(
               shaderCallback: (rect) {
                 return const LinearGradient(
@@ -42,11 +53,13 @@ class VocabularyGeneralContainer extends StatelessWidget {
               },
               blendMode: BlendMode.darken,
               child: Container(
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                     image: DecorationImage(
-                        image: ExactAssetImage("assets/images/toeic_image.jpg"),
+                        image: ExactAssetImage(
+                            vocabularyDocument.imageSourceDocument),
                         fit: BoxFit.fill),
-                    borderRadius: BorderRadius.all(Radius.circular(20.0))),
+                    borderRadius:
+                        const BorderRadius.all(Radius.circular(20.0))),
               ),
             ),
           ),
@@ -57,19 +70,20 @@ class VocabularyGeneralContainer extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  title,
-                  style: TextStyle(
-                      fontSize: h4,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: "Roboto"),
+                  vocabularyDocument.titleDocument,
+                  style: ktsWhiteTitle,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
-                VocabularyGenralPoint(
-                  pointText: "20/596",
-                  reviewText: "200",
+                Center(
+                  child: SizedBox(
+                    width: pointWidth,
+                    child: VocabularyGenralPoint(
+                        totalWord: vocabularyDocument.getTotalWordInList(),
+                        totalWordLearned:
+                            _vocabularyController.totalWordLearned.value),
+                  ),
                 )
               ],
             ),

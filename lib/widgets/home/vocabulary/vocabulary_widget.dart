@@ -16,46 +16,22 @@ class _VocabularyGeneralState extends State<VocabularyGeneral> {
     Size screenSize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        title: Text("Vocabulary"),
+        title: const Text("Vocabulary"),
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,
       ),
       body: Padding(
-        padding: EdgeInsets.all(12.0),
+        padding: const EdgeInsets.all(12.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            Container(
-              child: Text(
-                "TOEIC vocabulary",
-                style: TextStyle(
-                  color: Color.fromRGBO(40, 40, 40, 1),
-                  fontFamily: "Roboto",
-                  fontWeight: FontWeight.normal,
-                  fontSize: h3,
-                ),
-              ),
-            ),
-            SizedBox(
-              height: screenSize.height * 0.015,
-            ),
-            VocabularyListScroller(),
-            SizedBox(
-              height: screenSize.height * 0.015,
-            ),
-            Container(
-              child: Text(
-                "My vocabulary set",
-                style: TextStyle(
-                  color: Color.fromRGBO(40, 40, 40, 1),
-                  fontFamily: "Roboto",
-                  fontWeight: FontWeight.normal,
-                  fontSize: h3,
-                ),
-              ),
-            ),
+            const Text("TOEIC vocabulary", style: ktsBlackBigTitle),
+            SizedBox(height: screenSize.height * 0.015),
+            const VocabularyListScroller(),
+            SizedBox(height: screenSize.height * 0.015),
+            const Text("My vocabulary set", style: ktsBlackBigTitle),
             SizedBox(
               height: screenSize.height * 0.015,
             ),
@@ -65,8 +41,8 @@ class _VocabularyGeneralState extends State<VocabularyGeneral> {
                     width: 60,
                     height: 60,
                     child: SvgPicture.asset('assets/images/empty-box.svg')),
-                SizedBox(height: 8),
-                Text(
+                const SizedBox(height: 8),
+                const Text(
                   'No item here!',
                   style: ktsBlackTitle,
                 )
