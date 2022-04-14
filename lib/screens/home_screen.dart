@@ -1,12 +1,17 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:learning_english_app/models/user.dart' as appUser;
 import 'package:learning_english_app/screens/statistics_screen.dart';
 import 'package:learning_english_app/utils/colors.dart';
 import 'package:learning_english_app/utils/styles.dart';
-import 'package:learning_english_app/widgets/home/practices/practice_widget.dart';
+import 'package:learning_english_app/screens/practice/practice_screen.dart';
 import 'package:learning_english_app/widgets/home/vocabulary/vocabulary_widget.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -16,8 +21,8 @@ class _HomeScreenState extends State<HomeScreen> {
   int _currentIndex = 0;
 
   ///Thay widget cua minh vao day
-  static List<Widget> _widgetOptions = <Widget>[
-    PracticeWidget(),
+  List<Widget> _widgetOptions = [
+    PracticeScreen(),
     VocabularyGeneral(),
     StatisticsScreen(),
     Center(
