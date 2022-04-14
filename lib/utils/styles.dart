@@ -45,7 +45,7 @@ const TextStyle ktsGreenBigTitle = TextStyle(
 
 const TextStyle ktsBlackBigTitle = TextStyle(
     fontSize: h3,
-    fontWeight: FontWeight.w500,
+    fontWeight: FontWeight.bold,
     fontFamily: "Roboto",
     color: Color.fromRGBO(40, 40, 40, 1));
 
@@ -75,13 +75,31 @@ const TextStyle ktsDescription = TextStyle(
     color: Colors.black);
 
 const TextStyle ktsMiniDescription = TextStyle(
-    fontSize: h6,
-    fontWeight: FontWeight.bold,
+    fontSize: h5,
+    fontWeight: FontWeight.w500,
     fontFamily: "Roboto",
     color: Colors.blue);
 
+const TextStyle ktsMiniDescriptionPurple = TextStyle(
+    fontSize: h5,
+    fontWeight: FontWeight.w500,
+    fontFamily: "Roboto",
+    color: Colors.purple);
+
+const TextStyle ktsMiniDescriptionBlack = TextStyle(
+    fontSize: h5,
+    fontWeight: FontWeight.w500,
+    fontFamily: "Roboto",
+    color: Colors.black);
+
 const TextStyle ktsBoldText =
     TextStyle(fontSize: h4, fontWeight: FontWeight.bold);
+
+const TextStyle ktsPartText = TextStyle(
+    fontSize: h4,
+    fontWeight: FontWeight.bold,
+    color: Colors.white,
+    fontFamily: "Roboto");
 //FontSize
 const double h1 = 32;
 const double h2 = 24;

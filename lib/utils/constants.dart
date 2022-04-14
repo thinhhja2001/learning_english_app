@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:learning_english_app/models/practice.dart';
 
 enum CustomInputFieldType { text, password }
+
 enum PracticeType { listening, reading, test }
+
 const double defaultPadding = 4.0;
+const double defaultHorizontalPadding = 8.0;
 // horizontal spacing
 
 const Widget horizontalSpaceTiny = SizedBox(width: 5.0);
