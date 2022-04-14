@@ -21,13 +21,13 @@ class PracticeSelectionCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: defaultPadding),
+      padding: const EdgeInsets.symmetric(vertical: kDefaultPadding),
       child: Container(
         width: double.infinity,
         decoration: BoxDecoration(
             color: kcWhiteColor, borderRadius: BorderRadius.circular(8)),
         child: Padding(
-          padding: const EdgeInsets.all(defaultPadding),
+          padding: const EdgeInsets.all(kDefaultPadding),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

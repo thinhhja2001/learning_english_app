@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-
-import '../../resources/auth.dart';
+import 'package:learning_english_app/providers/resetpassword_provider.dart';
+import 'package:learning_english_app/resources/auth_methods.dart';
+import 'package:provider/provider.dart';
 
 class ResetPassword extends StatefulWidget {
   const ResetPassword({Key? key}) : super(key: key);
@@ -21,7 +22,7 @@ class _ResetPasswordState extends State<ResetPassword> {
   TextEditingController confirmPasswordTextController = TextEditingController();
 
   Future<void> resetPassword(String newPassword) async {
-    await AuthServices().changePassword(newPassword);
+    await AuthMethods().changePassword(newPassword);
   }
 
   bool _isloading = false;

@@ -7,6 +7,7 @@ enum PracticeType { listening, reading, test }
 
 const double defaultPadding = 4.0;
 const double defaultHorizontalPadding = 8.0;
+const double kDefaultPadding = 8.0;
 // horizontal spacing
 
 const Widget horizontalSpaceTiny = SizedBox(width: 5.0);
@@ -20,23 +21,6 @@ const Widget verticalSpaceSmall = SizedBox(height: 10.0);
 const Widget verticalSpaceRegular = SizedBox(height: 18.0);
 const Widget verticalSpaceMedium = SizedBox(height: 25.0);
 const Widget verticalSpaceLarge = SizedBox(height: 50.0);
-
-Color darken(Color c, [int percent = 10]) {
-  assert(1 <= percent && percent <= 100);
-  var f = 1 - percent / 100;
-  return Color.fromARGB(c.alpha, (c.red * f).round(), (c.green * f).round(),
-      (c.blue * f).round());
-}
-
-Color lighten(Color c, [int percent = 10]) {
-  assert(1 <= percent && percent <= 100);
-  var p = percent / 100;
-  return Color.fromARGB(
-      c.alpha,
-      c.red + ((255 - c.red) * p).round(),
-      c.green + ((255 - c.green) * p).round(),
-      c.blue + ((255 - c.blue) * p).round());
-}
 
 List<Practice> listenings = [
   Practice(name: "Photograph", iconData: "e043"),
@@ -55,3 +39,13 @@ List<Practice> tests = [
   Practice(name: "Full part of listening", iconData: "e510"),
   Practice(name: "Full part of reading", iconData: "e0ef"),
 ];
+
+const kDefaultBorderRadius = Radius.circular(20);
+List<String> answers = [
+  "talavua",
+  "vipnhatthegioi",
+  "danchoixuhue",
+  "vietnam2k1"
+];
+
+String correctAnswer = "vietnam2k1";
