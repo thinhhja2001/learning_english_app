@@ -6,10 +6,9 @@ import 'package:learning_english_app/providers/resetpassword_provider.dart';
 import 'package:learning_english_app/firebase_options.dart';
 import 'package:learning_english_app/providers/signin_provider.dart';
 import 'package:learning_english_app/screens/home_screen.dart';
-import 'package:learning_english_app/screens/practice_selection_screen.dart';
+import 'package:learning_english_app/screens/practice/listening_test_screen.dart';
 import 'package:learning_english_app/screens/signin_screen.dart';
 import 'package:learning_english_app/providers/signup_provider.dart';
-import 'package:learning_english_app/screens/signup_screen.dart';
 import 'package:provider/provider.dart';
 
 void main() async {

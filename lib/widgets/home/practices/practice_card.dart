@@ -4,6 +4,8 @@ import 'package:learning_english_app/screens/practice_selection_screen.dart';
 import 'package:learning_english_app/utils/constants.dart';
 import 'package:learning_english_app/utils/styles.dart';
 
+import '../../../utils/utils.dart';
+
 class PracticeCard extends StatelessWidget {
   const PracticeCard(
       {Key? key,
@@ -41,7 +43,7 @@ class PracticeCard extends StatelessWidget {
         decoration: BoxDecoration(
             color: Colors.white, borderRadius: BorderRadius.circular(10)),
         child: Padding(
-          padding: const EdgeInsets.only(left: defaultPadding * 1.5),
+          padding: const EdgeInsets.only(left: kDefaultPadding * 1.5),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -60,7 +62,8 @@ class PracticeCard extends StatelessWidget {
                         colors: [primaryColor, secondaryColor]),
                     borderRadius: BorderRadius.circular(10)),
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: defaultPadding),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: kDefaultPadding),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [

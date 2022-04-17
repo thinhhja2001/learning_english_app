@@ -53,7 +53,7 @@ class PracticeSelectionScreen extends StatelessWidget {
         backgroundColor: kcWhiteColor,
       ),
       body: Padding(
-        padding: const EdgeInsets.all(defaultPadding),
+        padding: const EdgeInsets.all(kDefaultPadding),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
