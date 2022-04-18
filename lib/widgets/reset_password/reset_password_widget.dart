@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:learning_english_app/providers/resetpassword_provider.dart';
 import 'package:learning_english_app/resources/auth_methods.dart';
 import 'package:provider/provider.dart';
 
@@ -50,7 +49,6 @@ class _ResetPasswordState extends State<ResetPassword> {
   }
 
   Widget ResetPasswordModel(BuildContext context) {
-    final resetPasswordProvider = Provider.of<ResetPasswordProvider>(context);
     Size screenSize = MediaQuery.of(context).size;
     return Form(
       key: formKey,

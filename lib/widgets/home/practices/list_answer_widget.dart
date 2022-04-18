@@ -42,7 +42,7 @@ class _ListAnswerWidgetState extends State<ListAnswerWidget> {
                                 isShowAnswer: widget.isShowAnswer,
                                 choseAnswer: _choseAnswer))),
                     TextSpan(
-                        text: widget.isShowAnswer ? answers[index] : "",
+                        text: widget.isShowAnswer ? answers_part2[index] : "",
                         style: kDefaultTextStyle.copyWith(
                             color: getShowColor(
                               answer: answers_part2[index],

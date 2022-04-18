@@ -1,13 +1,10 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:learning_english_app/providers/signup_provider.dart';
-import 'package:learning_english_app/resources/auth_methods.dart';
+import 'package:learning_english_app/providers/authentication/signup_provider.dart';
 import 'package:learning_english_app/utils/colors.dart';
 import 'package:learning_english_app/utils/constants.dart';
 import 'package:learning_english_app/utils/styles.dart';
-import 'package:flutter/services.dart';
-import 'package:learning_english_app/widgets/custom_button.dart';
+import 'package:learning_english_app/widgets/custom/custom_button.dart';
 import 'package:provider/provider.dart';
 
 class SignUpScreen extends StatefulWidget {
