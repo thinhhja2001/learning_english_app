@@ -10,6 +10,12 @@ class ChartData {
   final String dateOfWeek;
   final double target;
   final double timeLearned;
+
+  get color => null;
+
+  get x => null;
+
+  get y => null;
 }
 
 class Dialog extends StatefulWidget {

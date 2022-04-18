@@ -21,13 +21,13 @@ Color getShowColor(
     {required String answer,
     required String correctAnswer,
     required bool isShowAnswer,
-    required String? choseAnswer}) {
+    required String? chosenAnswer}) {
   if (isShowAnswer == false) {
     return Colors.black;
   } else {
     if (answer == correctAnswer) {
       return Colors.green;
-    } else if (answer == choseAnswer && answer != correctAnswer) {
+    } else if (answer == chosenAnswer && answer != correctAnswer) {
       return Colors.red;
     }
     return Colors.black;
