@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../utils/constants.dart';
-import '../utils/styles.dart';
+import '../../utils/constants.dart';
+import '../../utils/styles.dart';
 
 class TextInCustomScrollView extends StatelessWidget {
   const TextInCustomScrollView({

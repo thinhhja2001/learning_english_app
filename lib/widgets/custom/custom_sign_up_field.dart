@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:learning_english_app/utils/constants.dart';
 import 'package:learning_english_app/utils/styles.dart';
 
-import '../utils/colors.dart';
+import '../../utils/colors.dart';
 
 class CustomeSignUpField extends StatefulWidget {
   final CustomInputFieldType customInputFieldType;

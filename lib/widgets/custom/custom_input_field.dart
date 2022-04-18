@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:learning_english_app/utils/constants.dart';
 
-import '../utils/colors.dart';
+import '../../utils/colors.dart';
 
 class CustomInputField extends StatefulWidget {
   const CustomInputField({

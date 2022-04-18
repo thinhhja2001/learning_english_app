@@ -1,13 +1,13 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:learning_english_app/screens/practice/list_answer_widget.dart';
+import 'package:learning_english_app/widgets/home/practices/list_answer_widget.dart';
 import 'package:learning_english_app/utils/constants.dart';
 import 'package:learning_english_app/utils/utils.dart';
 
 import '../../utils/colors.dart';
 import '../../utils/styles.dart';
-import '../audio_player_widget.dart';
+import '../../widgets/home/practices/audio_player_widget.dart';
 
 class ListeningTestScreen extends StatefulWidget {
   const ListeningTestScreen({Key? key, required this.titleColor})
@@ -129,10 +129,7 @@ class _ListeningTestScreenState extends State<ListeningTestScreen> {
                             topLeft: kDefaultBorderRadius,
                             topRight: kDefaultBorderRadius)),
                     child: AudioPlayerWidget(
-                        isPlaying: isPlaying,
-                        audioPlayer: audioPlayer,
-                        position: position,
-                        duration: duration),
+                        audioUrl: 'mp3test.mp3', isRemote: false),
                   ),
                 ))
           ],

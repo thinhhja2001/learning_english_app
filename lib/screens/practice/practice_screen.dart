@@ -3,17 +3,17 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
 import 'package:learning_english_app/models/user.dart' as appUser;
-import 'package:learning_english_app/providers/signin_provider.dart';
+import 'package:learning_english_app/providers/authentication/signin_provider.dart';
 
 import 'package:learning_english_app/utils/colors.dart';
 import 'package:learning_english_app/utils/constants.dart';
 import 'package:learning_english_app/utils/styles.dart';
-import 'package:learning_english_app/widgets/custom_error_box.dart';
+import 'package:learning_english_app/widgets/custom/custom_error_box.dart';
 import 'package:learning_english_app/widgets/home/practices/practice_card.dart';
 import 'package:provider/provider.dart';
 
-import '../../providers/signin_provider.dart';
-import '../../widgets/text_in_custom_scroll_view.dart';
+import '../../providers/authentication/signin_provider.dart';
+import '../../widgets/custom/text_in_custom_scroll_view.dart';
 import '../../widgets/home/practices/list_practice_card.dart';
 
 class PracticeScreen extends StatelessWidget {
@@ -65,22 +65,18 @@ class PracticeScreen extends StatelessWidget {
                           const TextInCustomScrollView(
                               text: "Practice Listening"),
                           ListPracticeCard(
-                            practiceType: PracticeType.listening,
-                            practices: listenings,
-                          ),
+                              practices: listenings,
+                              practiceType: PracticeType.listening),
                           const TextInCustomScrollView(
                               text: "Practice Readings"),
                           ListPracticeCard(
-                            practiceType: PracticeType.reading,
-                            practices: readings,
-                          ),
+                              practices: readings,
+                              practiceType: PracticeType.reading),
                           const TextInCustomScrollView(
                             text: "Test",
                           ),
                           ListPracticeCard(
-                            practiceType: PracticeType.test,
-                            practices: tests,
-                          )
+                              practices: tests, practiceType: PracticeType.test)
                         ],
                       ))))
         ],
