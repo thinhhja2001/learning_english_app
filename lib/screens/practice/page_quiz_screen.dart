@@ -47,9 +47,8 @@ class PageQuizScreen extends StatelessWidget {
         TextButton(
           child: const Text("Yes", style: TextStyle(color: Colors.green)),
           onPressed: () => Get.to(ReviewWidget(
-              tooltipBehavior: tooltipBehavior,
-              chartData: chartData,
-              swiperController: swiperController)),
+            chartData: chartData,
+          )),
         ),
       ],
     ));
@@ -57,38 +56,24 @@ class PageQuizScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TooltipBehavior tooltipBehavior = new TooltipBehavior();
-    SwiperController swiperController = new SwiperController();
+    final TooltipBehavior tooltipBehavior = TooltipBehavior();
+    final SwiperController swiperController = SwiperController();
+    final controller = PageController();
     final PageQuizProvider _pageQuizProvider =
         Provider.of<PageQuizProvider>(context);
     return Scaffold(
-      backgroundColor: kcGreyColor,
-      appBar: AppBarQuizPractice(pageQuizProvider: _pageQuizProvider),
-      body: Swiper(
-        itemBuilder: (BuildContext context, int index) {
-          if (index == 4) {
-            Future.delayed(Duration.zero,
-                () => showDialog(tooltipBehavior, swiperController));
-            return Padding(
-                padding: const EdgeInsets.all(8.0), child: QuestionWidget());
-          } else {
-            return Padding(
-                padding: const EdgeInsets.all(8.0), child: QuestionWidget());
-            // return ReviewWidget(
-            //     tooltipBehavior: tooltipBehavior,
-            //     chartData: chartData,
-            //     swiperController: swiperController);
-          }
-        },
-        indicatorLayout: PageIndicatorLayout.SCALE,
-        autoplay: false,
-        autoplayDelay: 1000,
-        itemCount: 5,
-        loop: false,
-        fade: 1.0,
-        viewportFraction: 1,
-      ),
-    );
+        backgroundColor: kcGreyColor,
+        appBar: AppBarQuizPractice(pageQuizProvider: _pageQuizProvider),
+        body: PageView.builder(
+          controller: _pageQuizProvider.pageController,
+          itemCount: 5,
+          physics: NeverScrollableScrollPhysics(),
+          itemBuilder: (context, index) => index < 4
+              ? QuestionWidget()
+              : ReviewWidget(
+                  chartData: chartData,
+                ),
+        ));
   }
 }
 
@@ -99,6 +84,46 @@ class QuestionWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final PageQuizProvider pageQuizProvider =
+        Provider.of<PageQuizProvider>(context);
+    TooltipBehavior tooltipBehavior = TooltipBehavior();
+    SwiperController swiperController = SwiperController();
+    void nextPage() {
+      int? currentPage = pageQuizProvider.pageController.page?.toInt();
+      if (currentPage == 3) {
+        Get.dialog(AlertDialog(
+          title: const Text('Do you want to submit?'),
+          content: const Text('You are on the last question.'),
+          actions: [
+            TextButton(
+              child: const Text("No"),
+              onPressed: () => Get.back(),
+            ),
+            TextButton(
+                child: const Text("Yes", style: TextStyle(color: Colors.green)),
+                onPressed: () {
+                  Navigator.pop(context);
+                  Get.to(ReviewWidget(
+                    chartData: chartData,
+                  ));
+                }),
+          ],
+        ));
+      } else {
+        pageQuizProvider.pageController.animateToPage(
+            pageQuizProvider.pageController.page!.toInt() + 1,
+            duration: Duration(milliseconds: 400),
+            curve: Curves.easeIn);
+      }
+    }
+
+    void previousPage() {
+      pageQuizProvider.pageController.animateToPage(
+          pageQuizProvider.pageController.page!.toInt() - 1,
+          duration: Duration(milliseconds: 400),
+          curve: Curves.easeIn);
+    }
+
     return Column(
       children: [
         Expanded(
@@ -166,7 +191,8 @@ class QuestionWidget extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         IconButton(
-                            onPressed: () {}, icon: Icon(Icons.arrow_back)),
+                            onPressed: previousPage,
+                            icon: Icon(Icons.arrow_back)),
                         IconButton(
                             onPressed: () {},
                             icon: Icon(Icons.favorite_outline)),
@@ -176,7 +202,8 @@ class QuestionWidget extends StatelessWidget {
                         IconButton(
                             onPressed: () {}, icon: Icon(Icons.error_outline)),
                         IconButton(
-                            onPressed: () {}, icon: Icon(Icons.arrow_forward)),
+                            onPressed: nextPage,
+                            icon: Icon(Icons.arrow_forward)),
                       ],
                     )
                   ],

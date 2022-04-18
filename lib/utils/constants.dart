@@ -47,7 +47,11 @@ List<String> practicePartName = [
   "Reading",
   "Full Text"
 ];
-
+final List<ReviewChartData> chartData = [
+  ReviewChartData(x: 'Correct answer', y: 4, color: Colors.green),
+  ReviewChartData(x: 'Wrong answer', y: 5, color: Colors.red),
+  ReviewChartData(x: 'Unselected answer', y: 2, color: Colors.grey),
+];
 List<String> practicePartTitle = [
   "Photograph",
   "Question and response",

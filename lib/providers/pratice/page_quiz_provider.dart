@@ -15,8 +15,17 @@ class PageQuizProvider extends ChangeNotifier {
   late String _quizQuestionDescription;
   String get quizQuestionDescription => _quizQuestionDescription;
 
+  PageQuizProvider() {
+    _pageController = PageController();
+  }
+
   updatePractice(PracticeFile practiceFile) {
     _practiceFile = practiceFile;
+    notifyListeners();
+  }
+
+  updatePageController(PageController newPageController) {
+    _pageController = newPageController;
     notifyListeners();
   }
 }
