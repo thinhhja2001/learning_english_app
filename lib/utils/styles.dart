@@ -62,6 +62,9 @@ const TextStyle ktsDescriptionItalic = TextStyle(
     fontFamily: "Roboto",
     color: Colors.black);
 
+const TextStyle ktsCountdown =
+    TextStyle(fontSize: h4, fontFamily: "Roboto", color: kcCountDown);
+
 const TextStyle ktsDescription = TextStyle(
     fontSize: h4,
     fontWeight: FontWeight.normal,

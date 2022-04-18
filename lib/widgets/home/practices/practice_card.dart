@@ -18,6 +18,7 @@ class PracticeCard extends StatelessWidget {
   final String practiceName;
   final IconData icon;
   final String part;
+
   Color getPrimaryColor(PracticeType practiceType) {
     if (practiceType == PracticeType.listening) {
       return Colors.purple;
@@ -38,21 +39,22 @@ class PracticeCard extends StatelessWidget {
         Get.to(PracticeSelectionScreen(practiceType: practiceType));
       },
       child: Container(
-        height: 90,
+        height: 50,
         width: deviceSize * 0.47,
         decoration: BoxDecoration(
             color: Colors.white, borderRadius: BorderRadius.circular(10)),
         child: Padding(
           padding: const EdgeInsets.only(left: kDefaultPadding * 1.5),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              verticalSpaceSmall,
               Text(
                 practiceName,
                 style: kDefaultTextStyle.copyWith(
                     color: primaryColor, fontWeight: FontWeight.normal),
               ),
+              verticalSpaceSmall,
               Container(
                 width: deviceSize * 0.25,
                 decoration: BoxDecoration(
@@ -78,7 +80,8 @@ class PracticeCard extends StatelessWidget {
                     ],
                   ),
                 ),
-              )
+              ),
+              verticalSpaceSmall,
             ],
           ),
         ),

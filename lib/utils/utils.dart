@@ -34,6 +34,21 @@ Color getShowColor(
   }
 }
 
+Color getShowColor1(
+    {required int answerIndex,
+    required int correctAnswerIndex,
+    required bool isShowAnswer,
+    required int? choseAnswer}) {
+  if (isShowAnswer) {
+    if (answerIndex == correctAnswerIndex) return Colors.green;
+    if (answerIndex == choseAnswer && answerIndex != correctAnswerIndex)
+      return Colors.red;
+
+    return Colors.black;
+  }
+  return Colors.black;
+}
+
 FontWeight getFontWeight(
     {required String answer,
     required String correctAnswer,
@@ -47,4 +62,19 @@ FontWeight getFontWeight(
     }
     return FontWeight.w400;
   }
+}
+
+FontWeight getFontWeight1(
+    {required int answerIndex,
+    required int correctAnswerIndex,
+    required bool isShowAnswer,
+    required int? choseAnswer}) {
+  if (isShowAnswer) {
+    if (answerIndex == choseAnswer || answerIndex == correctAnswerIndex) {
+      return FontWeight.bold;
+    }
+
+    return FontWeight.w400;
+  }
+  return FontWeight.w400;
 }

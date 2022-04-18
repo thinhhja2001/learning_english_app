@@ -1,0 +1,90 @@
+{
+	"__collections__": {
+		"tests": {
+			"test1": {
+				"__collections__": {
+					"part6": {
+						"131-134": {
+							"script": "You are invited to Wilson Associates’ third annual company picnic. The event (131) ------ to take place on June 12 from 12:30 P.M. to 4:30 P.M. at Baker Field. (132) ------ should consider contributing an item to be used during the sports activities. This donation can be for croquet, badminton, lawn bowling, or a similar type of activity. In addition to games, you can enjoy delicious food throughout the afternoon. (133) -----. Please notify a manager if you have any special dietary needs (134) ----- we can accommodate you. We look forward to seeing you on June 12!",
+							"descript": "refer to the following invitation",
+							"__collections__": {
+								"questions": {
+									"131": {
+										"A": "to schedule",
+										"B": "was to be scheduled",
+										"Answer": "A",
+										"D": "is scheduled",
+										"C": "has been scheduling",
+										"__collections__": {}
+									},
+									"132": {
+										"B": "Another",
+										"A": "Everyone",
+										"C": "Those",
+										"Answer": "A",
+										"D": "Others",
+										"__collections__": {}
+									},
+									"133": {
+										"D": "Thanks for responding to the invitation so quickly.",
+										"Answer": "A",
+										"B": "All the food will be supplied by Tambara Caterners.",
+										"C": "Wilson Associates donates to charities annually.",
+										"A": "Volunteers should report to the venue at noon",
+										"__collections__": {}
+									},
+									"134": {
+										"B": "as much as",
+										"D": "However",
+										"A": "whenever",
+										"C": "so that",
+										"Answer": "A",
+										"__collections__": {}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"users": {
+			"Tz8ImfELQfdNuu6omcbUrmbwdcu2": {
+				"email": "hoangquoctrong1111@gmail.com",
+				"name": "Hoang Quoc Trong",
+				"uid": "Tz8ImfELQfdNuu6omcbUrmbwdcu2",
+				"__collections__": {}
+			},
+			"UFSPoEeGPJcSTlJz5bk2vJE7Dor1": {
+				"email": "19522281@gm.uit.edu.vn",
+				"uid": "UFSPoEeGPJcSTlJz5bk2vJE7Dor1",
+				"name": "NguyenDoan Thinh",
+				"__collections__": {}
+			},
+			"VWdNiJ25mEWePQ2ct5oSIw5Ai9I3": {
+				"email": "19522038@gm.uit.edu.vn",
+				"name": "Phuc Nguyen Duy",
+				"uid": "VWdNiJ25mEWePQ2ct5oSIw5Ai9I3",
+				"__collections__": {}
+			},
+			"XXaoUSDPojWrr6rNrb02JQ17E6S2": {
+				"email": "minhquancn1809@gmail.com",
+				"uid": "XXaoUSDPojWrr6rNrb02JQ17E6S2",
+				"name": "Cao Nguyen Minh  Quan",
+				"__collections__": {}
+			},
+			"awZ8gYBagahgv0t3xkvFdl6XHj82": {
+				"name": "Phuc Nguyen Duy",
+				"uid": "awZ8gYBagahgv0t3xkvFdl6XHj82",
+				"email": "19522038@gm.uit.edu.vn",
+				"__collections__": {}
+			},
+			"udkGJvks1wT5hMLHzOXIAkcgM842": {
+				"uid": "udkGJvks1wT5hMLHzOXIAkcgM842",
+				"name": "NguyenDoan Thin",
+				"email": "19522281@gm.uit.edu.vn",
+				"__collections__": {}
+			}
+		}
+	}
+}
