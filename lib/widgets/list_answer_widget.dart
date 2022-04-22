@@ -25,7 +25,7 @@ class _ListAnswerWidgetState extends State<ListAnswerWidget> {
   int? _choseAnswerIndex;
   @override
   Widget build(BuildContext context) {
-    print(widget.answers);
+    // print(widget.answers);
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,

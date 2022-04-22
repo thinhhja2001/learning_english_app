@@ -1,105 +1,99 @@
-import 'package:accordion/accordion.dart';
+// import 'package:accordion/accordion.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:learning_english_app/widgets/accordion.dart';
 import 'package:learning_english_app/widgets/list_answer_widget.dart';
 
 class ExpansionPanelCustomAnswers extends StatelessWidget {
   final String documentId;
+  final String questionId;
+  final String testId;
+  final String part;
 
-  ExpansionPanelCustomAnswers(this.documentId);
+  ExpansionPanelCustomAnswers(
+      {Key? key,
+      required this.documentId,
+      required this.testId,
+      required this.part,
+      required this.questionId});
 
   @override
   Widget build(BuildContext context) {
     CollectionReference answers = FirebaseFirestore.instance
         .collection("tests")
-        .doc('test1')
-        .collection("part6")
-        .doc('131-134')
+        .doc(testId)
+        .collection(part)
+        .doc(documentId)
         .collection("questions");
-
+    // print(testId + "\t" + part + "\t" + documentId);
     return FutureBuilder<DocumentSnapshot>(
-      future: answers.doc(documentId).get(),
+      future: answers.doc(questionId).get(),
       builder:
           (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
         if (snapshot.hasError) {
           return Accordion(
-            paddingListTop: 0,
-            paddingListBottom: 0,
-            children: [
-              AccordionSection(
-                isOpen: true,
-                header: Text(documentId,
-                    style: TextStyle(color: Colors.white, fontSize: 17)),
-                content: Text("Something went wrong"),
-              ),
-            ],
+            header: Text(questionId,
+                style: TextStyle(color: Colors.white, fontSize: 17)),
+            content: Text("Something went wrong"),
           );
         }
 
         if (snapshot.connectionState == ConnectionState.done) {
-          Map<String, dynamic> data =
-              snapshot.data!.data() as Map<String, dynamic>;
-          print(data);
-          int correctAnswerIndex;
-          switch ("${data['Answer']}") {
-            case "A":
-              correctAnswerIndex = 0;
-              break;
-            case "B":
-              correctAnswerIndex = 1;
-              break;
-            case "C":
-              correctAnswerIndex = 2;
-              break;
-            case "D":
-              correctAnswerIndex = 3;
-              break;
-            default:
-              correctAnswerIndex = -1;
-              break;
+          try {
+            Map<String, dynamic> data =
+                snapshot.data!.data() as Map<String, dynamic>;
+            // print(data);
+            int correctAnswerIndex;
+            switch ("${data['Answer']}") {
+              case "A":
+                correctAnswerIndex = 0;
+                break;
+              case "B":
+                correctAnswerIndex = 1;
+                break;
+              case "C":
+                correctAnswerIndex = 2;
+                break;
+              case "D":
+                correctAnswerIndex = 3;
+                break;
+              default:
+                correctAnswerIndex = -1;
+                break;
+            }
+            var answers = <String>[
+              "${data['A']}",
+              "${data['B']}",
+              "${data['C']}",
+              "${data['D']}"
+            ];
+            return Accordion(
+                header: Text(questionId,
+                    style: TextStyle(color: Colors.white, fontSize: 17)),
+                content: ListAnswerWidget(
+                  isShowAnswer: false,
+                  answers: [
+                    "${data['A']}",
+                    "${data['B']}",
+                    "${data['C']}",
+                    "${data['D']}"
+                  ],
+                  correctAnswerIndex: correctAnswerIndex,
+                ));
+          } catch (e) {
+            print(e);
           }
-          var answers = <String>[
-            "${data['A']}",
-            "${data['B']}",
-            "${data['C']}",
-            "${data['D']}"
-          ];
           return Accordion(
-            paddingListTop: 10,
-            paddingListBottom: 0,
-            children: [
-              AccordionSection(
-                  isOpen: true,
-                  header: Text(documentId,
-                      style: TextStyle(color: Colors.white, fontSize: 17)),
-                  content: ListAnswerWidget(
-                    isShowAnswer: false,
-                    answers: [
-                      "${data['A']}",
-                      "${data['B']}",
-                      "${data['C']}",
-                      "${data['D']}"
-                    ],
-                    correctAnswerIndex: correctAnswerIndex,
-                  )
-                  // Text(
-                  //     "A: ${data['A']}\nB: ${data['B']}\nC: ${data['C']}\nD: ${data['D']}"),
-                  ),
-            ],
+            header: Text(questionId,
+                style: TextStyle(color: Colors.white, fontSize: 17)),
+            content: Text("Something went wrong"),
           );
         }
 
         return Accordion(
-          paddingListTop: 10,
-          paddingListBottom: 0,
-          children: [
-            AccordionSection(
-              isOpen: true,
-              header: Text(documentId,
-                  style: TextStyle(color: Colors.white, fontSize: 17)),
-              content: Text("Loading"),
-            ),
-          ],
+          header: Text(questionId,
+              style: TextStyle(color: Colors.white, fontSize: 17)),
+          content: Text("Loading"),
         );
       },
     );
@@ -108,15 +102,21 @@ class ExpansionPanelCustomAnswers extends StatelessWidget {
 
 class ExpansionPanelCustomQuestion extends StatelessWidget {
   final String documentId;
+  final String testId;
+  final String part;
 
-  ExpansionPanelCustomQuestion(this.documentId);
+  ExpansionPanelCustomQuestion(
+      {Key? key,
+      required this.documentId,
+      required this.testId,
+      required this.part});
 
   @override
   Widget build(BuildContext context) {
     CollectionReference answers = FirebaseFirestore.instance
         .collection("tests")
-        .doc('test1')
-        .collection("part6");
+        .doc(testId)
+        .collection(part);
 
     return FutureBuilder<DocumentSnapshot>(
       future: answers.doc(documentId).get(),
@@ -125,16 +125,9 @@ class ExpansionPanelCustomQuestion extends StatelessWidget {
         if (snapshot.hasError) {
           return Accordion(
             headerBackgroundColor: Colors.green,
-            paddingListTop: 0,
-            paddingListBottom: 0,
-            children: [
-              AccordionSection(
-                isOpen: true,
-                header: Text(documentId,
-                    style: TextStyle(color: Colors.white, fontSize: 17)),
-                content: Text("Something went wrong"),
-              ),
-            ],
+            header: Text(documentId,
+                style: TextStyle(color: Colors.white, fontSize: 17)),
+            content: Text("Something went wrong"),
           );
         }
 
@@ -166,56 +159,18 @@ class ExpansionPanelCustomQuestion extends StatelessWidget {
             ),
             Accordion(
               headerBackgroundColor: Colors.green,
-              paddingListTop: 10,
-              paddingListBottom: 0,
-              children: [
-                AccordionSection(
-                  isOpen: true,
-                  header: Text('Press release',
-                      style: TextStyle(color: Colors.white, fontSize: 17)),
-                  content: Text("${data['script']}"),
-                ),
-              ],
+              header: Text('Press release',
+                  style: TextStyle(color: Colors.white, fontSize: 17)),
+              content: Text("${data['script']}"),
             ),
           ]);
-          //   child:
-          //     Accordion(
-          //   paddingListTop: 10,
-          //   paddingListBottom: 0,
-          //   children: [
-          //     AccordionSection(
-          //         isOpen: true,
-          //         header: Text(documentId,
-          //             style: TextStyle(color: Colors.white, fontSize: 17)),
-          //         content: ListAnswerWidget(
-          //           isShowAnswer: false,
-          //           answers: [
-          //             "${data['A']}",
-          //             "${data['B']}",
-          //             "${data['C']}",
-          //             "${data['D']}"
-          //           ],
-          //           correctAnswerIndex: correctAnswerIndex,
-          //         )
-          //         // Text(
-          //         //     "A: ${data['A']}\nB: ${data['B']}\nC: ${data['C']}\nD: ${data['D']}"),
-          //         ),
-          //   ],
-          // );
         }
 
         return Accordion(
           headerBackgroundColor: Colors.green,
-          paddingListTop: 10,
-          paddingListBottom: 0,
-          children: [
-            AccordionSection(
-              isOpen: true,
-              header: Text(documentId,
-                  style: TextStyle(color: Colors.white, fontSize: 17)),
-              content: Text("Loading"),
-            ),
-          ],
+          header: Text(documentId,
+              style: TextStyle(color: Colors.white, fontSize: 17)),
+          content: Text("Loading"),
         );
       },
     );

@@ -1,42 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:learning_english_app/screens/practice_selection_screen.dart';
+import 'package:learning_english_app/screens/practice/practice_selection_screen.dart';
 import 'package:learning_english_app/utils/constants.dart';
 import 'package:learning_english_app/utils/styles.dart';
 
+import '../../../models/practice.dart';
 import '../../../utils/utils.dart';
 
 class PracticeCard extends StatelessWidget {
-  const PracticeCard(
-      {Key? key,
-      required this.practiceType,
-      required this.practiceName,
-      required this.icon,
-      required this.part})
-      : super(key: key);
-  final PracticeType practiceType;
-  final String practiceName;
-  final IconData icon;
-  final String part;
-
-  Color getPrimaryColor(PracticeType practiceType) {
-    if (practiceType == PracticeType.listening) {
-      return Colors.purple;
-    } else if (practiceType == PracticeType.reading) {
-      return Colors.blue;
-    } else {
-      return Colors.black;
-    }
-  }
+  const PracticeCard({Key? key, required this.practice}) : super(key: key);
+  final Practice practice;
 
   @override
   Widget build(BuildContext context) {
-    final Color primaryColor = getPrimaryColor(practiceType);
+    final Color primaryColor = getPrimaryColor(practice.practiceType);
     final Color secondaryColor = lighten(primaryColor, 50);
     final deviceSize = MediaQuery.of(context).size.width;
     return InkWell(
       onTap: () {
-        Get.to(PracticeSelectionScreen(practiceType: practiceType));
+        Get.to(PracticeSelectionScreen(practice: practice));
       },
       child: Container(
         height: 50,
@@ -50,7 +32,7 @@ class PracticeCard extends StatelessWidget {
             children: [
               verticalSpaceSmall,
               Text(
-                practiceName,
+                practicePartTitle[practice.practicePart.index],
                 style: kDefaultTextStyle.copyWith(
                     color: primaryColor, fontWeight: FontWeight.normal),
               ),
@@ -70,11 +52,12 @@ class PracticeCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Icon(
-                        icon,
+                        IconData(int.parse('0x${practice.iconData}'),
+                            fontFamily: 'MaterialIcons'),
                         color: Colors.white,
                       ),
                       Text(
-                        part,
+                        practicePartName[practice.practicePart.index],
                         style: const TextStyle(color: Colors.white),
                       )
                     ],

@@ -2,9 +2,9 @@
 
 import 'package:flutter/material.dart';
 
-import '../../utils/constants.dart';
-import '../../utils/styles.dart';
-import '../../utils/utils.dart';
+import '../../../utils/constants.dart';
+import '../../../utils/styles.dart';
+import '../../../utils/utils.dart';
 
 class ListAnswerWidget extends StatefulWidget {
   ListAnswerWidget({
@@ -24,41 +24,41 @@ class _ListAnswerWidgetState extends State<ListAnswerWidget> {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: List.generate(
-          answers.length,
+          answers_part2.length,
           (index) => ListTile(
                 title: RichText(
                   text: TextSpan(children: <TextSpan>[
                     TextSpan(
-                        text: String.fromCharCode(index + 65),
+                        text: "${String.fromCharCode(index + 65)}. ",
                         style: kDefaultTextStyle.copyWith(
                             color: getShowColor(
-                                answer: answers[index],
-                                correctAnswer: correctAnswer,
+                                answer: answers_part2[index],
+                                correctAnswer: correctAnswerPart2,
                                 isShowAnswer: widget.isShowAnswer,
                                 choseAnswer: _choseAnswer),
                             fontWeight: getFontWeight(
-                                answer: answers[index],
-                                correctAnswer: correctAnswer,
+                                answer: answers_part2[index],
+                                correctAnswer: correctAnswerPart2,
                                 isShowAnswer: widget.isShowAnswer,
                                 choseAnswer: _choseAnswer))),
                     TextSpan(
-                        text: ". ${answers[index]}",
+                        text: widget.isShowAnswer ? answers_part2[index] : "",
                         style: kDefaultTextStyle.copyWith(
                             color: getShowColor(
-                              answer: answers[index],
-                              correctAnswer: correctAnswer,
+                              answer: answers_part2[index],
+                              correctAnswer: correctAnswerPart2,
                               isShowAnswer: widget.isShowAnswer,
                               choseAnswer: _choseAnswer,
                             ),
                             fontWeight: getFontWeight(
-                                answer: answers[index],
-                                correctAnswer: correctAnswer,
+                                answer: answers_part2[index],
+                                correctAnswer: correctAnswerPart2,
                                 isShowAnswer: widget.isShowAnswer,
                                 choseAnswer: _choseAnswer)))
                   ]),
                 ),
                 leading: Radio<String>(
-                  value: answers[index],
+                  value: answers_part2[index],
                   groupValue: _choseAnswer,
                   onChanged: (value) => setState(() {
                     widget.isShowAnswer = true;

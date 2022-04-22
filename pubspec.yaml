@@ -36,6 +36,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_svg: ^1.0.3
+  flutter_swiper_null_safety: ^1.0.2
   get: ^4.6.1
   http: ^0.13.4
   numberpicker: ^2.1.1
@@ -63,6 +64,7 @@ flutter:
   assets:
     - assets/
     - assets/images/
+    - assets/audios/
 
   fonts:
     - family: Roboto

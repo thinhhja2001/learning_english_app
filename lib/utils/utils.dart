@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:learning_english_app/utils/constants.dart';
 
 Color darken(Color c, [int percent = 10]) {
   assert(1 <= percent && percent <= 100);
@@ -15,6 +16,16 @@ Color lighten(Color c, [int percent = 10]) {
       c.red + ((255 - c.red) * p).round(),
       c.green + ((255 - c.green) * p).round(),
       c.blue + ((255 - c.blue) * p).round());
+}
+
+Color getPrimaryColor(PracticeType practiceType) {
+  if (practiceType == PracticeType.listening) {
+    return Colors.purple;
+  } else if (practiceType == PracticeType.reading) {
+    return Colors.blue;
+  } else {
+    return Colors.black;
+  }
 }
 
 Color getShowColor(

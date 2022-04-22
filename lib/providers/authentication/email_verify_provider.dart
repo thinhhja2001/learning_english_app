@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:learning_english_app/screens/signin_screen.dart';
+import 'package:learning_english_app/screens/authentication/signin_screen.dart';
 
 class EmailVerifyProvider extends ChangeNotifier {
   bool _isLoading = false;

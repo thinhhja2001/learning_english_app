@@ -3,9 +3,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:learning_english_app/resources/auth_methods.dart';
-import 'package:learning_english_app/screens/home_screen.dart';
+import 'package:learning_english_app/screens/home/home_screen.dart';
 
-import '../models/user.dart' as model;
+import '../../models/user.dart' as model;
 
 class SignInProvider extends ChangeNotifier {
   bool _isValid = true;

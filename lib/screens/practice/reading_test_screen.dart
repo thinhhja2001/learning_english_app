@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:learning_english_app/models/practice.dart';
 import 'package:learning_english_app/providers/reading_provider.dart';
-import 'package:learning_english_app/screens/practice/list_answer_widget.dart';
 import 'package:learning_english_app/utils/colors.dart';
 import 'package:learning_english_app/utils/constants.dart';
 import 'package:learning_english_app/utils/styles.dart';
@@ -87,7 +86,7 @@ class _ReadingTestScreenState extends State<ReadingTestScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                widget.practice.name,
+                practicePartTitle[widget.practice.practicePart.index],
                 style: kDefaultTextStyle.copyWith(fontSize: 20),
               ),
               Text(
@@ -129,11 +128,11 @@ class _ReadingTestScreenState extends State<ReadingTestScreen> {
           padding: EdgeInsets.all(10),
           child: Column(
             children: [
-              ExpansionPanelCustomQuestion("131-134"),
-              ExpansionPanelCustomAnswers("131"),
-              ExpansionPanelCustomAnswers("132"),
-              ExpansionPanelCustomAnswers("133"),
-              ExpansionPanelCustomAnswers("134"),
+              // ExpansionPanelCustomQuestion("131-134"),
+              // ExpansionPanelCustomAnswers("131"),
+              // ExpansionPanelCustomAnswers("132"),
+              // ExpansionPanelCustomAnswers("133"),
+              // ExpansionPanelCustomAnswers("134"),
             ],
           ),
         ));

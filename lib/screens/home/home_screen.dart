@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:learning_english_app/screens/favorite_screen.dart';
 import 'package:learning_english_app/models/user.dart' as appUser;
 import 'package:learning_english_app/screens/statistics_screen.dart';
 import 'package:learning_english_app/utils/colors.dart';
@@ -25,12 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
     PracticeScreen(),
     VocabularyGeneral(),
     StatisticsScreen(),
-    Center(
-      child: Text(
-        'Index 3: Favorite',
-        style: kBottomNavigationItemStyle,
-      ),
-    ),
+    FavoriteScreen(),
     Center(
       child: Text(
         'Index 4: Menu',

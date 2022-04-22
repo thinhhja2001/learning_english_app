@@ -1,17 +1,14 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:learning_english_app/models/practice.dart';
-import 'package:learning_english_app/providers/email_verify_provider.dart';
-import 'package:learning_english_app/providers/reading_provider.dart';
-import 'package:learning_english_app/providers/resetpassword_provider.dart';
+import 'package:learning_english_app/providers/authentication/email_verify_provider.dart';
+import 'package:learning_english_app/providers/pratice/page_quiz_provider.dart';
 import 'package:learning_english_app/firebase_options.dart';
-import 'package:learning_english_app/providers/signin_provider.dart';
-import 'package:learning_english_app/screens/home_screen.dart';
-import 'package:learning_english_app/screens/practice/listening_test_screen.dart';
-import 'package:learning_english_app/screens/practice/reading_test_screen.dart';
-import 'package:learning_english_app/screens/signin_screen.dart';
-import 'package:learning_english_app/providers/signup_provider.dart';
+import 'package:learning_english_app/providers/authentication/signin_provider.dart';
+import 'package:learning_english_app/providers/reading_provider.dart';
+import 'package:learning_english_app/screens/authentication/signin_screen.dart';
+import 'package:learning_english_app/providers/authentication/signup_provider.dart';
+import 'package:learning_english_app/screens/home/home_screen.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
@@ -30,14 +27,14 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider<SignInProvider>(
             create: (context) => SignInProvider()),
-        ChangeNotifierProvider<ResetPasswordProvider>(
-            create: (context) => ResetPasswordProvider()),
         ChangeNotifierProvider<SignUpProvider>(
             create: (context) => SignUpProvider()),
         ChangeNotifierProvider<EmailVerifyProvider>(
             create: (context) => EmailVerifyProvider()),
         ChangeNotifierProvider<ReadingProvider>(
-            create: (context) => ReadingProvider())
+            create: (context) => ReadingProvider()),
+        ChangeNotifierProvider<PageQuizProvider>(
+            create: (context) => PageQuizProvider())
       ],
       child: GetMaterialApp(
           title: 'Flutter Demo',
@@ -55,10 +52,7 @@ class MyApp extends StatelessWidget {
             fontFamily: 'Roboto',
             primarySwatch: Colors.blue,
           ),
-          // home: const ListeningTestScreen(titleColor: Colors.blue),
-          home: ReadingTestScreen(
-              practice: new Practice(
-                  name: "Text completion", iconData: "e1f7", part: 'Part 5')),
+          home: HomeScreen(),
           routes: <String, WidgetBuilder>{
             '/signin': (BuildContext context) => SignInScreen(),
           }),

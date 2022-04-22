@@ -2,11 +2,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:learning_english_app/screens/signin_screen.dart';
+import 'package:learning_english_app/screens/authentication/signin_screen.dart';
 import 'package:learning_english_app/utils/colors.dart';
 import 'package:learning_english_app/utils/constants.dart';
 import 'package:learning_english_app/utils/styles.dart';
-import 'package:learning_english_app/widgets/draw_half_circle.dart';
+import 'package:learning_english_app/widgets/custom/draw_half_circle.dart';
 
 class EmailVerifyScreen extends StatelessWidget {
   EmailVerifyScreen({Key? key}) : super(key: key);

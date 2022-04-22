@@ -29,7 +29,7 @@ class ReadingProvider extends ChangeNotifier {
         .get()
         .then((DocumentSnapshot documentSnapshot) {
       if (documentSnapshot.exists) {
-        print('Document exists on the database');
+        // print('Document exists on the database');
         // print('Document data: ${documentSnapshot.data()}');
       }
     });
