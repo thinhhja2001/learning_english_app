@@ -1,10 +1,13 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:learning_english_app/models/practice_quiz.dart';
+import 'package:learning_english_app/models/question.dart' as question;
 import 'package:learning_english_app/providers/authentication/email_verify_provider.dart';
 import 'package:learning_english_app/providers/pratice/page_quiz_provider.dart';
 import 'package:learning_english_app/firebase_options.dart';
 import 'package:learning_english_app/providers/authentication/signin_provider.dart';
+import 'package:learning_english_app/resources/data_scraper.dart';
 import 'package:learning_english_app/screens/authentication/signin_screen.dart';
 import 'package:learning_english_app/providers/authentication/signup_provider.dart';
 import 'package:provider/provider.dart';
@@ -12,6 +15,10 @@ import 'package:provider/provider.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  List<String> audiosUrl = List.empty(growable: true);
+  List<String> imagesUrl = List.empty(growable: true);
+  List<question.Question> questions = List.empty(growable: true);
+  DataScraper().webScraper(audiosUrl, imagesUrl, questions);
   runApp(const MyApp());
 }
 
