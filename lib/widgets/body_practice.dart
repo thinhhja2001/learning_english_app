@@ -1,4 +1,5 @@
 // import 'package:accordion/accordion.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:learning_english_app/widgets/accordion.dart';
@@ -164,6 +165,69 @@ class ExpansionPanelCustomQuestion extends StatelessWidget {
               content: Text("${data['script']}"),
             ),
           ]);
+        }
+
+        return Accordion(
+          headerBackgroundColor: Colors.green,
+          header: Text(documentId,
+              style: TextStyle(color: Colors.white, fontSize: 17)),
+          content: Text("Loading"),
+        );
+      },
+    );
+  }
+}
+
+class CustomPicture extends StatelessWidget {
+  final String documentId;
+  final String testId;
+  final String part;
+
+  CustomPicture(
+      {Key? key,
+      required this.documentId,
+      required this.testId,
+      required this.part});
+
+  @override
+  Widget build(BuildContext context) {
+    CollectionReference answers = FirebaseFirestore.instance
+        .collection("tests")
+        .doc(testId)
+        .collection(part)
+        .doc(documentId)
+        .collection("questions");
+    ;
+
+    return FutureBuilder<DocumentSnapshot>(
+      future: answers.doc(documentId).get(),
+      builder:
+          (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+        if (snapshot.hasError) {
+          return Accordion(
+            headerBackgroundColor: Colors.green,
+            header: Text(documentId,
+                style: TextStyle(color: Colors.white, fontSize: 17)),
+            content: Text("Something went wrong"),
+          );
+        }
+
+        if (snapshot.connectionState == ConnectionState.done) {
+          Map<String, dynamic> data =
+              snapshot.data!.data() as Map<String, dynamic>;
+          print("${data['imageUrl']}");
+          return Container(
+            height: 300,
+            margin: const EdgeInsets.symmetric(horizontal: 10.0),
+            padding: const EdgeInsets.all(10.0),
+            width: double.infinity,
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: NetworkImage("${data['imageUrl']}"),
+                    fit: BoxFit.fill),
+                borderRadius: BorderRadius.circular(20),
+                color: Colors.white),
+          );
         }
 
         return Accordion(

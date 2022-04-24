@@ -7,7 +7,7 @@ import 'package:learning_english_app/utils/colors.dart';
 import 'package:learning_english_app/utils/constants.dart';
 import 'package:learning_english_app/utils/styles.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:learning_english_app/widgets/body_part6.dart';
+import 'package:learning_english_app/widgets/body_practice.dart';
 import 'package:provider/provider.dart';
 
 class ReadingTestScreen extends StatefulWidget {

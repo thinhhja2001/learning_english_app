@@ -9,7 +9,7 @@ import 'package:learning_english_app/providers/pratice/page_quiz_provider.dart';
 import 'package:learning_english_app/utils/colors.dart';
 import 'package:learning_english_app/utils/utils.dart';
 import 'package:learning_english_app/widgets/accordion.dart';
-import 'package:learning_english_app/widgets/body_part6.dart';
+import 'package:learning_english_app/widgets/body_practice.dart';
 import 'package:learning_english_app/widgets/home/practices/review_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
@@ -32,18 +32,10 @@ class _PageQuizScreenState extends State<PageQuizScreen> {
 
   var allData = <String>[];
 
-  bool isListeningTest(PracticeType practiceType) {
-    if (practiceType == PracticeType.listening) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
   @override
   void initState() {
     // TODO: implement initState
-    countDocuments('test1', 'part6');
+    // countDocuments('test1', 'part6');
     super.initState();
   }
 
@@ -108,6 +100,7 @@ class _PageQuizScreenState extends State<PageQuizScreen> {
     final String _part = _pageQuizProvider.practiceFile.practice.practicePart
         .toString()
         .split('.')[1];
+    // print(_part);
     final String _testId = "test1";
     CollectionReference part = FirebaseFirestore.instance
         .collection("tests")
@@ -122,7 +115,8 @@ class _PageQuizScreenState extends State<PageQuizScreen> {
               .doc(_testId)
               .collection(_part)
               .get(),
-          builder: (BuildContext context, AsyncSnapshot snapshot) {
+          builder:
+              (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
             if (snapshot.hasError) {
               return Accordion(
                 header: Text("Error",
@@ -130,12 +124,13 @@ class _PageQuizScreenState extends State<PageQuizScreen> {
                 content: Text("Something went wrong"),
               );
             }
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(child: CircularProgressIndicator());
-            }
+            // if (snapshot.connectionState == ConnectionState.waiting) {
+            //   return Center(child: CircularProgressIndicator());
+            // }
             if (snapshot.connectionState == ConnectionState.done) {
               try {
-                var allData = snapshot.data.docs.map((doc) => doc.id).toList();
+                this.allData =
+                    snapshot.data!.docs.map((doc) => doc.id).toList();
 
                 print(this.allData);
                 maxIndex = this.allData.length;
@@ -177,8 +172,8 @@ class _PageQuizScreenState extends State<PageQuizScreen> {
             }
 
             return Accordion(
-              header: Text("",
-                  style: TextStyle(color: Colors.white, fontSize: 17)),
+              header:
+                  Text("", style: TextStyle(color: Colors.white, fontSize: 17)),
               content: Text("Loading"),
             );
           },
@@ -207,6 +202,13 @@ class QuestionWidget extends StatelessWidget {
         .split('.')[1];
 
     final String testId = "test1";
+    bool isListeningTest(PracticeType practiceType) {
+      if (practiceType == PracticeType.listening) {
+        return true;
+      } else {
+        return false;
+      }
+    }
 
     var questionIDs = _documentId.contains('-')
         ? [
@@ -223,11 +225,14 @@ class QuestionWidget extends StatelessWidget {
           flex: 4,
           child: SingleChildScrollView(
               child: Column(children: [
-            ExpansionPanelCustomQuestion(
-              testId: testId,
-              part: _part,
-              documentId: _documentId,
-            ),
+            (_part == "part1")
+                ? CustomPicture(
+                    documentId: _documentId, testId: testId, part: _part)
+                : ExpansionPanelCustomQuestion(
+                    testId: testId,
+                    part: _part,
+                    documentId: _documentId,
+                  ),
             for (var questionID in questionIDs)
               ExpansionPanelCustomAnswers(
                   testId: testId,
@@ -248,10 +253,15 @@ class QuestionWidget extends StatelessWidget {
                         topRight: kDefaultBorderRadius)),
                 child: Column(
                   children: [
-                    // isListeningTest(_pageQuizProvider.practiceFile.practice.practiceType)
-                    true
+                    isListeningTest(_pageQuizProvider
+                            .practiceFile.practice.practiceType)
+                        // true
                         ? AudioPlayerWidget(
-                            audioUrl: 'mp3test.mp3', isRemote: false)
+                            testId: testId,
+                            part: _part,
+                            documentId: _documentId,
+                            questionId: _documentId,
+                            isRemote: true)
                         : SizedBox(),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,

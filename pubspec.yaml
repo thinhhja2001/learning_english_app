@@ -44,6 +44,7 @@ dependencies:
   shared_preferences: ^2.0.13
   syncfusion_flutter_charts: ^19.4.56
   expandable: ^5.0.1
+  cached_network_image: ^3.2.0
   accordion: ^2.2.3
 
 dev_dependencies:
