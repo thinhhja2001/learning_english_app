@@ -157,3 +157,10 @@ List<String> answers_part2 = [
 
 String correctAnswer = "vietnam2k1";
 String correctAnswerPart2 = "The manager is new, though.";
+
+var myMapName = {
+  0: 'A',
+  1: 'B',
+  2: 'C',
+  3: 'D',
+};

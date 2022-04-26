@@ -10,6 +10,7 @@ import 'package:learning_english_app/utils/colors.dart';
 import 'package:learning_english_app/utils/utils.dart';
 import 'package:learning_english_app/widgets/accordion.dart';
 import 'package:learning_english_app/widgets/body_practice.dart';
+import 'package:learning_english_app/widgets/home/practices/dialog_list_answer.dart';
 import 'package:learning_english_app/widgets/home/practices/review_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
@@ -253,16 +254,13 @@ class QuestionWidget extends StatelessWidget {
                         topRight: kDefaultBorderRadius)),
                 child: Column(
                   children: [
-                    isListeningTest(_pageQuizProvider
-                            .practiceFile.practice.practiceType)
-                        // true
-                        ? AudioPlayerWidget(
-                            testId: testId,
-                            part: _part,
-                            documentId: _documentId,
-                            questionId: _documentId,
-                            isRemote: true)
-                        : SizedBox(),
+                    // isListeningTest(_pageQuizProvider
+                    //         .practiceFile.practice.practiceType)
+                    //     // true
+                    //     ? AudioPlayerWidget(
+                    //         audioUrl: ,
+                    //         isRemote: true)
+                    //     : SizedBox(),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -347,7 +345,7 @@ class AppBarQuizPractice extends StatelessWidget with PreferredSizeWidget {
                 color: Colors.black,
               ),
               onPressed: () {
-                // do something
+                Get.dialog(DialogListAnswer().marginAll(20));
               },
             ),
           ],

@@ -72,6 +72,9 @@ const TextStyle ktsDescription = TextStyle(
     color: Colors.black);
 const TextStyle ktsBoldText =
     TextStyle(fontSize: h4, fontWeight: FontWeight.bold);
+
+const TextStyle ktsDialogActionText =
+    TextStyle(fontWeight: FontWeight.bold, fontSize: h5);
 //FontSize
 const double h1 = 32;
 const double h2 = 24;

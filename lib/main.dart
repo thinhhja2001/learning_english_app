@@ -9,6 +9,7 @@ import 'package:learning_english_app/providers/reading_provider.dart';
 import 'package:learning_english_app/screens/authentication/signin_screen.dart';
 import 'package:learning_english_app/providers/authentication/signup_provider.dart';
 import 'package:learning_english_app/screens/home/home_screen.dart';
+import 'package:learning_english_app/widgets/home/practices/custom_radio.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
@@ -53,6 +54,14 @@ class MyApp extends StatelessWidget {
             primarySwatch: Colors.blue,
           ),
           home: HomeScreen(),
+          // home: CustomRadio(
+          //   correctAnswerIndex: 1,
+          //   numberQuestion: 18,
+          //   isShowingAnswer: true,
+          //   answerIndex: 1,
+          //   numberAsnwer: 4,
+          //   onPress: () {},
+          // ),
           routes: <String, WidgetBuilder>{
             '/signin': (BuildContext context) => SignInScreen(),
           }),

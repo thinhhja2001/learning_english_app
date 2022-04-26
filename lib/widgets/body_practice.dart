@@ -215,7 +215,7 @@ class CustomPicture extends StatelessWidget {
         if (snapshot.connectionState == ConnectionState.done) {
           Map<String, dynamic> data =
               snapshot.data!.data() as Map<String, dynamic>;
-          print("${data['imageUrl']}");
+          print("image + ${data['imageUrl']}");
           return Container(
             height: 300,
             margin: const EdgeInsets.symmetric(horizontal: 10.0),
