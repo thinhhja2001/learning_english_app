@@ -7,17 +7,14 @@ import '../../../utils/constants.dart';
 import '../../../utils/styles.dart';
 
 class ReviewWidget extends StatelessWidget {
-  const ReviewWidget({
+  ReviewWidget({
     Key? key,
-    required TooltipBehavior tooltipBehavior,
     required this.chartData,
-    required this.swiperController,
-  })  : _tooltipBehavior = tooltipBehavior,
-        super(key: key);
+  }) : super(key: key);
 
-  final TooltipBehavior _tooltipBehavior;
+  final TooltipBehavior _tooltipBehavior = TooltipBehavior();
   final List<ReviewChartData> chartData;
-  final SwiperController swiperController;
+  final SwiperController swiperController = SwiperController();
 
   @override
   Widget build(BuildContext context) {

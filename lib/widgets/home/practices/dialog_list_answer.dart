@@ -4,7 +4,9 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:learning_english_app/widgets/home/practices/review_widget.dart';
 
+import '../../../models/review_chart_data.dart';
 import '../../../utils/styles.dart';
 import 'custom_radio.dart';
 
@@ -128,7 +130,19 @@ class _DialogListAnswerState extends State<DialogListAnswer> {
                         ),
                       ),
                       ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          final List<ReviewChartData> chartData = [
+                            ReviewChartData(
+                                x: 'Correct answer', y: 4, color: Colors.green),
+                            ReviewChartData(
+                                x: 'Wrong answer', y: 5, color: Colors.red),
+                            ReviewChartData(
+                                x: 'Unselected answer',
+                                y: 2,
+                                color: Colors.grey),
+                          ];
+                          Get.to(ReviewWidget(chartData: chartData));
+                        },
                         style: ButtonStyle(
                           backgroundColor:
                               MaterialStateProperty.all<Color>(Colors.green),

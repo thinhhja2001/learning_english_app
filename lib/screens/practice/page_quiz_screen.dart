@@ -81,10 +81,7 @@ class _PageQuizScreenState extends State<PageQuizScreen> {
         ),
         TextButton(
           child: const Text("Yes", style: TextStyle(color: Colors.green)),
-          onPressed: () => Get.to(ReviewWidget(
-              tooltipBehavior: tooltipBehavior,
-              chartData: chartData,
-              swiperController: swiperController)),
+          onPressed: () => Get.to(ReviewWidget(chartData: chartData)),
         ),
       ],
     ));
