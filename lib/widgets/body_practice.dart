@@ -2,8 +2,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:learning_english_app/widgets/accordion.dart';
 import 'package:learning_english_app/widgets/list_answer_widget.dart';
+
+import '../providers/pratice/dialog_quiz_controller.dart';
 
 class ExpansionPanelCustomAnswers extends StatelessWidget {
   final String documentId;
@@ -80,6 +83,7 @@ class ExpansionPanelCustomAnswers extends StatelessWidget {
                     "${data['D']}"
                   ],
                   correctAnswerIndex: correctAnswerIndex,
+                  index: int.parse(questionId),
                 ));
           } catch (e) {
             print(e);

@@ -1,11 +1,14 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:learning_english_app/models/list_quiz_question.dart';
 import 'package:learning_english_app/providers/authentication/email_verify_provider.dart';
+import 'package:learning_english_app/providers/pratice/dialog_quiz_controller.dart';
 import 'package:learning_english_app/providers/pratice/page_quiz_provider.dart';
 import 'package:learning_english_app/firebase_options.dart';
 import 'package:learning_english_app/providers/authentication/signin_provider.dart';
 import 'package:learning_english_app/providers/reading_provider.dart';
+import 'package:learning_english_app/resources/firebase_handle.dart';
 import 'package:learning_english_app/screens/authentication/signin_screen.dart';
 import 'package:learning_english_app/providers/authentication/signup_provider.dart';
 import 'package:learning_english_app/screens/home/home_screen.dart';
@@ -35,7 +38,11 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<ReadingProvider>(
             create: (context) => ReadingProvider()),
         ChangeNotifierProvider<PageQuizProvider>(
-            create: (context) => PageQuizProvider())
+            create: (context) => PageQuizProvider()),
+        ChangeNotifierProvider<DialogQuizProvider>(
+            create: (context) => DialogQuizProvider()),
+        // StreamProvider<ListQuizQuestion>(
+        //     create: (context) => , initialData: ListQuizQuestion())
       ],
       child: GetMaterialApp(
           title: 'Flutter Demo',

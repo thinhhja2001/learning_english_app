@@ -13,6 +13,8 @@ import 'package:learning_english_app/widgets/home/practices/practice_card.dart';
 import 'package:provider/provider.dart';
 
 import '../../providers/authentication/signin_provider.dart';
+import '../../providers/pratice/dialog_quiz_controller.dart';
+import '../../resources/firebase_handle.dart';
 import '../../widgets/custom/text_in_custom_scroll_view.dart';
 import '../../widgets/home/practices/list_practice_card.dart';
 
@@ -33,10 +35,15 @@ class PracticeScreen extends StatelessWidget {
                     const EdgeInsets.symmetric(horizontal: kDefaultPadding * 2),
                 child: Row(
                   children: [
-                    const CircleAvatar(
-                      radius: 20,
-                      backgroundImage:
-                          AssetImage("assets/images/default_avatar.jpg"),
+                    InkWell(
+                      onTap: () async {
+                        await getListQuestionDetail('test1', 'part1');
+                      },
+                      child: const CircleAvatar(
+                        radius: 20,
+                        backgroundImage:
+                            AssetImage("assets/images/default_avatar.jpg"),
+                      ),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left: kDefaultPadding * 3),

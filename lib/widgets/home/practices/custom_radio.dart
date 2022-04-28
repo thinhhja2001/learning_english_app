@@ -7,6 +7,7 @@ import '../../../utils/styles.dart';
 class CustomRadio extends StatefulWidget {
   CustomRadio(
       {Key? key,
+      required this.isSelect,
       required this.isShowingAnswer,
       required this.correctAnswerIndex,
       required this.answerIndex,
@@ -15,6 +16,7 @@ class CustomRadio extends StatefulWidget {
       required this.numberQuestion})
       : super(key: key);
   bool isShowingAnswer;
+  bool isSelect;
   int correctAnswerIndex;
   int answerIndex;
   int numberAsnwer;
@@ -31,19 +33,25 @@ class CustomRadioState extends State<CustomRadio> {
   void initState() {
     super.initState();
     for (int i = 0; i < widget.numberAsnwer; i++) {
-      if (widget.correctAnswerIndex == i) {
-        if (widget.isShowingAnswer) {
-          sampleData.add(RadioModel(true, true, String.fromCharCode(i + 65)));
+      if (widget.isSelect) {
+        if (widget.correctAnswerIndex == i) {
+          if (widget.isShowingAnswer) {
+            sampleData.add(RadioModel(true, true, String.fromCharCode(i + 65)));
+          } else {
+            sampleData.add(RadioModel(
+                widget.answerIndex == i, true, String.fromCharCode(i + 65)));
+          }
         } else {
           sampleData.add(RadioModel(
-              widget.answerIndex == i, true, String.fromCharCode(i + 65)));
+              widget.answerIndex == i, false, String.fromCharCode(i + 65)));
         }
       } else {
-        sampleData.add(RadioModel(
-            widget.answerIndex == i, false, String.fromCharCode(i + 65)));
+        sampleData.add(RadioModel(false, false, String.fromCharCode(i + 65)));
       }
     }
   }
+
+  void UpdateData() {}
 
   @override
   Widget build(BuildContext context) {

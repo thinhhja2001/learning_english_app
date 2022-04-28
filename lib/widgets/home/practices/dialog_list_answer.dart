@@ -4,9 +4,12 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:learning_english_app/models/list_quiz_question.dart';
 import 'package:learning_english_app/widgets/home/practices/review_widget.dart';
+import 'package:provider/provider.dart';
 
 import '../../../models/review_chart_data.dart';
+import '../../../providers/pratice/dialog_quiz_controller.dart';
 import '../../../utils/styles.dart';
 import 'custom_radio.dart';
 
@@ -20,6 +23,8 @@ class DialogListAnswer extends StatefulWidget {
 class _DialogListAnswerState extends State<DialogListAnswer> {
   @override
   Widget build(BuildContext context) {
+    DialogQuizProvider dialogQuizProvider =
+        Provider.of<DialogQuizProvider>(context);
     var random = Random();
     return Scaffold(
       backgroundColor: Colors.transparent,
@@ -64,16 +69,20 @@ class _DialogListAnswerState extends State<DialogListAnswer> {
                 removeTop: true,
                 child: ListView.builder(
                     shrinkWrap: true,
-                    itemCount: random.nextInt(20),
+                    itemCount: dialogQuizProvider.numberQuestion,
                     itemBuilder: ((context, index) {
+                      QuizQuestion quizQuestion =
+                          dialogQuizProvider.allQuestion[index];
+                      print("Cau $index chon la ${quizQuestion.indexAnswer}");
                       return Column(
                         children: [
                           CustomRadio(
-                            correctAnswerIndex: random.nextInt(4),
-                            numberQuestion: index + 1,
-                            isShowingAnswer: random.nextBool(),
-                            answerIndex: random.nextInt(4),
-                            numberAsnwer: 4,
+                            isSelect: quizQuestion.isSelect!,
+                            correctAnswerIndex: quizQuestion.correctAnswer!,
+                            numberQuestion: int.parse(quizQuestion.id!),
+                            isShowingAnswer: quizQuestion.isShowAnswer!,
+                            answerIndex: quizQuestion.indexAnswer!,
+                            numberAsnwer: quizQuestion.numberQuestion!,
                             onPress: () {},
                           ),
                           Container(
@@ -131,17 +140,8 @@ class _DialogListAnswerState extends State<DialogListAnswer> {
                       ),
                       ElevatedButton(
                         onPressed: () {
-                          final List<ReviewChartData> chartData = [
-                            ReviewChartData(
-                                x: 'Correct answer', y: 4, color: Colors.green),
-                            ReviewChartData(
-                                x: 'Wrong answer', y: 5, color: Colors.red),
-                            ReviewChartData(
-                                x: 'Unselected answer',
-                                y: 2,
-                                color: Colors.grey),
-                          ];
-                          Get.to(ReviewWidget(chartData: chartData));
+                          dialogQuizProvider.getResult();
+                          Get.to(ReviewWidget());
                         },
                         style: ButtonStyle(
                           backgroundColor:

@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:learning_english_app/models/practice.dart';
+import 'package:learning_english_app/providers/pratice/dialog_quiz_controller.dart';
 import 'package:learning_english_app/providers/pratice/page_quiz_provider.dart';
 import 'package:learning_english_app/utils/colors.dart';
 import 'package:learning_english_app/utils/utils.dart';
@@ -63,25 +64,21 @@ class _PageQuizScreenState extends State<PageQuizScreen> {
     maxIndex = this.allData.length;
   }
 
-  final List<ReviewChartData> chartData = [
-    ReviewChartData(x: 'Correct answer', y: 4, color: Colors.green),
-    ReviewChartData(x: 'Wrong answer', y: 5, color: Colors.red),
-    ReviewChartData(x: 'Unselected answer', y: 2, color: Colors.grey),
-  ];
-
-  void showDialog(
-      TooltipBehavior tooltipBehavior, SwiperController swiperController) {
+  void showDialog(VoidCallback onFunction) {
     Get.dialog(AlertDialog(
       title: const Text('Do you want to submit?'),
       content: const Text('You are on the last question.'),
       actions: [
         TextButton(
           child: const Text("No"),
-          onPressed: () => Get.back(),
+          onPressed: () {
+            onFunction;
+            Get.back();
+          },
         ),
         TextButton(
           child: const Text("Yes", style: TextStyle(color: Colors.green)),
-          onPressed: () => Get.to(ReviewWidget(chartData: chartData)),
+          onPressed: () => Get.to(ReviewWidget()),
         ),
       ],
     ));
@@ -104,6 +101,13 @@ class _PageQuizScreenState extends State<PageQuizScreen> {
         .collection("tests")
         .doc(_testId)
         .collection(_part);
+
+    DialogQuizProvider dialogQuizProvider =
+        Provider.of<DialogQuizProvider>(context);
+    final String _partFB = practicePartNameFB[
+        _pageQuizProvider.practiceFile.practice.practicePart.index];
+    dialogQuizProvider.getAllQuestion(_testId, _partFB);
+
     return Scaffold(
         backgroundColor: kcGreyColor,
         appBar: AppBarQuizPractice(pageQuizProvider: _pageQuizProvider),
@@ -136,7 +140,7 @@ class _PageQuizScreenState extends State<PageQuizScreen> {
                   itemBuilder: (BuildContext context, int index) {
                     if (index == maxIndex) {
                       Future.delayed(Duration.zero,
-                          () => showDialog(tooltipBehavior, swiperController));
+                          () => showDialog(dialogQuizProvider.disposeValue));
                       return Center(child: CircularProgressIndicator());
                     } else {
                       return Padding(
@@ -195,11 +199,11 @@ class QuestionWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String _part = _pageQuizProvider.practiceFile.practice.practicePart
-        .toString()
-        .split('.')[1];
+    final String _part = practicePartNameFB[
+        _pageQuizProvider.practiceFile.practice.practicePart.index];
 
     final String testId = "test1";
+
     bool isListeningTest(PracticeType practiceType) {
       if (practiceType == PracticeType.listening) {
         return true;
@@ -298,9 +302,14 @@ class AppBarQuizPractice extends StatelessWidget with PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    DialogQuizProvider dialogQuizProvider =
+        Provider.of<DialogQuizProvider>(context);
     return AppBar(
       leading: IconButton(
-          onPressed: () => Get.back(),
+          onPressed: () {
+            dialogQuizProvider.disposeValue();
+            Get.back();
+          },
           icon: const Icon(
             Icons.arrow_back,
             color: Colors.black,

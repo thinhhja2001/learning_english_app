@@ -1,7 +1,9 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../providers/pratice/dialog_quiz_controller.dart';
 import '../utils/styles.dart';
 import '../utils/utils.dart';
 
@@ -9,11 +11,13 @@ class ListAnswerWidget extends StatefulWidget {
   bool isShowAnswer;
   List<String> answers;
   int correctAnswerIndex;
+  int index;
   ListAnswerWidget(
       {Key? key,
       required this.isShowAnswer,
       required this.answers,
-      required this.correctAnswerIndex})
+      required this.correctAnswerIndex,
+      required this.index})
       : super(key: key);
 
   @override
@@ -25,6 +29,8 @@ class _ListAnswerWidgetState extends State<ListAnswerWidget> {
   int? _choseAnswerIndex;
   @override
   Widget build(BuildContext context) {
+    DialogQuizProvider dialogQuizProvider =
+        Provider.of<DialogQuizProvider>(context);
     // print(widget.answers);
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
@@ -69,6 +75,7 @@ class _ListAnswerWidgetState extends State<ListAnswerWidget> {
                     widget.isShowAnswer = true;
                     _choseAnswer = value;
                     _choseAnswerIndex = index;
+                    dialogQuizProvider.selectAnswer(index, widget.index - 1);
                   }),
                 ),
               )),
