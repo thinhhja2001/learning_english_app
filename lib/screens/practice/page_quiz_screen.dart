@@ -131,7 +131,12 @@ class _PageQuizScreenState extends State<PageQuizScreen1> {
                 }
                 return Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: QuestionWidget(index: index));
+                    child: QuestionWidget(
+                        index: index,
+                        previousQuestion: () async =>
+                            await swiperController.previous(),
+                        nextQuestion: () async =>
+                            await swiperController.next()));
                 // child: QuestionWidget(
                 //   pageQuizProvider: _pageQuizProvider,
                 //   documentId: allData[index],

@@ -61,16 +61,12 @@ class CustomRadioState extends State<CustomRadio> {
         padding: const EdgeInsets.all(4.0),
         child: Row(
           children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              child: Center(
+                  child: Text('${widget.numberQuestion}', style: ktsBoldText)),
+            ),
             Expanded(
-                flex: 1,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8),
-                  child: Center(
-                      child:
-                          Text('${widget.numberQuestion}', style: ktsBoldText)),
-                )),
-            Expanded(
-              flex: 9,
               child: Center(
                 child: SizedBox(
                   height: 60,

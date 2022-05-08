@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:learning_english_app/models/practice.dart';
 import 'package:learning_english_app/providers/pratice/page_quiz_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -8,14 +9,19 @@ import '../../../models/answer.dart';
 import '../../../models/quiz.dart';
 import '../../../utils/constants.dart';
 import '../../body_practice.dart';
+import 'audio_player_widget.dart';
 
 class QuestionWidget extends StatelessWidget {
   const QuestionWidget({
     Key? key,
     required this.index,
+    required this.nextQuestion,
+    required this.previousQuestion,
   }) : super(key: key);
 
   final int index;
+  final VoidCallback nextQuestion;
+  final VoidCallback previousQuestion;
 
   bool isListeningTest(PracticeType practiceType) {
     if (practiceType == PracticeType.listening) {
@@ -30,12 +36,12 @@ class QuestionWidget extends StatelessWidget {
     PageQuizProvider pageQuizProvider = Provider.of<PageQuizProvider>(context);
 
     final Quiz quiz = pageQuizProvider.listQuiz[index];
+    final Practice practice = pageQuizProvider.practiceFile.practice;
     List<Answer> answerList = quiz.listAnswer!;
 
     return Column(
       children: [
         Expanded(
-          flex: 4,
           child: SingleChildScrollView(
               child: Column(children: [
             quiz.imageUrl!.isEmpty
@@ -54,46 +60,38 @@ class QuestionWidget extends StatelessWidget {
               ExpansionPanelCustomAnswers(answer: answer)
           ])),
         ),
-        Expanded(
-            flex: 1,
-            child: Padding(
-              padding: const EdgeInsets.only(top: 12.0),
-              child: Container(
-                decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                        topLeft: kDefaultBorderRadius,
-                        topRight: kDefaultBorderRadius)),
-                child: Column(
+        Padding(
+          padding: const EdgeInsets.only(top: 12.0),
+          child: Container(
+            decoration: const BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                    topLeft: kDefaultBorderRadius,
+                    topRight: kDefaultBorderRadius)),
+            child: Column(
+              children: [
+                isListeningTest(practice.practiceType)
+                    // true
+                    ? AudioPlayerWidget(
+                        audioUrl: quiz.audioUrl!, isRemote: true)
+                    : SizedBox(),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    // isListeningTest(_pageQuizProvider
-                    //         .practiceFile.practice.practiceType)
-                    //     // true
-                    //     ? AudioPlayerWidget(
-                    //         audioUrl: ,
-                    //         isRemote: true)
-                    //     : SizedBox(),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        IconButton(
-                            onPressed: () {}, icon: Icon(Icons.arrow_back)),
-                        IconButton(
-                            onPressed: () {},
-                            icon: Icon(Icons.favorite_outline)),
-                        IconButton(
-                            onPressed: () {},
-                            icon: Icon(Icons.wb_incandescent_outlined)),
-                        IconButton(
-                            onPressed: () {}, icon: Icon(Icons.error_outline)),
-                        IconButton(
-                            onPressed: () {}, icon: Icon(Icons.arrow_forward)),
-                      ],
-                    )
+                    IconButton(
+                        onPressed: index > 0 ? previousQuestion : () {},
+                        icon: Icon(Icons.arrow_back)),
+                    IconButton(
+                        onPressed: () {}, icon: Icon(Icons.favorite_outline)),
+                    IconButton(
+                        onPressed: nextQuestion,
+                        icon: Icon(Icons.arrow_forward)),
                   ],
-                ),
-              ),
-            )),
+                )
+              ],
+            ),
+          ),
+        ),
       ],
     );
   }
