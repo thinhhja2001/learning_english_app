@@ -52,8 +52,9 @@ Color getShowColor1(
     required int? choseAnswer}) {
   if (isShowAnswer) {
     if (answerIndex == correctAnswerIndex) return Colors.green;
-    if (answerIndex == choseAnswer && answerIndex != correctAnswerIndex)
+    if (answerIndex == choseAnswer && answerIndex != correctAnswerIndex) {
       return Colors.red;
+    }
 
     return Colors.black;
   }

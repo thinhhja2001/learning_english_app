@@ -28,9 +28,23 @@ class DialogQuizProvider extends ChangeNotifier {
   }
 
   void selectAnswer(int answerIndex, int index) {
-    allQuestion[index].indexAnswer = answerIndex;
-    allQuestion[index].isShowAnswer = true;
-    allQuestion[index].isSelect = true;
+    QuizQuestion quiz = allQuestion.firstWhere((element) {
+      return element.id!.compareTo(index.toString()) == 0;
+    });
+
+    quiz.indexAnswer = answerIndex;
+    quiz.isShowAnswer = true;
+    quiz.isSelect = true;
+  }
+
+  getQuizQuestion(int index) {
+    if (allQuestion.isEmpty) {
+      return 1;
+    }
+    QuizQuestion quiz = allQuestion.firstWhere((element) {
+      return element.id!.compareTo(index.toString()) == 0;
+    });
+    return quiz;
   }
 
   void getAllQuestion(String test, String part) async {

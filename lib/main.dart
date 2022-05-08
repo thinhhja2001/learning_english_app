@@ -1,3 +1,6 @@
+// ignore_for_file: prefer_const_constructors
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -7,6 +10,7 @@ import 'package:learning_english_app/providers/pratice/dialog_quiz_controller.da
 import 'package:learning_english_app/providers/pratice/page_quiz_provider.dart';
 import 'package:learning_english_app/firebase_options.dart';
 import 'package:learning_english_app/providers/authentication/signin_provider.dart';
+import 'package:learning_english_app/providers/pratice/user_provider.dart';
 import 'package:learning_english_app/providers/reading_provider.dart';
 import 'package:learning_english_app/resources/firebase_handle.dart';
 import 'package:learning_english_app/screens/authentication/signin_screen.dart';
@@ -41,6 +45,8 @@ class MyApp extends StatelessWidget {
             create: (context) => PageQuizProvider()),
         ChangeNotifierProvider<DialogQuizProvider>(
             create: (context) => DialogQuizProvider()),
+        ChangeNotifierProvider<UserProvider>(
+            create: (context) => UserProvider()),
         // StreamProvider<ListQuizQuestion>(
         //     create: (context) => , initialData: ListQuizQuestion())
       ],
@@ -48,27 +54,12 @@ class MyApp extends StatelessWidget {
           title: 'Flutter Demo',
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
-            // This is the theme of your application.
-            //
-            // Try running your application with "flutter run". You'll see the
-            // application has a blue toolbar. Then, without quitting the app, try
-            // changing the primarySwatch below to Colors.green and then invoke
-            // "hot reload" (press "r" in the console where you ran "flutter run",
-            // or simply save your changes to "hot reload" in a Flutter IDE).
-            // Notice that the counter didn't reset back to zero; the application
-            // is not restarted.
             fontFamily: 'Roboto',
             primarySwatch: Colors.blue,
           ),
-          home: HomeScreen(),
-          // home: CustomRadio(
-          //   correctAnswerIndex: 1,
-          //   numberQuestion: 18,
-          //   isShowingAnswer: true,
-          //   answerIndex: 1,
-          //   numberAsnwer: 4,
-          //   onPress: () {},
-          // ),
+          home: FirebaseAuth.instance.currentUser == null
+              ? SignInScreen()
+              : HomeScreen(),
           routes: <String, WidgetBuilder>{
             '/signin': (BuildContext context) => SignInScreen(),
           }),
