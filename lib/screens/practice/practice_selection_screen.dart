@@ -1,11 +1,16 @@
+// ignore_for_file: prefer_const_constructors, avoid_print
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:learning_english_app/models/practice_file.dart';
+import 'package:learning_english_app/resources/firebase_handle.dart';
 import 'package:learning_english_app/utils/colors.dart';
 import 'package:learning_english_app/utils/constants.dart';
 import 'package:learning_english_app/utils/styles.dart';
 
 import '../../models/practice.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import '../../widgets/home/practices/practice_selection_card.dart';
 
 class PracticeSelectionScreen extends StatelessWidget {
@@ -25,7 +30,7 @@ class PracticeSelectionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const Color primaryColor = Colors.teal;
-
+    var size = MediaQuery.of(context).size;
     final Color titleColor = getTitleColor(practice.practiceType);
     return Scaffold(
       backgroundColor: kcGreyColor,
@@ -54,98 +59,52 @@ class PracticeSelectionScreen extends StatelessWidget {
         ),
         backgroundColor: kcWhiteColor,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(kDefaultPadding),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              PracticeSelectionCard(
-                  practiceFile: PracticeFile(
-                      fileQuestionCount:
-                          practiceTotalQuestion[practice.practicePart.index],
-                      fileSize: 5.9,
-                      fileTakeFrom: 'ETS 2019',
-                      practice: practice,
-                      fileTitle:
-                          '${practicePartShortTitle[practice.practicePart.index]} 01')),
-              PracticeSelectionCard(
-                  practiceFile: PracticeFile(
-                      fileQuestionCount:
-                          practiceTotalQuestion[practice.practicePart.index],
-                      fileSize: 5.9,
-                      fileTakeFrom: 'ETS 2019',
-                      practice: practice,
-                      fileTitle:
-                          '${practicePartShortTitle[practice.practicePart.index]} 02')),
-              PracticeSelectionCard(
-                  practiceFile: PracticeFile(
-                      fileQuestionCount:
-                          practiceTotalQuestion[practice.practicePart.index],
-                      fileSize: 5.9,
-                      fileTakeFrom: 'ETS 2019',
-                      practice: practice,
-                      fileTitle:
-                          '${practicePartShortTitle[practice.practicePart.index]} 03')),
-              PracticeSelectionCard(
-                  practiceFile: PracticeFile(
-                      fileQuestionCount:
-                          practiceTotalQuestion[practice.practicePart.index],
-                      fileSize: 5.9,
-                      fileTakeFrom: 'ETS 2019',
-                      practice: practice,
-                      fileTitle:
-                          '${practicePartShortTitle[practice.practicePart.index]} 04')),
-              PracticeSelectionCard(
-                  practiceFile: PracticeFile(
-                      fileQuestionCount:
-                          practiceTotalQuestion[practice.practicePart.index],
-                      fileSize: 5.9,
-                      fileTakeFrom: 'ETS 2019',
-                      practice: practice,
-                      fileTitle:
-                          '${practicePartShortTitle[practice.practicePart.index]} 05')),
-              PracticeSelectionCard(
-                  practiceFile: PracticeFile(
-                      fileQuestionCount:
-                          practiceTotalQuestion[practice.practicePart.index],
-                      fileSize: 5.9,
-                      fileTakeFrom: 'ETS 2019',
-                      practice: practice,
-                      fileTitle:
-                          '${practicePartShortTitle[practice.practicePart.index]} 06')),
-              PracticeSelectionCard(
-                  practiceFile: PracticeFile(
-                      fileQuestionCount:
-                          practiceTotalQuestion[practice.practicePart.index],
-                      fileSize: 5.9,
-                      fileTakeFrom: 'ETS 2019',
-                      practice: practice,
-                      fileTitle:
-                          '${practicePartShortTitle[practice.practicePart.index]} 07')),
-              PracticeSelectionCard(
-                  practiceFile: PracticeFile(
-                      fileQuestionCount:
-                          practiceTotalQuestion[practice.practicePart.index],
-                      fileSize: 5.9,
-                      fileTakeFrom: 'ETS 2019',
-                      practice: practice,
-                      fileTitle:
-                          '${practicePartShortTitle[practice.practicePart.index]} 08')),
-              PracticeSelectionCard(
-                  practiceFile: PracticeFile(
-                      fileQuestionCount:
-                          practiceTotalQuestion[practice.practicePart.index],
-                      fileSize: 5.9,
-                      fileTakeFrom: 'ETS 2019',
-                      practice: practice,
-                      fileTitle:
-                          '${practicePartShortTitle[practice.practicePart.index]} 09')),
-            ],
-          ),
-        ),
-      ),
+      body: FutureBuilder<List<PracticeFile>>(
+          future: FirebaseHandler.getListTest(practice),
+          builder: (BuildContext context,
+              AsyncSnapshot<List<PracticeFile>> snapshot) {
+            if (snapshot.hasError) {
+              print(snapshot.error);
+              return Center(child: Text("Something Error"));
+            }
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(
+                  child: CircularProgressIndicator(color: Colors.black));
+            }
+
+            List<PracticeFile> fileList = [];
+            fileList = snapshot.data!.map((doc) => doc).toList();
+            return Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
+                child: AnimationLimiter(
+                    child: GridView.builder(
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2, childAspectRatio: 1.4),
+                        itemCount: fileList.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return AnimationConfiguration.staggeredGrid(
+                              columnCount: 2,
+                              position: index,
+                              duration: Duration(milliseconds: 1000),
+                              child: ScaleAnimation(
+                                  child: FadeInAnimation(
+                                      delay: Duration(milliseconds: 100),
+                                      child: PracticeSelectionCard(
+                                          practiceFile: fileList[index]))));
+                        })));
+          }),
     );
+  }
+
+  Widget listItem(PracticeFile practiceFile) {
+    return Card(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        child: Center(
+          child: Text(
+            practiceFile.fileTitle!,
+            style: TextStyle(fontSize: 18),
+          ),
+        ));
   }
 }

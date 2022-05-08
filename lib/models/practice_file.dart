@@ -1,32 +1,18 @@
 import 'package:learning_english_app/models/practice.dart';
 
+import '../utils/constants.dart';
+
 class PracticeFile {
-  late String _fileTitle;
-  String _fileUrl = "";
-  late String _fileTakeFrom;
-  late int _fileQuestionCount;
-  late double _fileSize;
-  late Practice _practice;
-  late String _id;
+  late String? fileTitle;
+  late Practice practice;
+  late String? id;
 
-  String get id => _id;
-  String get fileTitle => _fileTitle;
-  String get fileUrl => _fileUrl;
-  String get fileTakeFrom => _fileTakeFrom;
-  int get fileQuestionCount => _fileQuestionCount;
-  double get fileSize => _fileSize;
-  Practice get practice => _practice;
+  PracticeFile({this.fileTitle, this.id, required this.practice});
 
-  PracticeFile(
-      {required String fileTitle,
-      required String fileTakeFrom,
-      required int fileQuestionCount,
-      required double fileSize,
-      required Practice practice}) {
-    _fileTitle = fileTitle;
-    _fileTakeFrom = fileTakeFrom;
-    _fileQuestionCount = fileQuestionCount;
-    _fileSize = fileSize;
-    _practice = practice;
+  static PracticeFile fromFireStore(String snapID, Practice practice) {
+    String title = practicePartShortTitle[practice.practicePart.index] +
+        " 0" +
+        snapID.substring(4);
+    return PracticeFile(practice: practice, id: snapID, fileTitle: title);
   }
 }

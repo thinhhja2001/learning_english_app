@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:get/get.dart';
 
 class QuizQuestion {
   String? id;
@@ -22,7 +21,7 @@ class QuizQuestion {
 
     return QuizQuestion(
         id: snap.id,
-        correctAnswer: convertAnswerToInt(snapshot['correctAnswer']),
+        correctAnswer: convertAnswerToInt(snapshot['correctAnswer'] ?? "E"),
         numberQuestion: (snapshot['D'] == null) ? 3 : 4,
         isSelect: false,
         isShowAnswer: false,

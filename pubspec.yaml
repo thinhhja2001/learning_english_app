@@ -47,6 +47,8 @@ dependencies:
   cached_network_image: ^3.2.0
   accordion: ^2.2.3
   custom_radio_grouped_button: ^2.1.2
+  firebase_storage: ^10.2.15
+  flutter_staggered_animations: ^1.0.0
 
 dev_dependencies:
   flutter_lints: ^1.0.0

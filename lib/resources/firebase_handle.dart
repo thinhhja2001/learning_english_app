@@ -1,5 +1,13 @@
+// ignore_for_file: avoid_print
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:learning_english_app/models/list_quiz_question.dart';
+import 'package:learning_english_app/models/practice.dart';
+import 'package:learning_english_app/models/practice_file.dart';
+import 'package:learning_english_app/resources/firebase_reference.dart';
+
+import '../models/answer.dart';
+import '../models/quiz.dart';
 
 CollectionReference _collectionRef =
     FirebaseFirestore.instance.collection('tests');
@@ -10,9 +18,6 @@ Future<void> getData() async {
 
   // Get data from docs and convert map to List
   final allData = querySnapshot.docs.map((doc) => doc.id).toList();
-
-  print("1");
-  print(allData);
 
   for (var data in allData) {
     for (int i = 1; i <= 7; i++) {
@@ -41,53 +46,133 @@ Future<void> getData() async {
   }
 }
 
-int getFirstNumber(String indexString) {
-  if (indexString.contains('-')) {
-    return int.parse(indexString.split('-')[0]);
-  } else {
-    return int.parse(indexString);
+class SupportFunction {
+  static int getFirstNumber(String indexString) {
+    if (indexString.contains('-')) {
+      return int.parse(indexString.split('-')[0]);
+    } else {
+      return int.parse(indexString);
+    }
+  }
+
+  static int getLastNumber(String indexString) {
+    if (indexString.contains('-')) {
+      return int.parse(indexString.split('-')[1]);
+    } else {
+      return int.parse(indexString);
+    }
+  }
+
+  static int getLengthQuestionList(String firstIndex, String lastIndex) {
+    int firstNumber = getFirstNumber(firstIndex);
+    int lastNumber = getLastNumber(lastIndex);
+    return lastNumber - firstNumber + 1;
+  }
+
+  static int convertAnswerToInt(String answerString) {
+    switch (answerString) {
+      case "A":
+        return 0;
+      case "B":
+        return 1;
+      case "C":
+        return 2;
+      case "D":
+        return 3;
+      default:
+        return -1;
+    }
   }
 }
 
-int getLastNumber(String indexString) {
-  if (indexString.contains('-')) {
-    return int.parse(indexString.split('-')[1]);
-  } else {
-    return int.parse(indexString);
-  }
-}
+class FirebaseHandler {
+  // Get List Document ID from FireStone (tests/test#/part#/)
+  static Future<List<String>> getQuestionDocumentID(
+      String test, String part) async {
+    QuerySnapshot allListQuestionSnapshot =
+        await FirebaseFirestore.instance.collection('tests/$test/$part').get();
 
-int getLengthQuestionList(String firstIndex, String lastIndex) {
-  int firstNumber = getFirstNumber(firstIndex);
-  int lastNumber = getLastNumber(lastIndex);
-  return lastNumber - firstNumber + 1;
-}
-
-Future<List<String>> getQuestionDocumentID(String test, String part) async {
-  QuerySnapshot allListQuestionSnapshot =
-      await FirebaseFirestore.instance.collection('tests/$test/$part').get();
-
-  return allListQuestionSnapshot.docs.map((doc) => doc.id).toList();
-}
-
-Future<List<QuizQuestion>> getListQuestionDetail(
-    String test, String part) async {
-  List<QuizQuestion> questionsList = [];
-  List<String> allListQuestionID = await getQuestionDocumentID(test, part);
-  for (int i = 0; i < allListQuestionID.length; i++) {
-    String document = allListQuestionID[i];
-    await FirebaseFirestore.instance
-        .collection('tests/$test/$part/$document/questions/')
-        .get()
-        .then((QuerySnapshot querySnapshot) {
-      for (var doc in querySnapshot.docs) {
-        QuizQuestion quizQuestion = QuizQuestion.fromSnap(doc);
-        print(
-            "Question ${quizQuestion.id} has correct answer is ${quizQuestion.correctAnswer} ");
-        questionsList.add(quizQuestion);
-      }
-    });
+    return allListQuestionSnapshot.docs.map((doc) => doc.id).toList();
   }
 
-  return questionsList;
+  // Get List Document from Colection
+  static getListQuiz1(String test, String part) async {
+    CollectionReference quizFR = testFR.doc(test).collection(part);
+    return await quizFR.get();
+  }
+
+  // Get List Question from Question Document
+  static Future<List<QuizQuestion>> getListQuestionDetailForSumary(
+      String test, String part) async {
+    List<QuizQuestion> questionsList = [];
+    List<String> allListQuestionID = await getQuestionDocumentID(test, part);
+    for (int i = 0; i < allListQuestionID.length; i++) {
+      String document = allListQuestionID[i];
+      await FirebaseFirestore.instance
+          .collection('tests/$test/$part/$document/questions/')
+          .get()
+          .then((QuerySnapshot querySnapshot) {
+        for (var doc in querySnapshot.docs) {
+          QuizQuestion quizQuestion = QuizQuestion.fromSnap(doc);
+          questionsList.add(quizQuestion);
+        }
+      });
+    }
+
+    return questionsList;
+  }
+
+  // Get List Test from FireStore
+  static Future<List<PracticeFile>> getListTest(Practice practice) async {
+    List<PracticeFile> practiceFileList = [];
+    QuerySnapshot testQuerySnapshot = await testFR.get();
+    practiceFileList = testQuerySnapshot.docs
+        .map((doc) => PracticeFile.fromFireStore(doc.id, practice))
+        .toList();
+
+    return practiceFileList;
+  }
+
+  // Get List Question from Question Document
+  static Future<List<Answer>> getListAnswer(
+      String test, String part, String document) async {
+    List<Answer> answerList = [];
+    QuerySnapshot answerQuerySnapshot =
+        await testFR.doc(test).collection("$part/$document/questions").get();
+
+    answerList =
+        answerQuerySnapshot.docs.map((doc) => Answer.fromSnap(doc)).toList();
+
+    return answerList;
+  }
+
+  static Future<List<Quiz>> getListQuiz(String test, String part) async {
+    List<Quiz> quizList = [];
+    QuerySnapshot quizQuerySnapshot =
+        await testFR.doc(test).collection(part).get();
+    quizList = quizQuerySnapshot.docs.map((doc) => Quiz.fromSnap(doc)).toList();
+
+    for (int i = 0; i < quizList.length; i++) {
+      List<Answer> listAnswer =
+          await getListAnswer(test, part, quizList[i].id!);
+      quizList[i].listAnswer = listAnswer;
+    }
+    return quizList;
+  }
+
+  // Get Number Question of part from test
+  static Future<int> getAllQuestion(String test, String part) async {
+    List<String> allListQuestionID = await getQuestionDocumentID(test, part);
+    int numberQuestion = 0;
+    for (int i = 0; i < allListQuestionID.length; i++) {
+      String document = allListQuestionID[i];
+      await FirebaseFirestore.instance
+          .collection('tests/$test/$part/$document/questions/')
+          .get()
+          .then((QuerySnapshot querySnapshot) {
+        numberQuestion += querySnapshot.docs.length;
+      });
+    }
+    return numberQuestion;
+  }
 }

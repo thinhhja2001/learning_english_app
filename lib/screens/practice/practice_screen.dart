@@ -37,7 +37,8 @@ class PracticeScreen extends StatelessWidget {
                   children: [
                     InkWell(
                       onTap: () async {
-                        await getListQuestionDetail('test1', 'part1');
+                        await FirebaseHandler.getListQuestionDetailForSumary(
+                            'test1', 'part1');
                       },
                       child: const CircleAvatar(
                         radius: 20,
