@@ -1,6 +1,9 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:learning_english_app/models/user.dart' as model;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 
@@ -11,6 +14,12 @@ class AuthMethods {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   late String _token;
+  Future<model.User> getUserDetails() async {
+    User currentUser = _auth.currentUser!;
+    DocumentSnapshot snap =
+        await _firestore.collection("users").doc(currentUser.uid).get();
+    return model.User.fromSnap(snap);
+  }
 
   Future<void> _authenticate(
       String email, String password, String urlSegment) async {

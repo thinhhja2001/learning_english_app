@@ -62,6 +62,9 @@ const TextStyle ktsDescriptionItalic = TextStyle(
     fontFamily: "Roboto",
     color: Colors.black);
 
+const TextStyle ktsCountdown =
+    TextStyle(fontSize: h4, fontFamily: "Roboto", color: kcCountDown);
+
 const TextStyle ktsDescription = TextStyle(
     fontSize: h4,
     fontWeight: FontWeight.normal,
@@ -69,6 +72,11 @@ const TextStyle ktsDescription = TextStyle(
     color: Colors.black);
 const TextStyle ktsBoldText =
     TextStyle(fontSize: h4, fontWeight: FontWeight.bold);
+
+const TextStyle ktsDialogActionText =
+    TextStyle(fontWeight: FontWeight.bold, fontSize: h5);
+
+const TextStyle kTitle = TextStyle(fontWeight: FontWeight.bold, fontSize: h1);
 //FontSize
 const double h1 = 32;
 const double h2 = 24;

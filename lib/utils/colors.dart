@@ -13,3 +13,4 @@ const kcBackgroundProgress = Color(0xffc1b9aa);
 const kcSecondBackgroundButton = Color(0xff5B5B5B);
 const kcCorrect = Color(0xff1de235);
 const kcWrong = Color(0xfffc4646);
+const kcCountDown = Color(0xff1de235);

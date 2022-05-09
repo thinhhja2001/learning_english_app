@@ -3,5 +3,6 @@
         "ELAST",
         "LTRB",
         "successpassword"
-    ]
+    ],
+    "cmake.configureOnOpen": false
 }

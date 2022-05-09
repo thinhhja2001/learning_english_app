@@ -5,13 +5,12 @@ import 'package:learning_english_app/utils/constants.dart';
 import 'practice_card.dart';
 
 class ListPracticeCard extends StatelessWidget {
-  const ListPracticeCard({
-    Key? key,
-    required this.practiceType,
-    required this.practices,
-  }) : super(key: key);
-  final PracticeType practiceType;
+  const ListPracticeCard(
+      {Key? key, required this.practices, required this.practiceType})
+      : super(key: key);
   final List<Practice> practices;
+  final PracticeType practiceType;
+
   @override
   Widget build(BuildContext context) {
     return SliverGrid(
@@ -23,12 +22,7 @@ class ListPracticeCard extends StatelessWidget {
       ),
       delegate: SliverChildBuilderDelegate(
         (BuildContext context, int index) {
-          return PracticeCard(
-              practiceType: practiceType,
-              practiceName: practices[index].name,
-              icon: IconData(int.parse('0x${practices[index].iconData}'),
-                  fontFamily: 'MaterialIcons'),
-              part: "Part ${index + 1}");
+          return PracticeCard(practice: practices[index]);
         },
         childCount: practices.length,
       ),
