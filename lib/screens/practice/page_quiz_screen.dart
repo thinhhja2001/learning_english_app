@@ -96,13 +96,6 @@ class _PageQuizScreenState extends State<PageQuizScreen1> {
     final PageQuizProvider _pageQuizProvider =
         Provider.of<PageQuizProvider>(context);
 
-    DialogQuizProvider dialogQuizProvider =
-        Provider.of<DialogQuizProvider>(context);
-    final String _partFB = practicePartNameFB[
-        _pageQuizProvider.practiceFile.practice.practicePart.index];
-    final String _testId = _pageQuizProvider.practiceFile.id!;
-    dialogQuizProvider.getAllQuestion(_testId, _partFB);
-
     maxIndex = _pageQuizProvider.quizTotalQuestion;
     SwiperController swiperController = SwiperController();
     return Scaffold(

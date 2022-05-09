@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:learning_english_app/models/list_quiz_question.dart';
 import 'package:learning_english_app/providers/authentication/email_verify_provider.dart';
 import 'package:learning_english_app/providers/pratice/dialog_quiz_controller.dart';
+import 'package:learning_english_app/providers/pratice/loading_provider.dart';
 import 'package:learning_english_app/providers/pratice/page_quiz_provider.dart';
 import 'package:learning_english_app/firebase_options.dart';
 import 'package:learning_english_app/providers/authentication/signin_provider.dart';
@@ -47,6 +48,8 @@ class MyApp extends StatelessWidget {
             create: (context) => DialogQuizProvider()),
         ChangeNotifierProvider<UserProvider>(
             create: (context) => UserProvider()),
+        ChangeNotifierProvider<LoadingProvider>(
+            create: (context) => LoadingProvider()),
         // StreamProvider<ListQuizQuestion>(
         //     create: (context) => , initialData: ListQuizQuestion())
       ],

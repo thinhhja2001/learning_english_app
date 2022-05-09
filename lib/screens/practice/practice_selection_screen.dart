@@ -4,10 +4,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:learning_english_app/models/practice_file.dart';
+import 'package:learning_english_app/providers/pratice/loading_provider.dart';
 import 'package:learning_english_app/resources/firebase_handle.dart';
 import 'package:learning_english_app/utils/colors.dart';
 import 'package:learning_english_app/utils/constants.dart';
 import 'package:learning_english_app/utils/styles.dart';
+import 'package:provider/provider.dart';
 
 import '../../models/practice.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
@@ -29,9 +31,8 @@ class PracticeSelectionScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const Color primaryColor = Colors.teal;
-    var size = MediaQuery.of(context).size;
     final Color titleColor = getTitleColor(practice.practiceType);
+    LoadingProvider loadingProvider = Provider.of<LoadingProvider>(context);
     return Scaffold(
       backgroundColor: kcGreyColor,
       appBar: AppBar(
@@ -59,41 +60,44 @@ class PracticeSelectionScreen extends StatelessWidget {
         ),
         backgroundColor: kcWhiteColor,
       ),
-      body: FutureBuilder<List<PracticeFile>>(
-          future: FirebaseHandler.getListTest(practice),
-          builder: (BuildContext context,
-              AsyncSnapshot<List<PracticeFile>> snapshot) {
-            if (snapshot.hasError) {
-              print(snapshot.error);
-              return Center(child: Text("Something Error"));
-            }
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(
-                  child: CircularProgressIndicator(color: Colors.black));
-            }
+      body: loadingProvider.isLoading
+          ? Center(child: CircularProgressIndicator(color: Colors.black))
+          : FutureBuilder<List<PracticeFile>>(
+              future: FirebaseHandler.getListTest(practice),
+              builder: (BuildContext context,
+                  AsyncSnapshot<List<PracticeFile>> snapshot) {
+                if (snapshot.hasError) {
+                  print(snapshot.error);
+                  return Center(child: Text("Something Error"));
+                }
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Center(
+                      child: CircularProgressIndicator(color: Colors.black));
+                }
 
-            List<PracticeFile> fileList = [];
-            fileList = snapshot.data!.map((doc) => doc).toList();
-            return Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
-                child: AnimationLimiter(
-                    child: GridView.builder(
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2, childAspectRatio: 1.4),
-                        itemCount: fileList.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return AnimationConfiguration.staggeredGrid(
-                              columnCount: 2,
-                              position: index,
-                              duration: Duration(milliseconds: 1000),
-                              child: ScaleAnimation(
-                                  child: FadeInAnimation(
-                                      delay: Duration(milliseconds: 100),
-                                      child: PracticeSelectionCard(
-                                          practiceFile: fileList[index]))));
-                        })));
-          }),
+                List<PracticeFile> fileList = [];
+                fileList = snapshot.data!.map((doc) => doc).toList();
+                return Padding(
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
+                    child: AnimationLimiter(
+                        child: GridView.builder(
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 2, childAspectRatio: 1.4),
+                            itemCount: fileList.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return AnimationConfiguration.staggeredGrid(
+                                  columnCount: 2,
+                                  position: index,
+                                  duration: Duration(milliseconds: 1000),
+                                  child: ScaleAnimation(
+                                      child: FadeInAnimation(
+                                          delay: Duration(milliseconds: 100),
+                                          child: PracticeSelectionCard(
+                                              practiceFile: fileList[index]))));
+                            })));
+              }),
     );
   }
 

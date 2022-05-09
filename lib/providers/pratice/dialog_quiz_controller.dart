@@ -47,7 +47,7 @@ class DialogQuizProvider extends ChangeNotifier {
     return quiz;
   }
 
-  void getAllQuestion(String test, String part) async {
+  getAllQuestion(String test, String part) async {
     allQuestion =
         await FirebaseHandler.getListQuestionDetailForSumary(test, part);
     numberQuestion = allQuestion.length;
