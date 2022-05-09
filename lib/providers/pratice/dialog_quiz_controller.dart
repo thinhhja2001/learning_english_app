@@ -1,30 +1,37 @@
 import 'package:flutter/cupertino.dart';
 import 'package:learning_english_app/models/list_quiz_question.dart';
 
+import '../../models/result.dart';
 import '../../resources/firebase_handle.dart';
 
 class DialogQuizProvider extends ChangeNotifier {
   int numberQuestion = 0;
   var allQuestion = <QuizQuestion>[];
+  String testQuiz = "";
+  String partQuiz = "";
 
-  int numberCorrect = 0;
-  int numberInCorrect = 0;
-  int numberUnSelect = 0;
+  late Result result;
 
-  void getResult() {
+  getResult() async {
+    for (int i = 0; i < numberQuestion; i++) {
+      result.chooseList.add(allQuestion[i].indexAnswer!);
+      result.correctList.add(allQuestion[i].correctAnswer!);
+    }
     print(
-        "Result gia tri select $numberCorrect gia tri in correct $numberInCorrect gia tri un select $numberUnSelect");
+        "Result gia tri select ${result.numberCorrect} gia tri in correct ${result.numberInCorrect} gia tri un select ${result.numberUnSelect}");
     for (int i = 0; i < allQuestion.length; i++) {
       if (allQuestion[i].indexAnswer == -1) {
-        numberUnSelect++;
+        result.numberUnSelect = result.numberUnSelect + 1;
       } else {
         if (allQuestion[i].indexAnswer == allQuestion[i].correctAnswer) {
-          numberCorrect++;
+          result.numberCorrect = result.numberCorrect + 1;
         } else {
-          numberInCorrect++;
+          result.numberInCorrect = result.numberInCorrect + 1;
         }
       }
     }
+
+    await FirebaseHandler.addResultToFirebase(testQuiz, partQuiz, result);
   }
 
   void selectAnswer(int answerIndex, int index) {
@@ -51,16 +58,17 @@ class DialogQuizProvider extends ChangeNotifier {
     allQuestion =
         await FirebaseHandler.getListQuestionDetailForSumary(test, part);
     numberQuestion = allQuestion.length;
+    testQuiz = test;
+    partQuiz = part;
+    result = Result(0, 0, 0, [], []);
   }
 
   void disposeValue() {
-    numberCorrect = 0;
-    numberInCorrect = 0;
-    numberUnSelect = 0;
+    result.disposeValue();
     numberQuestion = 0;
     allQuestion = <QuizQuestion>[];
 
     print(
-        "Dispose gia tri select $numberCorrect gia tri in correct $numberInCorrect gia tri un select $numberUnSelect");
+        "Dispose gia tri select ${result.numberCorrect} gia tri in correct ${result.numberInCorrect} gia tri un select ${result.numberUnSelect}");
   }
 }

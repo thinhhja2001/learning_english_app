@@ -4,10 +4,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:learning_english_app/models/list_quiz_question.dart';
 import 'package:learning_english_app/models/practice.dart';
 import 'package:learning_english_app/models/practice_file.dart';
+import 'package:learning_english_app/models/result.dart';
+import 'package:learning_english_app/models/user.dart';
 import 'package:learning_english_app/resources/firebase_reference.dart';
 
 import '../models/answer.dart';
 import '../models/quiz.dart';
+import 'auth_methods.dart';
 
 CollectionReference _collectionRef =
     FirebaseFirestore.instance.collection('tests');
@@ -174,5 +177,65 @@ class FirebaseHandler {
       });
     }
     return numberQuestion;
+  }
+
+  static Future<User> getCurrentUser() async =>
+      await AuthMethods().getUserDetails().then((data) {
+        return User(email: data.email, name: data.name, uid: data.uid);
+      });
+
+  static addResultToFirebase(String test, String part, Result result) async {
+    User user = await getCurrentUser();
+    DateTime currentPhoneDate = DateTime.now(); //DateTime
+    Timestamp myTimeStamp = Timestamp.fromDate(currentPhoneDate); //To TimeStamp
+
+    return await userFR
+        .doc(user.uid)
+        .collection('results')
+        .doc(test)
+        .collection(part)
+        .add({
+          'numUnSelect': result.numberUnSelect,
+          'numCorrect': result.numberCorrect,
+          'numInCorrect': result.numberInCorrect,
+          'answerlist': result.correctList,
+          'chooseList': result.chooseList,
+          'time': myTimeStamp
+        })
+        .then((value) => print("Add Result ${value.id} successfull"))
+        .catchError((error) => print("Failed to update Result: $error"));
+  }
+
+  static addToFavorite(
+      String test, String part, String index, String title) async {
+    User user = await getCurrentUser();
+    DateTime currentPhoneDate = DateTime.now(); //DateTime
+    Timestamp myTimeStamp = Timestamp.fromDate(currentPhoneDate); //To TimeStamp
+    return await userFR
+        .doc(user.uid)
+        .collection('favorites')
+        .doc(test)
+        .collection(part)
+        .add({'title': title, 'index': index, 'time': myTimeStamp})
+        .then((value) => print("Add Favorite ${value.id} successfull"))
+        .catchError((error) => print("Failed to update favorite: $error"));
+  }
+
+  static deleteFromFavorite(String test, String part, String index) async {
+    User user = await getCurrentUser();
+    CollectionReference favoriteFR =
+        userFR.doc(user.uid).collection('favorites').doc(test).collection(part);
+    List<String> listID = [];
+    await favoriteFR
+        .where('index', isEqualTo: index)
+        .get()
+        .then((QuerySnapshot querySnapshot) {
+      for (var doc in querySnapshot.docs) {
+        listID.add(doc.id);
+      }
+    });
+    return favoriteFR.doc(listID.first).delete().then((value) {
+      print("Delete Favorite $index successful");
+    }).catchError((error) => print('Failed to Delete news: $error'));
   }
 }

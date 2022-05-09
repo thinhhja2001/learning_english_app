@@ -1,12 +1,16 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:learning_english_app/models/practice.dart';
+import 'package:learning_english_app/models/practice_file.dart';
 import 'package:learning_english_app/providers/pratice/page_quiz_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../../../models/answer.dart';
 import '../../../models/quiz.dart';
+import '../../../resources/firebase_handle.dart';
+import '../../../resources/firebase_reference.dart';
 import '../../../utils/constants.dart';
 import '../../body_practice.dart';
 import 'audio_player_widget.dart';
@@ -31,11 +35,25 @@ class QuestionWidget extends StatelessWidget {
     }
   }
 
+  Future addToFavorite(
+      String test, String part, String index, String title) async {
+    await FirebaseHandler.addToFavorite(test, part, index, title);
+  }
+
+  Future deleteFavorite(String test, String part, String index) async {
+    await FirebaseHandler.deleteFromFavorite(test, part, index);
+  }
+
   @override
   Widget build(BuildContext context) {
     PageQuizProvider pageQuizProvider = Provider.of<PageQuizProvider>(context);
 
+    final PracticeFile practiceFile = pageQuizProvider.practiceFile;
+    final String test = practiceFile.id!;
+    final String part = practiceFile.practice.practicePart.name;
+    final String title = practiceFile.fileTitle!;
     final Quiz quiz = pageQuizProvider.listQuiz[index];
+    final String indexQuiz = quiz.id!;
     final Practice practice = pageQuizProvider.practiceFile.practice;
     List<Answer> answerList = quiz.listAnswer!;
 
@@ -81,8 +99,34 @@ class QuestionWidget extends StatelessWidget {
                     IconButton(
                         onPressed: index > 0 ? previousQuestion : () {},
                         icon: Icon(Icons.arrow_back)),
-                    IconButton(
-                        onPressed: () {}, icon: Icon(Icons.favorite_outline)),
+                    StreamBuilder(
+                        stream: userFR
+                            .doc(FirebaseAuth.instance.currentUser!.uid)
+                            .collection("favorites")
+                            .doc(test)
+                            .collection(part)
+                            .where("index", isEqualTo: indexQuiz)
+                            .snapshots(),
+                        builder:
+                            (BuildContext context, AsyncSnapshot snapshot) {
+                          if (snapshot.data == null) {
+                            return Text("");
+                          }
+                          return IconButton(
+                            onPressed: () => snapshot.data.docs.length == 0
+                                ? addToFavorite(test, part, indexQuiz, title)
+                                : deleteFavorite(test, part, indexQuiz),
+                            icon: snapshot.data.docs.length == 0
+                                ? Icon(
+                                    Icons.favorite_outline,
+                                    color: Colors.black,
+                                  )
+                                : Icon(
+                                    Icons.favorite,
+                                    color: Colors.black,
+                                  ),
+                          );
+                        }),
                     IconButton(
                         onPressed: nextQuestion,
                         icon: Icon(Icons.arrow_forward)),

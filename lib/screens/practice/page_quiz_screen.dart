@@ -4,35 +4,24 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:learning_english_app/models/practice.dart';
 import 'package:learning_english_app/providers/pratice/dialog_quiz_controller.dart';
-import 'package:learning_english_app/providers/pratice/page_quiz_provider.dart';
-import 'package:learning_english_app/utils/colors.dart';
-import 'package:learning_english_app/utils/utils.dart';
-import 'package:learning_english_app/widgets/accordion.dart';
-import 'package:learning_english_app/widgets/body_practice.dart';
-import 'package:learning_english_app/widgets/home/practices/dialog_list_answer.dart';
 import 'package:learning_english_app/widgets/home/practices/question_widget.dart';
-import 'package:learning_english_app/widgets/home/practices/review_widget.dart';
+import 'package:learning_english_app/screens/practice/review_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
-import '../../models/quiz.dart';
-import '../../models/review_chart_data.dart';
-import '../../utils/constants.dart';
-import '../../utils/styles.dart';
-import '../../widgets/home/practices/appbar_quiz_practice.dart';
-import '../../widgets/home/practices/audio_player_widget.dart';
-import '../../widgets/home/practices/list_answer_widget.dart';
 
-class PageQuizScreen1 extends StatefulWidget {
-  PageQuizScreen1({Key? key}) : super(key: key);
+import '../../providers/pratice/page_quiz_provider.dart';
+import '../../utils/colors.dart';
+import '../../widgets/home/practices/appbar_quiz_practice.dart';
+
+class PageQuizScreen extends StatefulWidget {
+  PageQuizScreen({Key? key}) : super(key: key);
 
   @override
-  State<PageQuizScreen1> createState() => _PageQuizScreenState();
+  State<PageQuizScreen> createState() => _PageQuizScreenState();
 }
 
-class _PageQuizScreenState extends State<PageQuizScreen1> {
+class _PageQuizScreenState extends State<PageQuizScreen> {
   int maxIndex = 0;
 
   var allData = <String>[];
@@ -67,7 +56,7 @@ class _PageQuizScreenState extends State<PageQuizScreen1> {
     maxIndex = this.allData.length;
   }
 
-  void showDialog() {
+  void showDialog(DialogQuizProvider dialogQuizProvider) {
     Get.dialog(AlertDialog(
       title: const Text('Do you want to submit?'),
       content: const Text('You are on the last question.'),
@@ -80,9 +69,10 @@ class _PageQuizScreenState extends State<PageQuizScreen1> {
         ),
         TextButton(
           child: const Text("Yes", style: TextStyle(color: Colors.green)),
-          onPressed: () {
+          onPressed: () async {
+            await dialogQuizProvider.getResult();
             Get.back();
-            Get.to(ReviewWidget());
+            Get.off(ReviewScreen());
           },
         ),
       ],
@@ -96,6 +86,9 @@ class _PageQuizScreenState extends State<PageQuizScreen1> {
     final PageQuizProvider _pageQuizProvider =
         Provider.of<PageQuizProvider>(context);
 
+    final DialogQuizProvider _dialogQuizProvider =
+        Provider.of<DialogQuizProvider>(context);
+
     maxIndex = _pageQuizProvider.quizTotalQuestion;
     SwiperController swiperController = SwiperController();
     return Scaffold(
@@ -106,7 +99,7 @@ class _PageQuizScreenState extends State<PageQuizScreen1> {
               controller: swiperController,
               onIndexChanged: (value) {
                 if (value == maxIndex) {
-                  showDialog();
+                  showDialog(_dialogQuizProvider);
                   swiperController
                       .previous()
                       .whenComplete(() => print("Complete"))

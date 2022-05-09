@@ -75,6 +75,8 @@ const TextStyle ktsBoldText =
 
 const TextStyle ktsDialogActionText =
     TextStyle(fontWeight: FontWeight.bold, fontSize: h5);
+
+const TextStyle kTitle = TextStyle(fontWeight: FontWeight.bold, fontSize: h1);
 //FontSize
 const double h1 = 32;
 const double h2 = 24;

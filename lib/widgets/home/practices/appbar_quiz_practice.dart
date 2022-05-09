@@ -41,28 +41,14 @@ class AppBarQuizPractice extends StatelessWidget with PreferredSizeWidget {
       ),
       backgroundColor: kcWhiteColor,
       actions: <Widget>[
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            IconButton(
-              icon: const Icon(
-                Icons.settings,
-                color: Colors.black,
-              ),
-              onPressed: () {
-                // do something
-              },
-            ),
-            IconButton(
-              icon: const Icon(
-                Icons.checklist,
-                color: Colors.black,
-              ),
-              onPressed: () {
-                Get.dialog(DialogListAnswer().marginAll(20));
-              },
-            ),
-          ],
+        IconButton(
+          icon: const Icon(
+            Icons.checklist,
+            color: Colors.black,
+          ),
+          onPressed: () {
+            Get.dialog(DialogListAnswer().marginAll(20));
+          },
         )
       ],
     );

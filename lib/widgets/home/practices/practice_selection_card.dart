@@ -30,7 +30,7 @@ class _PracticeSelectionCardState extends State<PracticeSelectionCard> {
 
     loadingProvider.updateLoading();
 
-    Get.to(PageQuizScreen1());
+    Get.to(PageQuizScreen());
   }
 
   @override

@@ -5,7 +5,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:learning_english_app/models/list_quiz_question.dart';
-import 'package:learning_english_app/widgets/home/practices/review_widget.dart';
+import 'package:learning_english_app/screens/practice/review_screen.dart';
 import 'package:provider/provider.dart';
 
 import '../../../models/review_chart_data.dart';
@@ -139,9 +139,10 @@ class _DialogListAnswerState extends State<DialogListAnswer> {
                         ),
                       ),
                       ElevatedButton(
-                        onPressed: () {
-                          dialogQuizProvider.getResult();
-                          Get.to(ReviewWidget());
+                        onPressed: () async {
+                          await dialogQuizProvider.getResult();
+                          Get.back();
+                          Get.off(ReviewScreen());
                         },
                         style: ButtonStyle(
                           backgroundColor:
