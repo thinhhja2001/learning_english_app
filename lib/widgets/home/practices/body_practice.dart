@@ -1,10 +1,10 @@
 // import 'package:accordion/accordion.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:learning_english_app/widgets/accordion.dart';
-import 'package:learning_english_app/widgets/list_answer_widget.dart';
+import 'package:learning_english_app/widgets/custom/accordion.dart';
+import 'package:learning_english_app/widgets/home/practices/list_answer_widget.dart';
 
-import '../models/practice/answer.dart';
+import '../../../models/practice/answer.dart';
 
 class ExpansionPanelCustomAnswers extends StatelessWidget {
   final Answer answer;
@@ -12,10 +12,22 @@ class ExpansionPanelCustomAnswers extends StatelessWidget {
   const ExpansionPanelCustomAnswers({Key? key, required this.answer})
       : super(key: key);
 
+  bool isIncludeNumber(String s) {
+    String checkString = s.substring(0, 3);
+    if (checkString.contains(RegExp(r'[0-9]'))) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Accordion(
-        header: Text("${answer.id!}. ${answer.question!}",
+        header: Text(
+            isIncludeNumber(answer.question!)
+                ? answer.question!
+                : "${answer.id!}. ${answer.question!}",
             style: const TextStyle(color: Colors.white, fontSize: 17)),
         content: ListAnswerWidget(
           isShowAnswer: false,
@@ -70,7 +82,7 @@ class CustomPicture extends StatelessWidget {
       width: double.infinity,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20), color: Colors.white),
-      child: CachedNetworkImage(imageUrl: imageUrl, fit: BoxFit.cover),
+      child: CachedNetworkImage(imageUrl: imageUrl, fit: BoxFit.contain),
     );
   }
 }

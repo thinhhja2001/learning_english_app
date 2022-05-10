@@ -38,8 +38,12 @@ class PracticeSelectionScreen extends StatelessWidget {
       appBar: AppBar(
         leading: IconButton(
             onPressed: () {
-              loadingProvider.updateLoading();
-              Get.back();
+              if (!loadingProvider.isLoading) {
+                Get.back();
+              } else {
+                loadingProvider.updateLoading();
+                Get.back();
+              }
             },
             icon: const Icon(
               Icons.arrow_back,

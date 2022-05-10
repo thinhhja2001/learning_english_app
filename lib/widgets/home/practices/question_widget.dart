@@ -12,7 +12,7 @@ import 'package:provider/provider.dart';
 import '../../../resources/firebase_handle.dart';
 import '../../../resources/firebase_reference.dart';
 import '../../../utils/constants.dart';
-import '../../body_practice.dart';
+import 'body_practice.dart';
 import 'audio_player_widget.dart';
 
 class QuestionWidget extends StatelessWidget {

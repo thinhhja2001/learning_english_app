@@ -8,7 +8,6 @@ import '../../../providers/pratice/dialog_quiz_controller.dart';
 import '../../../providers/pratice/page_quiz_provider.dart';
 import '../../../utils/colors.dart';
 import '../../../utils/styles.dart';
-import '../../../utils/utils.dart';
 import 'dialog_list_answer.dart';
 
 class AppBarQuizPractice extends StatelessWidget with PreferredSizeWidget {
@@ -49,7 +48,8 @@ class AppBarQuizPractice extends StatelessWidget with PreferredSizeWidget {
           onPressed: () {
             Get.dialog(DialogListAnswer().marginAll(20));
           },
-        )
+        ),
+        SizedBox(width: 10)
       ],
     );
   }
