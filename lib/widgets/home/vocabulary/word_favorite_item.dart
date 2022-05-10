@@ -62,7 +62,7 @@ class WordFavoriteItem extends StatelessWidget {
                                   ),
                                   SizedBox(width: 4),
                                   SizedBox(
-                                    width: screenSize.width * 0.75,
+                                    width: screenSize.width * 0.7,
                                     child: Text(favoriteWord.meaning!,
                                         overflow: TextOverflow.ellipsis,
                                         maxLines: 1,

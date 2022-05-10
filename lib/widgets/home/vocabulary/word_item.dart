@@ -89,7 +89,7 @@ class _WordItemState extends State<WordItem> {
                                   ),
                                   SizedBox(width: 4),
                                   SizedBox(
-                                    width: screenSize.width * 0.6,
+                                    width: screenSize.width * 0.5,
                                     child: Text(widget.word.meaning!,
                                         overflow: TextOverflow.ellipsis,
                                         maxLines: 1,

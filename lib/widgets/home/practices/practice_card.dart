@@ -21,14 +21,13 @@ class PracticeCard extends StatelessWidget {
         Get.to(PracticeSelectionScreen(practice: practice));
       },
       child: Container(
-        height: 50,
-        width: deviceSize * 0.47,
         decoration: BoxDecoration(
             color: Colors.white, borderRadius: BorderRadius.circular(10)),
         child: Padding(
           padding: const EdgeInsets.only(left: kDefaultPadding * 1.5),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               verticalSpaceSmall,
               Text(
