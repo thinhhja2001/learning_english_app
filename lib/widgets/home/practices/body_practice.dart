@@ -13,6 +13,9 @@ class ExpansionPanelCustomAnswers extends StatelessWidget {
       : super(key: key);
 
   bool isIncludeNumber(String s) {
+    if (s.isEmpty) {
+      return false;
+    }
     String checkString = s.substring(0, 3);
     if (checkString.contains(RegExp(r'[0-9]'))) {
       return true;

@@ -26,7 +26,7 @@ class DocumentContainer extends StatelessWidget {
     Size screenSize = MediaQuery.of(context).size;
     final double categoryHeight = screenSize.height * 0.25 - 60;
     final double containerWidth = screenSize.width * 0.4;
-    final double pointWidth = containerWidth * 0.67;
+    final double pointWidth = containerWidth * 0.9;
     final VocabularyProvider _vocabularyProvider =
         Provider.of<VocabularyProvider>(context);
     return Container(
