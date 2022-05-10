@@ -14,11 +14,11 @@ class AuthMethods {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   late String _token;
-  Future<model.User> getUserDetails() async {
+  Future<model.UserData> getUserDetails() async {
     User currentUser = _auth.currentUser!;
     DocumentSnapshot snap =
         await _firestore.collection("users").doc(currentUser.uid).get();
-    return model.User.fromSnap(snap);
+    return model.UserData.fromSnap(snap);
   }
 
   Future<void> _authenticate(

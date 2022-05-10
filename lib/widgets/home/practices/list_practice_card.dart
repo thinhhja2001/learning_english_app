@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:learning_english_app/models/practice.dart';
 import 'package:learning_english_app/utils/constants.dart';
 
+import '../../../models/practice/practice.dart';
 import 'practice_card.dart';
 
 class ListPracticeCard extends StatelessWidget {

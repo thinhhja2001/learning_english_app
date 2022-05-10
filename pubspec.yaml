@@ -49,6 +49,7 @@ dependencies:
   custom_radio_grouped_button: ^2.1.2
   firebase_storage: ^10.2.15
   flutter_staggered_animations: ^1.0.0
+  web_scraper: ^0.1.4
 
 dev_dependencies:
   flutter_lints: ^1.0.0
@@ -69,6 +70,8 @@ flutter:
     - assets/
     - assets/images/
     - assets/audios/
+    - assets/TOEICTOPIC.json
+    - assets/TOEIC600.json
 
   fonts:
     - family: Roboto

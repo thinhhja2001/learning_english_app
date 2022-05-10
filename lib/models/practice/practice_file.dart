@@ -1,6 +1,6 @@
-import 'package:learning_english_app/models/practice.dart';
+import 'package:learning_english_app/models/practice/practice.dart';
 
-import '../utils/constants.dart';
+import '../../utils/constants.dart';
 
 class PracticeFile {
   late String? fileTitle;

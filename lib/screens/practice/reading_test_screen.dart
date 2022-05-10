@@ -1,13 +1,12 @@
 import 'package:accordion/accordion.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:learning_english_app/models/practice.dart';
+import 'package:learning_english_app/models/practice/practice.dart';
 import 'package:learning_english_app/providers/reading_provider.dart';
 import 'package:learning_english_app/utils/colors.dart';
 import 'package:learning_english_app/utils/constants.dart';
 import 'package:learning_english_app/utils/styles.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:learning_english_app/widgets/body_practice.dart';
 import 'package:provider/provider.dart';
 
 class ReadingTestScreen extends StatefulWidget {

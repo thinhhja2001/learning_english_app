@@ -77,6 +77,30 @@ const TextStyle ktsDialogActionText =
     TextStyle(fontWeight: FontWeight.bold, fontSize: h5);
 
 const TextStyle kTitle = TextStyle(fontWeight: FontWeight.bold, fontSize: h1);
+
+const TextStyle ktsBlackBigTitle = TextStyle(
+    fontSize: h3,
+    fontWeight: FontWeight.bold,
+    fontFamily: "Roboto",
+    color: Color.fromRGBO(40, 40, 40, 1));
+
+const TextStyle ktsMiniDescription = TextStyle(
+    fontSize: h5,
+    fontWeight: FontWeight.w500,
+    fontFamily: "Roboto",
+    color: Colors.blue);
+
+const TextStyle kts26Title = TextStyle(
+    fontSize: 26,
+    color: Colors.white,
+    fontWeight: FontWeight.bold,
+    fontStyle: FontStyle.italic);
+
+const TextStyle kts20Title = TextStyle(
+    fontSize: 20,
+    color: Colors.white,
+    fontWeight: FontWeight.normal,
+    fontStyle: FontStyle.italic);
 //FontSize
 const double h1 = 32;
 const double h2 = 24;

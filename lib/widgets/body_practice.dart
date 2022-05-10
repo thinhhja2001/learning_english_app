@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:learning_english_app/widgets/accordion.dart';
 import 'package:learning_english_app/widgets/list_answer_widget.dart';
 
-import '../models/answer.dart';
+import '../models/practice/answer.dart';
 
 class ExpansionPanelCustomAnswers extends StatelessWidget {
   final Answer answer;

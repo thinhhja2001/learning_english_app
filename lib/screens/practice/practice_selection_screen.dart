@@ -3,7 +3,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:learning_english_app/models/practice_file.dart';
 import 'package:learning_english_app/providers/pratice/loading_provider.dart';
 import 'package:learning_english_app/resources/firebase_handle.dart';
 import 'package:learning_english_app/utils/colors.dart';
@@ -11,8 +10,9 @@ import 'package:learning_english_app/utils/constants.dart';
 import 'package:learning_english_app/utils/styles.dart';
 import 'package:provider/provider.dart';
 
-import '../../models/practice.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import '../../models/practice/practice.dart';
+import '../../models/practice/practice_file.dart';
 import '../../widgets/home/practices/practice_selection_card.dart';
 
 class PracticeSelectionScreen extends StatelessWidget {
@@ -37,7 +37,10 @@ class PracticeSelectionScreen extends StatelessWidget {
       backgroundColor: kcGreyColor,
       appBar: AppBar(
         leading: IconButton(
-            onPressed: () => Get.back(),
+            onPressed: () {
+              loadingProvider.updateLoading();
+              Get.back();
+            },
             icon: const Icon(
               Icons.arrow_back,
               color: Colors.black,

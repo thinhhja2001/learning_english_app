@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
 import 'package:get/get.dart';
+import 'package:learning_english_app/models/practice/review_chart_data.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
-import '../../models/review_chart_data.dart';
 import '../../providers/pratice/dialog_quiz_controller.dart';
 import '../../utils/constants.dart';
 import '../../utils/styles.dart';

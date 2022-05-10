@@ -1,0 +1,302 @@
+[
+ {
+  "id": "TO01",
+  "title": "Contracts",
+  "meaning": "Hợp Đồng",
+  "image-id": "TO (01)"
+ },
+ {
+  "id": "TO02",
+  "title": "Marketing",
+  "meaning": "Nghiên Cứu Thị Trường",
+  "image-id": "TO (02)"
+ },
+ {
+  "id": "TO03",
+  "title": "Warranties",
+  "meaning": "Sự Bảo Hành",
+  "image-id": "TO (03)"
+ },
+ {
+  "id": "TO04",
+  "title": "Business Planning",
+  "meaning": "Kế Hoạch Kinh Doanh",
+  "image-id": "TO (04)"
+ },
+ {
+  "id": "TO05",
+  "title": "Conferences",
+  "meaning": "Hội Nghị",
+  "image-id": "TO (05)"
+ },
+ {
+  "id": "TO06",
+  "title": "Computers and the Internet",
+  "meaning": "Máy Vi Tính và Mạng Internet",
+  "image-id": "TO (06)"
+ },
+ {
+  "id": "TO07",
+  "title": "Office Technology",
+  "meaning": "Công Nghệ Cho Công Sở",
+  "image-id": "TO (07)"
+ },
+ {
+  "id": "TO08",
+  "title": "Office Procedures",
+  "meaning": "Các Quy Trình Trong Công Sở",
+  "image-id": "TO (08)"
+ },
+ {
+  "id": "TO09",
+  "title": "Electronics",
+  "meaning": "Điện Tử",
+  "image-id": "TO (09)"
+ },
+ {
+  "id": "TO10",
+  "title": "Correspondence",
+  "meaning": "Thư Tín Thương Mại",
+  "image-id": "TO (10)"
+ },
+ {
+  "id": "TO11",
+  "title": "Job Ads and Recruitment",
+  "meaning": "Quảng Cáo Tìm Người và Tuyển Dụng",
+  "image-id": "TO (11)"
+ },
+ {
+  "id": "TO12",
+  "title": "Apply and Interviewing",
+  "meaning": "Ứng Tuyển và Phỏng Vấn",
+  "image-id": "TO (12)"
+ },
+ {
+  "id": "TO13",
+  "title": "Hiring and Training",
+  "meaning": "Tuyển Dụng và Đào Tạo",
+  "image-id": "TO (13)"
+ },
+ {
+  "id": "TO14",
+  "title": "Salaries and Benefits",
+  "meaning": "Lương và Các Chế Độ Đãi Ngộ",
+  "image-id": "TO (14)"
+ },
+ {
+  "id": "TO15",
+  "title": "Promotions, Pensions and Awards",
+  "meaning": "Thăng Chức, Lương Hưu và Thưởng",
+  "image-id": "TO (15)"
+ },
+ {
+  "id": "TO16",
+  "title": "Shopping",
+  "meaning": "Mua sắm",
+  "image-id": "TO (16)"
+ },
+ {
+  "id": "TO17",
+  "title": "Ordering Supplies",
+  "meaning": "Đặt Hàng",
+  "image-id": "TO (17)"
+ },
+ {
+  "id": "TO18",
+  "title": "Shipping",
+  "meaning": "Vận Chuyển Hàng",
+  "image-id": "TO (18)"
+ },
+ {
+  "id": "TO19",
+  "title": "Invoices",
+  "meaning": "In Hóa Đơn",
+  "image-id": "TO (19)"
+ },
+ {
+  "id": "TO20",
+  "title": "Inventory",
+  "meaning": "Hàng Hóa \/ Kiểm Kê Hàng Hóa",
+  "image-id": "TO (20)"
+ },
+ {
+  "id": "TO21",
+  "title": "Banking",
+  "meaning": "Ngân Hàng",
+  "image-id": "TO (21)"
+ },
+ {
+  "id": "TO22",
+  "title": "Accounting",
+  "meaning": "Kế Toán",
+  "image-id": "TO (22)"
+ },
+ {
+  "id": "TO23",
+  "title": "Investments",
+  "meaning": "Sự Đầu Tư",
+  "image-id": "TO (23)"
+ },
+ {
+  "id": "TO24",
+  "title": "Taxes",
+  "meaning": "Thuế",
+  "image-id": "TO (24)"
+ },
+ {
+  "id": "TO25",
+  "title": "Financial Statements",
+  "meaning": "Bản Báo Cáo Tài Chính",
+  "image-id": "TO (25)"
+ },
+ {
+  "id": "TO26",
+  "title": "Property and Departments",
+  "meaning": "Bất Động Sản và Căn Hộ",
+  "image-id": "TO (26)"
+ },
+ {
+  "id": "TO27",
+  "title": "Board Meeting and Committees",
+  "meaning": "Họp Hội Đồng Ban Quản Trị và Ủy Ban",
+  "image-id": "TO (27)"
+ },
+ {
+  "id": "TO28",
+  "title": "Quality Control",
+  "meaning": "Ban Quản Lý Chất Lượng",
+  "image-id": "TO (28)"
+ },
+ {
+  "id": "TO29",
+  "title": "Product Development",
+  "meaning": "Phát Triển Sản Phẩm",
+  "image-id": "TO (29)"
+ },
+ {
+  "id": "TO30",
+  "title": "Renting and Leasing",
+  "meaning": "Thuê và Cho Thuê",
+  "image-id": "TO (30)"
+ },
+ {
+  "id": "TO31",
+  "title": "Selecting A Restaurant",
+  "meaning": "Chọn Lựa Nhà Hàng",
+  "image-id": "TO (31)"
+ },
+ {
+  "id": "TO32",
+  "title": "Eating Out",
+  "meaning": "Ăn Bên Ngoài",
+  "image-id": "TO (32)"
+ },
+ {
+  "id": "TO33",
+  "title": "Ordering Lunch",
+  "meaning": "Đặt Ăn Trưa",
+  "image-id": "TO (33)"
+ },
+ {
+  "id": "TO34",
+  "title": "Cooking As A Career",
+  "meaning": "Nghề Nấu Ăn",
+  "image-id": "TO (34)"
+ },
+ {
+  "id": "TO35",
+  "title": "Events",
+  "meaning": "Sự Kiện",
+  "image-id": "TO (35)"
+ },
+ {
+  "id": "TO36",
+  "title": "General Travel",
+  "meaning": "Du Lịch Tổng Quan",
+  "image-id": "TO (36)"
+ },
+ {
+  "id": "TO37",
+  "title": "Airlines",
+  "meaning": "Đường \/ Hảng Hàng Không",
+  "image-id": "TO (37)"
+ },
+ {
+  "id": "TO38",
+  "title": "Trains",
+  "meaning": "Tàu Điện",
+  "image-id": "TO (38)"
+ },
+ {
+  "id": "TO39",
+  "title": "Hotels",
+  "meaning": "Khách Sạn",
+  "image-id": "TO (39)"
+ },
+ {
+  "id": "TO40",
+  "title": "Car Rentals",
+  "meaning": "Thuê Xe Hơi",
+  "image-id": "TO (40)"
+ },
+ {
+  "id": "TO41",
+  "title": "Movies",
+  "meaning": "Phim",
+  "image-id": "TO (41)"
+ },
+ {
+  "id": "TO42",
+  "title": "Theater",
+  "meaning": "Rạp Hát",
+  "image-id": "TO (42)"
+ },
+ {
+  "id": "TO43",
+  "title": "Music",
+  "meaning": "Âm Nhạc",
+  "image-id": "TO (43)"
+ },
+ {
+  "id": "TO44",
+  "title": "Museums",
+  "meaning": "Bảo Tàng",
+  "image-id": "TO (44)"
+ },
+ {
+  "id": "TO45",
+  "title": "Media",
+  "meaning": "Truyền Thông",
+  "image-id": "TO (45)"
+ },
+ {
+  "id": "TO46",
+  "title": "Doctor's Office",
+  "meaning": "Văn Phòng Bác Sĩ",
+  "image-id": "TO (46)"
+ },
+ {
+  "id": "TO47",
+  "title": "Dentist's Office",
+  "meaning": "Văn Phòng Nha Sĩ",
+  "image-id": "TO (47)"
+ },
+ {
+  "id": "TO48",
+  "title": "Health",
+  "meaning": "Sức Khỏe",
+  "image-id": "TO (48)"
+ },
+ {
+  "id": "TO49",
+  "title": "Hopitals",
+  "meaning": "Bệnh Viện",
+  "image-id": "TO (49)"
+ },
+ {
+  "id": "TO50",
+  "title": "Pharmacy",
+  "meaning": "Ngành Dược",
+  "image-id": "TO (50)"
+ }
+]

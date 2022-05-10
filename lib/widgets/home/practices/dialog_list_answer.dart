@@ -4,11 +4,10 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:learning_english_app/models/list_quiz_question.dart';
 import 'package:learning_english_app/screens/practice/review_screen.dart';
 import 'package:provider/provider.dart';
 
-import '../../../models/review_chart_data.dart';
+import '../../../models/practice/list_quiz_question.dart';
 import '../../../providers/pratice/dialog_quiz_controller.dart';
 import '../../../utils/styles.dart';
 import 'custom_radio.dart';

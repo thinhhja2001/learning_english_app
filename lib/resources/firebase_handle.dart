@@ -1,15 +1,19 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, invalid_return_type_for_catch_error
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:learning_english_app/models/list_quiz_question.dart';
-import 'package:learning_english_app/models/practice.dart';
-import 'package:learning_english_app/models/practice_file.dart';
-import 'package:learning_english_app/models/result.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:learning_english_app/models/practice/answer.dart';
+import 'package:learning_english_app/models/practice/list_quiz_question.dart';
+import 'package:learning_english_app/models/practice/practice.dart';
+import 'package:learning_english_app/models/practice/practice_file.dart';
+import 'package:learning_english_app/models/practice/quiz.dart';
+import 'package:learning_english_app/models/practice/result.dart';
 import 'package:learning_english_app/models/user.dart';
+import 'package:learning_english_app/models/vocabulary/vocabulary.dart';
+import 'package:learning_english_app/models/vocabulary/vocabulary_document.dart';
+import 'package:learning_english_app/models/vocabulary/vocabulary_topic.dart';
 import 'package:learning_english_app/resources/firebase_reference.dart';
 
-import '../models/answer.dart';
-import '../models/quiz.dart';
 import 'auth_methods.dart';
 
 CollectionReference _collectionRef =
@@ -179,13 +183,13 @@ class FirebaseHandler {
     return numberQuestion;
   }
 
-  static Future<User> getCurrentUser() async =>
+  static Future<UserData> getCurrentUser() async =>
       await AuthMethods().getUserDetails().then((data) {
-        return User(email: data.email, name: data.name, uid: data.uid);
+        return UserData(email: data.email, name: data.name, uid: data.uid);
       });
 
   static addResultToFirebase(String test, String part, Result result) async {
-    User user = await getCurrentUser();
+    UserData user = await getCurrentUser();
     DateTime currentPhoneDate = DateTime.now(); //DateTime
     Timestamp myTimeStamp = Timestamp.fromDate(currentPhoneDate); //To TimeStamp
 
@@ -208,7 +212,7 @@ class FirebaseHandler {
 
   static addToFavorite(
       String test, String part, String index, String title) async {
-    User user = await getCurrentUser();
+    UserData user = await getCurrentUser();
     DateTime currentPhoneDate = DateTime.now(); //DateTime
     Timestamp myTimeStamp = Timestamp.fromDate(currentPhoneDate); //To TimeStamp
     return await userFR
@@ -222,7 +226,7 @@ class FirebaseHandler {
   }
 
   static deleteFromFavorite(String test, String part, String index) async {
-    User user = await getCurrentUser();
+    UserData user = await getCurrentUser();
     CollectionReference favoriteFR =
         userFR.doc(user.uid).collection('favorites').doc(test).collection(part);
     List<String> listID = [];
@@ -237,5 +241,91 @@ class FirebaseHandler {
     return favoriteFR.doc(listID.first).delete().then((value) {
       print("Delete Favorite $index successful");
     }).catchError((error) => print('Failed to Delete news: $error'));
+  }
+
+  static Future<List<VocabularyDocument>> getVocabularyDocumentList() async {
+    List<VocabularyDocument> documentList = [];
+    QuerySnapshot vocabularyQuerySnapshot = await vocabularyFR.get();
+    documentList = vocabularyQuerySnapshot.docs
+        .map((doc) => VocabularyDocument.fromSnap(doc))
+        .toList();
+    return documentList;
+  }
+
+  static Future<List<VocabularyTopic>> getVocabularyTopicList(String id) async {
+    List<VocabularyTopic> topicList = [];
+    QuerySnapshot topicQuerySnapshot =
+        await vocabularyFR.doc(id).collection("topics").get();
+    topicList = topicQuerySnapshot.docs
+        .map((doc) => VocabularyTopic.fromSnap(doc))
+        .toList();
+
+    return topicList;
+  }
+
+  static Future<List<Vocabulary>> getVocabularyList(
+      String docId, String topicID) async {
+    List<Vocabulary> vocabularyList = [];
+    QuerySnapshot wordQuerySnapshot =
+        await vocabularyFR.doc(docId).collection("topics/$topicID/words").get();
+    vocabularyList =
+        wordQuerySnapshot.docs.map((doc) => Vocabulary.fromSnap(doc)).toList();
+
+    return vocabularyList;
+  }
+
+  static addWordToFavorite(String wordId, String word, String meaning,
+      String type, String docID, String topicID) async {
+    UserData user = await getCurrentUser();
+    DateTime currentPhoneDate = DateTime.now(); //DateTime
+    Timestamp myTimeStamp = Timestamp.fromDate(currentPhoneDate); //To TimeStamp
+    return await userFR
+        .doc(user.uid)
+        .collection('wordFavorites')
+        .add({
+          'wordId': wordId,
+          'word': word,
+          'meaning': meaning,
+          'type': type,
+          'docID': docID,
+          'topicID': topicID,
+          'time': myTimeStamp
+        })
+        .then((value) => print("Add Word Favorite ${value.id} successfull"))
+        .catchError((error) => print("Failed to update favorite: $error"));
+  }
+
+  static deleteWordFromFavorite(String id) async {
+    UserData user = await getCurrentUser();
+    CollectionReference favoriteFR =
+        userFR.doc(user.uid).collection('wordFavorites');
+    List<String> listID = [];
+    await favoriteFR
+        .where('wordId', isEqualTo: id)
+        .get()
+        .then((QuerySnapshot querySnapshot) {
+      for (var doc in querySnapshot.docs) {
+        listID.add(doc.id);
+      }
+    });
+    return favoriteFR.doc(listID.first).delete().then((value) {
+      print("Delete Word Favorite $id successful");
+    }).catchError((error) => print('Failed to Delete news: $error'));
+  }
+
+  static Future<Vocabulary> getVocabulary(
+      String docID, String topicID, String wordID) async {
+    DocumentSnapshot snap =
+        await vocabularyFR.doc("$docID/topics/$topicID/words/$wordID").get();
+    Vocabulary vocabulary = Vocabulary.fromSnap(snap);
+    return vocabulary;
+  }
+
+  static getListFavorite() {
+    CollectionReference favoriteFR = userFR
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .collection('wordFavorites');
+
+    return favoriteFR.orderBy('time', descending: true).snapshots();
   }
 }

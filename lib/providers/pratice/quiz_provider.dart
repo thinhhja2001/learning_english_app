@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
-
-import '../../models/practice_quiz.dart';
+import 'package:learning_english_app/models/practice/practice_quiz.dart';
 
 class QuizProvider extends ChangeNotifier {
   bool _isFavoritePress = false;
