@@ -2,17 +2,17 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:learning_english_app/models/practice.dart';
-import 'package:learning_english_app/models/practice_file.dart';
+import 'package:learning_english_app/models/practice/answer.dart';
+import 'package:learning_english_app/models/practice/practice.dart';
+import 'package:learning_english_app/models/practice/practice_file.dart';
+import 'package:learning_english_app/models/practice/quiz.dart';
 import 'package:learning_english_app/providers/pratice/page_quiz_provider.dart';
 import 'package:provider/provider.dart';
 
-import '../../../models/answer.dart';
-import '../../../models/quiz.dart';
 import '../../../resources/firebase_handle.dart';
 import '../../../resources/firebase_reference.dart';
 import '../../../utils/constants.dart';
-import '../../body_practice.dart';
+import 'body_practice.dart';
 import 'audio_player_widget.dart';
 
 class QuestionWidget extends StatelessWidget {

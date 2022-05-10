@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:learning_english_app/models/practice.dart';
 
-import '../models/review_chart_data.dart';
+import '../models/practice/practice.dart';
 
 enum CustomInputFieldType { text, password }
 

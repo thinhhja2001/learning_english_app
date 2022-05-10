@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:learning_english_app/models/practice_file.dart';
+import 'package:learning_english_app/models/practice/practice_file.dart';
 import 'package:learning_english_app/providers/pratice/dialog_quiz_controller.dart';
 import 'package:learning_english_app/providers/pratice/loading_provider.dart';
 import 'package:learning_english_app/screens/practice/page_quiz_screen.dart';

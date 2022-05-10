@@ -4,7 +4,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:learning_english_app/models/list_quiz_question.dart';
 import 'package:learning_english_app/providers/authentication/email_verify_provider.dart';
 import 'package:learning_english_app/providers/pratice/dialog_quiz_controller.dart';
 import 'package:learning_english_app/providers/pratice/loading_provider.dart';
@@ -13,11 +12,10 @@ import 'package:learning_english_app/firebase_options.dart';
 import 'package:learning_english_app/providers/authentication/signin_provider.dart';
 import 'package:learning_english_app/providers/pratice/user_provider.dart';
 import 'package:learning_english_app/providers/reading_provider.dart';
-import 'package:learning_english_app/resources/firebase_handle.dart';
+import 'package:learning_english_app/providers/vocabulary/vocaublary_provider.dart';
 import 'package:learning_english_app/screens/authentication/signin_screen.dart';
 import 'package:learning_english_app/providers/authentication/signup_provider.dart';
 import 'package:learning_english_app/screens/home/home_screen.dart';
-import 'package:learning_english_app/widgets/home/practices/custom_radio.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
@@ -50,8 +48,8 @@ class MyApp extends StatelessWidget {
             create: (context) => UserProvider()),
         ChangeNotifierProvider<LoadingProvider>(
             create: (context) => LoadingProvider()),
-        // StreamProvider<ListQuizQuestion>(
-        //     create: (context) => , initialData: ListQuizQuestion())
+        ChangeNotifierProvider<VocabularyProvider>(
+            create: (context) => VocabularyProvider()),
       ],
       child: GetMaterialApp(
           title: 'Flutter Demo',

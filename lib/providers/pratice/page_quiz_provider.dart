@@ -2,12 +2,10 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:learning_english_app/models/practice.dart';
+import 'package:learning_english_app/models/practice/practice_file.dart';
+import 'package:learning_english_app/models/practice/practice_quiz.dart';
+import 'package:learning_english_app/models/practice/quiz.dart';
 import 'package:learning_english_app/resources/firebase_handle.dart';
-
-import '../../models/practice_file.dart';
-import '../../models/practice_quiz.dart';
-import '../../models/quiz.dart';
 
 class PageQuizProvider extends ChangeNotifier {
   late PageController pageController;

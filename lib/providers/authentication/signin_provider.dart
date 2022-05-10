@@ -14,7 +14,7 @@ class SignInProvider extends ChangeNotifier {
   bool get isValid => _isValid;
   String _errorMessage = "";
   String get errorMessage => _errorMessage;
-  late model.User currentUser;
+  late model.UserData currentUser;
 
   Future<String> loginUser(
       {required String email, required String password}) async {

@@ -90,12 +90,6 @@ class PracticeScreen extends StatelessWidget {
                                   ListPracticeCard(
                                       practices: readings,
                                       practiceType: PracticeType.reading),
-                                  const TextInCustomScrollView(
-                                    text: "Test",
-                                  ),
-                                  ListPracticeCard(
-                                      practices: tests,
-                                      practiceType: PracticeType.test)
                                 ],
                               ))))
                 ],

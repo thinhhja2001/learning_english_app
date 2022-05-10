@@ -4,7 +4,7 @@ import 'package:learning_english_app/screens/practice/practice_selection_screen.
 import 'package:learning_english_app/utils/constants.dart';
 import 'package:learning_english_app/utils/styles.dart';
 
-import '../../../models/practice.dart';
+import '../../../models/practice/practice.dart';
 import '../../../utils/utils.dart';
 
 class PracticeCard extends StatelessWidget {

@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:learning_english_app/models/list_quiz_question.dart';
-
-import '../../models/result.dart';
+import 'package:learning_english_app/models/practice/list_quiz_question.dart';
+import 'package:learning_english_app/models/practice/result.dart';
 import '../../resources/firebase_handle.dart';
 
 class DialogQuizProvider extends ChangeNotifier {
