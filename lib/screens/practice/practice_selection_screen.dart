@@ -33,89 +33,84 @@ class PracticeSelectionScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final Color titleColor = getTitleColor(practice.practiceType);
     LoadingProvider loadingProvider = Provider.of<LoadingProvider>(context);
-    return Scaffold(
-      backgroundColor: kcGreyColor,
-      appBar: AppBar(
-        leading: IconButton(
-            onPressed: () {
-              if (!loadingProvider.isLoading) {
-                Get.back();
-              } else {
-                loadingProvider.updateLoading();
-                Get.back();
-              }
-            },
-            icon: const Icon(
-              Icons.arrow_back,
-              color: Colors.black,
-            )),
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              practicePartName[practice.practicePart.index],
-              style: kDefaultTextStyle.copyWith(fontSize: 20),
-            ),
-            Text(
-              practicePartTitle[practice.practicePart.index],
-              style: kDefaultTextStyle.copyWith(
-                  fontSize: 15,
-                  fontWeight: FontWeight.normal,
-                  color: titleColor),
-            )
-          ],
-        ),
-        backgroundColor: kcWhiteColor,
-      ),
-      body: loadingProvider.isLoading
-          ? Center(child: CircularProgressIndicator(color: Colors.black))
-          : FutureBuilder<List<PracticeFile>>(
-              future: FirebaseHandler.getListTest(practice),
-              builder: (BuildContext context,
-                  AsyncSnapshot<List<PracticeFile>> snapshot) {
-                if (snapshot.hasError) {
-                  print(snapshot.error);
-                  return Center(child: Text("Something Error"));
+    return WillPopScope(
+      onWillPop: () async {
+        if (!loadingProvider.isLoading) {
+          Get.back();
+        }
+        return false;
+      },
+      child: Scaffold(
+        backgroundColor: kcGreyColor,
+        appBar: AppBar(
+          leading: IconButton(
+              onPressed: () {
+                if (!loadingProvider.isLoading) {
+                  Get.back();
                 }
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(
-                      child: CircularProgressIndicator(color: Colors.black));
-                }
-
-                List<PracticeFile> fileList = [];
-                fileList = snapshot.data!.map((doc) => doc).toList();
-                return Padding(
-                    padding:
-                        const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
-                    child: AnimationLimiter(
-                        child: GridView.builder(
-                            gridDelegate:
-                                SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount: 2, childAspectRatio: 1.4),
-                            itemCount: fileList.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              return AnimationConfiguration.staggeredGrid(
-                                  columnCount: 2,
-                                  position: index,
-                                  duration: Duration(milliseconds: 1000),
-                                  child: ScaleAnimation(
-                                      child: FadeInAnimation(
-                                          delay: Duration(milliseconds: 100),
-                                          child: PracticeSelectionCard(
-                                              practiceFile: fileList[index]))));
-                            })));
-              }),
-    );
-  }
-
-  Widget listItem(PracticeFile practiceFile) {
-    return Card(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-        child: Center(
-          child: Text(
-            practiceFile.fileTitle!,
-            style: TextStyle(fontSize: 18),
+              },
+              icon: const Icon(
+                Icons.arrow_back,
+                color: Colors.black,
+              )),
+          title: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                practicePartName[practice.practicePart.index],
+                style: kDefaultTextStyle.copyWith(fontSize: 20),
+              ),
+              Text(
+                practicePartTitle[practice.practicePart.index],
+                style: kDefaultTextStyle.copyWith(
+                    fontSize: 15,
+                    fontWeight: FontWeight.normal,
+                    color: titleColor),
+              )
+            ],
           ),
-        ));
+          backgroundColor: kcWhiteColor,
+        ),
+        body: loadingProvider.isLoading
+            ? Center(child: CircularProgressIndicator(color: Colors.black))
+            : FutureBuilder<List<PracticeFile>>(
+                future: FirebaseHandler.getListTest(practice),
+                builder: (BuildContext context,
+                    AsyncSnapshot<List<PracticeFile>> snapshot) {
+                  if (snapshot.hasError) {
+                    print(snapshot.error);
+                    return Center(child: Text("Something Error"));
+                  }
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Center(
+                        child: CircularProgressIndicator(color: Colors.black));
+                  }
+
+                  List<PracticeFile> fileList = [];
+                  fileList = snapshot.data!.map((doc) => doc).toList();
+                  return Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 16, horizontal: 8),
+                      child: AnimationLimiter(
+                          child: GridView.builder(
+                              gridDelegate:
+                                  SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 2, childAspectRatio: 1.4),
+                              itemCount: fileList.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                return AnimationConfiguration.staggeredGrid(
+                                    columnCount: 2,
+                                    position: index,
+                                    duration: Duration(milliseconds: 1000),
+                                    child: ScaleAnimation(
+                                        child: FadeInAnimation(
+                                            delay: Duration(milliseconds: 100),
+                                            child: PracticeSelectionCard(
+                                                practiceFile:
+                                                    fileList[index]))));
+                              })));
+                }),
+      ),
+    );
   }
 }

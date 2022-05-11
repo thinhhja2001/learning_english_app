@@ -46,10 +46,14 @@ class _PracticeSelectionCardState extends State<PracticeSelectionCard> {
         child: InkWell(
           onTap: () async => await pressItem(_loadingProvider,
               _pageQuizProvider, _dialogQuizProvider, widget.practiceFile),
-          child: Center(
-            child: Text(
-              widget.practiceFile.fileTitle!,
-              style: TextStyle(fontSize: 18),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: Center(
+              child: Text(
+                widget.practiceFile.fileTitle!,
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 18),
+              ),
             ),
           ),
         ));

@@ -29,11 +29,16 @@ class PracticeCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              verticalSpaceSmall,
-              Text(
-                practicePartTitle[practice.practicePart.index],
-                style: kDefaultTextStyle.copyWith(
-                    color: primaryColor, fontWeight: FontWeight.normal),
+              Padding(
+                padding: const EdgeInsets.only(right: 2),
+                child: Text(
+                  practicePartTitle[practice.practicePart.index],
+                  overflow: TextOverflow.ellipsis,
+                  style: kDefaultTextStyle.copyWith(
+                      color: primaryColor,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14),
+                ),
               ),
               verticalSpaceSmall,
               Container(
@@ -45,10 +50,9 @@ class PracticeCard extends StatelessWidget {
                         colors: [primaryColor, secondaryColor]),
                     borderRadius: BorderRadius.circular(10)),
                 child: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: kDefaultPadding),
+                  padding: const EdgeInsets.all(kDefaultPadding),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Icon(
                         IconData(int.parse('0x${practice.iconData}'),
@@ -57,7 +61,8 @@ class PracticeCard extends StatelessWidget {
                       ),
                       Text(
                         practicePartName[practice.practicePart.index],
-                        style: const TextStyle(color: Colors.white),
+                        style: const TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.bold),
                       )
                     ],
                   ),

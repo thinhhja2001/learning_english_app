@@ -12,18 +12,15 @@ class TextInCustomScrollView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 10),
-        child: Stack(
-          children: [
-            verticalSpaceMedium,
-            Text(
-              text,
-              style: kDefaultTextStyle,
-            ),
-            verticalSpaceMedium
-          ],
-        ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            text,
+            style: kDefaultTextStyle.copyWith(fontSize: 20),
+          ),
+          verticalSpaceSmall
+        ],
       ),
     );
   }
