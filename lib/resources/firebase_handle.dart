@@ -13,6 +13,7 @@ import 'package:learning_english_app/models/vocabulary/vocabulary.dart';
 import 'package:learning_english_app/models/vocabulary/vocabulary_document.dart';
 import 'package:learning_english_app/models/vocabulary/vocabulary_topic.dart';
 import 'package:learning_english_app/resources/firebase_reference.dart';
+import 'package:learning_english_app/utils/constants.dart';
 
 import 'auth_methods.dart';
 
@@ -136,7 +137,12 @@ class FirebaseHandler {
     practiceFileList = testQuerySnapshot.docs
         .map((doc) => PracticeFile.fromFireStore(doc.id, practice))
         .toList();
-
+    if (practice.practicePart == PracticePart.part7) {
+      practiceFileList.removeWhere((element) =>
+          element.id == 'test6' ||
+          element.id == 'test7' ||
+          element.id == 'test8');
+    }
     return practiceFileList;
   }
 

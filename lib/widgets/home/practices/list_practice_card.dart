@@ -16,7 +16,7 @@ class ListPracticeCard extends StatelessWidget {
     return SliverGrid(
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
-        childAspectRatio: 1.5,
+        childAspectRatio: 1.8,
         crossAxisSpacing: 10,
         mainAxisSpacing: 10,
       ),
