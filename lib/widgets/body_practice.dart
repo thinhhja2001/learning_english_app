@@ -194,9 +194,7 @@ class CustomPicture extends StatelessWidget {
     CollectionReference answers = FirebaseFirestore.instance
         .collection("tests")
         .doc(testId)
-        .collection(part)
-        .doc(documentId)
-        .collection("questions");
+        .collection(part);
     ;
 
     return FutureBuilder<DocumentSnapshot>(

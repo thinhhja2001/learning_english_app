@@ -3,14 +3,23 @@
 import 'dart:typed_data';
 
 import 'package:audioplayers/audioplayers.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:learning_english_app/widgets/accordion.dart';
 
 class AudioPlayerWidget extends StatefulWidget {
-  AudioPlayerWidget({Key? key, required this.audioUrl, required this.isRemote})
+  AudioPlayerWidget(
+      {Key? key,
+      this.isRemote = true,
+      required this.documentId,
+      required this.testId,
+      required this.part})
       : super(key: key);
 
-  String audioUrl;
+  final String documentId;
+  final String testId;
+  final String part;
   bool isRemote;
 
   @override
@@ -124,66 +133,97 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        SizedBox(
-            width: screenWidth * 0.1,
-            child: IconButton(
-                onPressed: () => seekToSec(position.inSeconds - 5),
-                icon: const Icon(Icons.replay_5))),
-        SizedBox(
-          width: screenWidth * 0.1,
-          child: IconButton(
-              onPressed: () async {
-                if (!isPlaying && !audioPlayed) {
-                  if (widget.isRemote) {
-                    await playRemote(widget.audioUrl);
-                  } else {
-                    await playLocal(widget.audioUrl);
-                  }
-                } else if (audioPlayed && !isPlaying) {
-                  int result = await audioPlayer.resume();
-                  if (result == 1) {
-                    //resume success
-                    print("Sound resuming successful.");
-                  } else {
-                    print("Error on resume audio.");
-                  }
-                } else {
-                  int result = await audioPlayer.pause();
-                  if (result == 1) {
-                    //resume success
-                    print("Sound paused successful.");
-                  } else {
-                    print("Error on paused audio.");
-                  }
-                }
-              },
-              icon: Icon(isPlaying ? Icons.pause : Icons.play_arrow)),
-        ),
-        SizedBox(
-            width: screenWidth * 0.1,
-            child: IconButton(
-                onPressed: () => seekToSec(position.inSeconds + 5),
-                icon: const Icon(Icons.forward_5))),
-        SizedBox(
-          width: screenWidth * 0.5,
-          child: SliderTheme(
-            data: SliderThemeData(overlayShape: SliderComponentShape.noOverlay),
-            child: Slider(
-                min: 0,
-                max: duration.inSeconds.toDouble(),
-                value: position.inSeconds.toDouble(),
-                onChanged: (value) async {
-                  final position = Duration(seconds: value.toInt());
-                  await audioPlayer.seek(position);
-                  await audioPlayer.resume();
-                }),
-          ),
-        ),
-        SizedBox(width: screenWidth * 0.1, child: Text(formatTime(position))),
-      ],
-    );
+    CollectionReference answers = FirebaseFirestore.instance
+        .collection("tests")
+        .doc(widget.testId)
+        .collection(widget.part);
+    ;
+    return FutureBuilder<DocumentSnapshot>(
+        future: answers.doc(widget.documentId).get(),
+        builder:
+            (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+          if (snapshot.hasError) {
+            return Accordion(
+              headerBackgroundColor: Colors.green,
+              header: Text('Audio',
+                  style: TextStyle(color: Colors.white, fontSize: 17)),
+              content: Text("Something went wrong"),
+            );
+          }
+          if (snapshot.connectionState == ConnectionState.done) {
+            Map<String, dynamic> data =
+                snapshot.data!.data() as Map<String, dynamic>;
+            return Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                SizedBox(
+                    width: screenWidth * 0.1,
+                    child: IconButton(
+                        onPressed: () => seekToSec(position.inSeconds - 5),
+                        icon: const Icon(Icons.replay_5))),
+                SizedBox(
+                  width: screenWidth * 0.1,
+                  child: IconButton(
+                      onPressed: () async {
+                        if (!isPlaying && !audioPlayed) {
+                          if (widget.isRemote) {
+                            await playRemote("${data['audioUrl']}");
+                          } else {
+                            await playLocal("${data['audioUrl']}");
+                          }
+                        } else if (audioPlayed && !isPlaying) {
+                          int result = await audioPlayer.resume();
+                          if (result == 1) {
+                            //resume success
+                            print("Sound resuming successful.");
+                          } else {
+                            print("Error on resume audio.");
+                          }
+                        } else {
+                          int result = await audioPlayer.pause();
+                          if (result == 1) {
+                            //resume success
+                            print("Sound paused successful.");
+                          } else {
+                            print("Error on paused audio.");
+                          }
+                        }
+                      },
+                      icon: Icon(isPlaying ? Icons.pause : Icons.play_arrow)),
+                ),
+                SizedBox(
+                    width: screenWidth * 0.1,
+                    child: IconButton(
+                        onPressed: () => seekToSec(position.inSeconds + 5),
+                        icon: const Icon(Icons.forward_5))),
+                SizedBox(
+                  width: screenWidth * 0.5,
+                  child: SliderTheme(
+                    data: SliderThemeData(
+                        overlayShape: SliderComponentShape.noOverlay),
+                    child: Slider(
+                        min: 0,
+                        max: duration.inSeconds.toDouble(),
+                        value: position.inSeconds.toDouble(),
+                        onChanged: (value) async {
+                          final position = Duration(seconds: value.toInt());
+                          await audioPlayer.seek(position);
+                          await audioPlayer.resume();
+                        }),
+                  ),
+                ),
+                SizedBox(
+                    width: screenWidth * 0.1,
+                    child: Text(formatTime(position))),
+              ],
+            );
+          }
+          return Accordion(
+            headerBackgroundColor: Colors.green,
+            header: Text('Audio',
+                style: TextStyle(color: Colors.white, fontSize: 17)),
+            content: Text("Loading"),
+          );
+        });
   }
 }

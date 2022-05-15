@@ -102,10 +102,10 @@ class _PageQuizScreenState extends State<PageQuizScreen> {
         .split('.')[1];
     // print(_part);
     final String _testId = "test1";
-    CollectionReference part = FirebaseFirestore.instance
-        .collection("tests")
-        .doc(_testId)
-        .collection(_part);
+    // CollectionReference part = FirebaseFirestore.instance
+    //     .collection("tests")
+    //     .doc(_testId)
+    //     .collection(_part);
     return Scaffold(
         backgroundColor: kcGreyColor,
         appBar: AppBarQuizPractice(pageQuizProvider: _pageQuizProvider),
@@ -260,7 +260,6 @@ class QuestionWidget extends StatelessWidget {
                             testId: testId,
                             part: _part,
                             documentId: _documentId,
-                            questionId: _documentId,
                             isRemote: true)
                         : SizedBox(),
                     Row(
