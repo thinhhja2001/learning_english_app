@@ -1,5 +1,7 @@
 // ignore_for_file: avoid_print, invalid_return_type_for_catch_error
 
+import 'dart:collection';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:learning_english_app/models/practice/answer.dart';
@@ -13,6 +15,7 @@ import 'package:learning_english_app/models/vocabulary/vocabulary.dart';
 import 'package:learning_english_app/models/vocabulary/vocabulary_document.dart';
 import 'package:learning_english_app/models/vocabulary/vocabulary_topic.dart';
 import 'package:learning_english_app/resources/firebase_reference.dart';
+import 'package:learning_english_app/resources/support_function.dart';
 import 'package:learning_english_app/utils/constants.dart';
 
 import 'auth_methods.dart';
@@ -50,45 +53,6 @@ Future<void> getData() async {
         print(allTestQuestionDetailIDData);
         print(allTestQuestionDetailData);
       }
-    }
-  }
-}
-
-class SupportFunction {
-  static int getFirstNumber(String indexString) {
-    if (indexString.contains('-')) {
-      return int.parse(indexString.split('-')[0]);
-    } else {
-      return int.parse(indexString);
-    }
-  }
-
-  static int getLastNumber(String indexString) {
-    if (indexString.contains('-')) {
-      return int.parse(indexString.split('-')[1]);
-    } else {
-      return int.parse(indexString);
-    }
-  }
-
-  static int getLengthQuestionList(String firstIndex, String lastIndex) {
-    int firstNumber = getFirstNumber(firstIndex);
-    int lastNumber = getLastNumber(lastIndex);
-    return lastNumber - firstNumber + 1;
-  }
-
-  static int convertAnswerToInt(String answerString) {
-    switch (answerString) {
-      case "A":
-        return 0;
-      case "B":
-        return 1;
-      case "C":
-        return 2;
-      case "D":
-        return 3;
-      default:
-        return -1;
     }
   }
 }
@@ -199,6 +163,10 @@ class FirebaseHandler {
     DateTime currentPhoneDate = DateTime.now(); //DateTime
     Timestamp myTimeStamp = Timestamp.fromDate(currentPhoneDate); //To TimeStamp
 
+    Map<String, Object> dummyMap = {};
+    DocumentReference df =
+        await userFR.doc(user.uid).collection('results').doc(test);
+    df.set(dummyMap);
     return await userFR
         .doc(user.uid)
         .collection('results')
@@ -208,12 +176,162 @@ class FirebaseHandler {
           'numUnSelect': result.numberUnSelect,
           'numCorrect': result.numberCorrect,
           'numInCorrect': result.numberInCorrect,
-          'answerlist': result.correctList,
+          'answerList': result.correctList,
           'chooseList': result.chooseList,
           'time': myTimeStamp
         })
-        .then((value) => print("Add Result ${value.id} successfull"))
+        .then((value) => print("Add Result ${value.id} successfully"))
         .catchError((error) => print("Failed to update Result: $error"));
+  }
+
+  static Future<int> estimateListening() async {
+    UserData user = await getCurrentUser();
+    List testListID = [];
+    List<Result> results = [];
+    int numberCorrect = 0, numberInCorrect = 0, numberUnSelect = 0;
+    List lPart = ['part1', 'part2', 'part3', 'part4'];
+    List lPartScore = [0, 0, 0, 0];
+    QuerySnapshot testSnapshot =
+        await userFR.doc(user.uid).collection('results').get();
+    testListID = testSnapshot.docs.map((doc) => doc.id).toList();
+    for (var id in testListID) {
+      for (String part in lPart) {
+        testSnapshot = await userFR
+            .doc(user.uid)
+            .collection('results')
+            .doc(id)
+            .collection(part)
+            .get();
+        results = testSnapshot.docs.map((doc) => Result.fromSnap(doc)).toList();
+        if (results.isNotEmpty) {
+          results.sort((a, b) => a.time!.compareTo(b.time!));
+          print(results);
+          numberCorrect += results.last.numberCorrect;
+          numberInCorrect += results.last.numberInCorrect;
+          numberUnSelect += results.last.numberUnSelect;
+          lPartScore[
+              int.parse(part.substring(part.length - 1, part.length)) - 1]++;
+        }
+      }
+    }
+    if (numberCorrect == 0)
+      return 5;
+    else
+      return SupportFunction.roundNumberTo5(
+          (numberCorrect / (numberInCorrect + numberUnSelect + numberCorrect)) *
+              (lPartScore[0] * 30 +
+                  lPartScore[1] * 105 +
+                  lPartScore[2] * 245 +
+                  lPartScore[3] * 115));
+  }
+
+  static Future<int> estimateReading() async {
+    UserData user = await getCurrentUser();
+    List testListID = [];
+    List<Result> results = [];
+    int numberCorrect = 0, numberInCorrect = 0, numberUnSelect = 0;
+    List lPart = ['part5', 'part6', 'part7'];
+    List lPartScore = [0, 0, 0];
+    QuerySnapshot testSnapshot =
+        await userFR.doc(user.uid).collection('results').get();
+    testListID = testSnapshot.docs.map((doc) => doc.id).toList();
+    for (var id in testListID) {
+      for (String part in lPart) {
+        testSnapshot = await userFR
+            .doc(user.uid)
+            .collection('results')
+            .doc(id)
+            .collection(part)
+            .get();
+        results = testSnapshot.docs.map((doc) => Result.fromSnap(doc)).toList();
+        if (results.isNotEmpty) {
+          results.sort((a, b) => a.time!.compareTo(b.time!));
+          print(results);
+          numberCorrect += results.last.numberCorrect;
+          numberInCorrect += results.last.numberInCorrect;
+          numberUnSelect += results.last.numberUnSelect;
+          lPartScore[
+              int.parse(part.substring(part.length - 1, part.length)) - 5]++;
+        }
+      }
+    }
+    if (numberCorrect == 0)
+      return 5;
+    else
+      return SupportFunction.roundNumberTo5(
+          (numberCorrect / (numberInCorrect + numberUnSelect + numberCorrect)) *
+              (lPartScore[0] * 90 + lPartScore[1] * 100 + lPartScore[2] * 305));
+  }
+
+  static Future<List> getTimeLearned() async {
+    UserData user = await getCurrentUser();
+    List testListID = [];
+    List<Result> results = [];
+    List<int> lTimeLearned = [0, 0, 0, 0, 0, 0, 0];
+    List lPart = [
+      'part1',
+      'part2',
+      'part3',
+      'part4',
+      'part5',
+      'part6',
+      'part7'
+    ];
+
+    QuerySnapshot testSnapshot =
+        await userFR.doc(user.uid).collection('results').get();
+    testListID = testSnapshot.docs.map((doc) => doc.id).toList();
+    for (var id in testListID) {
+      for (String part in lPart) {
+        testSnapshot = await userFR
+            .doc(user.uid)
+            .collection('results')
+            .doc(id)
+            .collection(part)
+            .get();
+        results +=
+            testSnapshot.docs.map((doc) => Result.fromSnap(doc)).toList();
+      }
+    }
+    return results;
+  }
+
+  static Future<List<Result>> getOverallPart(String part) async {
+    UserData user = await getCurrentUser();
+    List testListID = [];
+    List<Result> results = [];
+    List<Result> latestResults = [];
+
+    QuerySnapshot testSnapshot =
+        await userFR.doc(user.uid).collection('results').get();
+    testListID = testSnapshot.docs.map((doc) => doc.id).toList();
+    for (var id in testListID) {
+      testSnapshot = await userFR
+          .doc(user.uid)
+          .collection('results')
+          .doc(id)
+          .collection(part)
+          .get();
+      results = testSnapshot.docs.map((doc) => Result.fromSnap(doc)).toList();
+      if (results.isNotEmpty) {
+        results.sort((a, b) => a.time!.compareTo(b.time!));
+        latestResults.add(results.last);
+      }
+    }
+    // print(results);
+    return latestResults;
+  }
+
+  static updateTarget(int target) async {
+    UserData user = await getCurrentUser();
+    return await userFR.doc(user.uid).update({'target': target});
+  }
+
+  static Future<int> getTarget() async {
+    UserData user = await getCurrentUser();
+    DocumentSnapshot targetSnapshot = await userFR.doc(user.uid).get();
+    var snapshot = targetSnapshot.data() as Map<String, dynamic>;
+    return snapshot['target'] ?? 10;
   }
 
   static addToFavorite(
@@ -227,7 +345,7 @@ class FirebaseHandler {
         .doc(test)
         .collection(part)
         .add({'title': title, 'index': index, 'time': myTimeStamp})
-        .then((value) => print("Add Favorite ${value.id} successfull"))
+        .then((value) => print("Add Favorite ${value.id} successfully"))
         .catchError((error) => print("Failed to update favorite: $error"));
   }
 

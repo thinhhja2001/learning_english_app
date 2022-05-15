@@ -4,12 +4,17 @@ class Result {
   int numberUnSelect = 0;
   int numberCorrect = 0;
   int numberInCorrect = 0;
-  List<int> chooseList = [];
-  List<int> correctList = [];
-  late Timestamp time;
+  List chooseList = [];
+  List correctList = [];
+  late Timestamp? time;
 
-  Result(this.numberUnSelect, this.numberCorrect, this.numberInCorrect,
-      this.chooseList, this.correctList);
+  Result(
+      {required this.numberUnSelect,
+      required this.numberCorrect,
+      required this.numberInCorrect,
+      required this.chooseList,
+      required this.correctList,
+      this.time});
 
   void disposeValue() {
     numberUnSelect = 0;
@@ -17,5 +22,17 @@ class Result {
     numberInCorrect = 0;
     chooseList = [];
     correctList = [];
+  }
+
+  static Result fromSnap(DocumentSnapshot snap) {
+    var snapshot = snap.data() as Map<String, dynamic>;
+
+    return Result(
+        numberUnSelect: snapshot['numUnSelect'] ?? 0,
+        numberCorrect: snapshot['numCorrect'] ?? 0,
+        numberInCorrect: snapshot['numInCorrect'] ?? 0,
+        chooseList: snapshot['chooseList'] ?? [],
+        correctList: snapshot['answerList'] ?? [],
+        time: snapshot['time'] ?? DateTime.now().millisecondsSinceEpoch);
   }
 }

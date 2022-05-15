@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:learning_english_app/models/practice/result.dart';
+import 'package:learning_english_app/resources/firebase_handle.dart';
 import 'package:learning_english_app/screens/history_screen.dart';
 import 'package:learning_english_app/utils/colors.dart';
 import 'package:learning_english_app/utils/constants.dart';
@@ -60,341 +62,19 @@ class Overall extends StatelessWidget {
             ),
           ),
           verticalSpaceSmall,
-          Stack(
-            children: [
-              Text("Part 1:", style: ktsBoldText),
-              SizedBox(
-                width: double.infinity,
-                child: RichText(
-                  textAlign: TextAlign.right,
-                  text: TextSpan(
-                    text: '0 ',
-                    style: ktsBoldText.copyWith(
-                      color: kcCorrect,
-                    ),
-                    children: <TextSpan>[
-                      TextSpan(
-                        text: "/ ",
-                        style: ktsBoldText.copyWith(
-                          color: kcBackgroundProgress,
-                        ),
-                      ),
-                      TextSpan(
-                          text: "0 ",
-                          style: ktsBoldText.copyWith(
-                            color: kcWrong,
-                          )),
-                      TextSpan(
-                        text: "/ ",
-                        style: ktsBoldText.copyWith(
-                          color: kcBackgroundProgress,
-                        ),
-                      ),
-                      TextSpan(
-                          text: "0",
-                          style: ktsBoldText.copyWith(
-                              color: kcBackgroundProgress)),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
-          verticalSpaceTiny,
-          LinearProgressIndicator(
-            value: _value,
-            backgroundColor: kcBackgroundProgress,
-            minHeight: 5,
-            valueColor: new AlwaysStoppedAnimation<Color>(kcPrimaryColor),
-          ),
+          PartOverall(part: 'part1'),
           verticalSpaceSmall,
-          Stack(
-            children: [
-              Text("Part 2:", style: ktsBoldText),
-              SizedBox(
-                width: double.infinity,
-                child: RichText(
-                  textAlign: TextAlign.right,
-                  text: TextSpan(
-                    text: '0 ',
-                    style: ktsBoldText.copyWith(
-                      color: kcCorrect,
-                    ),
-                    children: <TextSpan>[
-                      TextSpan(
-                        text: "/ ",
-                        style: ktsBoldText.copyWith(
-                          color: kcBackgroundProgress,
-                        ),
-                      ),
-                      TextSpan(
-                          text: "0 ",
-                          style: ktsBoldText.copyWith(
-                            color: kcWrong,
-                          )),
-                      TextSpan(
-                        text: "/ ",
-                        style: ktsBoldText.copyWith(
-                          color: kcBackgroundProgress,
-                        ),
-                      ),
-                      TextSpan(
-                          text: "0",
-                          style: ktsBoldText.copyWith(
-                              color: kcBackgroundProgress)),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
-          verticalSpaceTiny,
-          LinearProgressIndicator(
-            value: _value,
-            backgroundColor: kcBackgroundProgress,
-            minHeight: 5,
-            valueColor: new AlwaysStoppedAnimation<Color>(kcPrimaryColor),
-          ),
+          PartOverall(part: 'part2'),
           verticalSpaceSmall,
-          Stack(
-            children: [
-              Text("Part 3:", style: ktsBoldText),
-              SizedBox(
-                width: double.infinity,
-                child: RichText(
-                  textAlign: TextAlign.right,
-                  text: TextSpan(
-                    text: '0 ',
-                    style: ktsBoldText.copyWith(
-                      color: kcCorrect,
-                    ),
-                    children: <TextSpan>[
-                      TextSpan(
-                        text: "/ ",
-                        style: ktsBoldText.copyWith(
-                          color: kcBackgroundProgress,
-                        ),
-                      ),
-                      TextSpan(
-                          text: "0 ",
-                          style: ktsBoldText.copyWith(
-                            color: kcWrong,
-                          )),
-                      TextSpan(
-                        text: "/ ",
-                        style: ktsBoldText.copyWith(
-                          color: kcBackgroundProgress,
-                        ),
-                      ),
-                      TextSpan(
-                          text: "0",
-                          style: ktsBoldText.copyWith(
-                              color: kcBackgroundProgress)),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
-          verticalSpaceTiny,
-          LinearProgressIndicator(
-            value: _value,
-            backgroundColor: kcBackgroundProgress,
-            minHeight: 5,
-            valueColor: new AlwaysStoppedAnimation<Color>(kcPrimaryColor),
-          ),
+          PartOverall(part: 'part3'),
           verticalSpaceSmall,
-          Stack(
-            children: [
-              Text("Part 4:", style: ktsBoldText),
-              SizedBox(
-                width: double.infinity,
-                child: RichText(
-                  textAlign: TextAlign.right,
-                  text: TextSpan(
-                    text: '0 ',
-                    style: ktsBoldText.copyWith(
-                      color: kcCorrect,
-                    ),
-                    children: <TextSpan>[
-                      TextSpan(
-                        text: "/ ",
-                        style: ktsBoldText.copyWith(
-                          color: kcBackgroundProgress,
-                        ),
-                      ),
-                      TextSpan(
-                          text: "0 ",
-                          style: ktsBoldText.copyWith(
-                            color: kcWrong,
-                          )),
-                      TextSpan(
-                        text: "/ ",
-                        style: ktsBoldText.copyWith(
-                          color: kcBackgroundProgress,
-                        ),
-                      ),
-                      TextSpan(
-                          text: "0",
-                          style: ktsBoldText.copyWith(
-                              color: kcBackgroundProgress)),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
-          verticalSpaceTiny,
-          LinearProgressIndicator(
-            value: _value,
-            backgroundColor: kcBackgroundProgress,
-            minHeight: 5,
-            valueColor: new AlwaysStoppedAnimation<Color>(kcPrimaryColor),
-          ),
+          PartOverall(part: 'part4'),
           verticalSpaceSmall,
-          Stack(
-            children: [
-              Text("Part 5:", style: ktsBoldText),
-              SizedBox(
-                width: double.infinity,
-                child: RichText(
-                  textAlign: TextAlign.right,
-                  text: TextSpan(
-                    text: '0 ',
-                    style: ktsBoldText.copyWith(
-                      color: kcCorrect,
-                    ),
-                    children: <TextSpan>[
-                      TextSpan(
-                        text: "/ ",
-                        style: ktsBoldText.copyWith(
-                          color: kcBackgroundProgress,
-                        ),
-                      ),
-                      TextSpan(
-                          text: "0 ",
-                          style: ktsBoldText.copyWith(
-                            color: kcWrong,
-                          )),
-                      TextSpan(
-                        text: "/ ",
-                        style: ktsBoldText.copyWith(
-                          color: kcBackgroundProgress,
-                        ),
-                      ),
-                      TextSpan(
-                          text: "0",
-                          style: ktsBoldText.copyWith(
-                              color: kcBackgroundProgress)),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
-          verticalSpaceTiny,
-          LinearProgressIndicator(
-            value: _value,
-            backgroundColor: kcBackgroundProgress,
-            minHeight: 5,
-            valueColor: new AlwaysStoppedAnimation<Color>(kcPrimaryColor),
-          ),
+          PartOverall(part: 'part5'),
           verticalSpaceSmall,
-          Stack(
-            children: [
-              Text("Part 6:", style: ktsBoldText),
-              SizedBox(
-                width: double.infinity,
-                child: RichText(
-                  textAlign: TextAlign.right,
-                  text: TextSpan(
-                    text: '0 ',
-                    style: ktsBoldText.copyWith(
-                      color: kcCorrect,
-                    ),
-                    children: <TextSpan>[
-                      TextSpan(
-                        text: "/ ",
-                        style: ktsBoldText.copyWith(
-                          color: kcBackgroundProgress,
-                        ),
-                      ),
-                      TextSpan(
-                          text: "0 ",
-                          style: ktsBoldText.copyWith(
-                            color: kcWrong,
-                          )),
-                      TextSpan(
-                        text: "/ ",
-                        style: ktsBoldText.copyWith(
-                          color: kcBackgroundProgress,
-                        ),
-                      ),
-                      TextSpan(
-                          text: "0",
-                          style: ktsBoldText.copyWith(
-                              color: kcBackgroundProgress)),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
-          verticalSpaceTiny,
-          LinearProgressIndicator(
-            value: _value,
-            backgroundColor: kcBackgroundProgress,
-            minHeight: 5,
-            valueColor: new AlwaysStoppedAnimation<Color>(kcPrimaryColor),
-          ),
+          PartOverall(part: 'part6'),
           verticalSpaceSmall,
-          Stack(
-            children: [
-              Text("Part 7:", style: ktsBoldText),
-              SizedBox(
-                width: double.infinity,
-                child: RichText(
-                  textAlign: TextAlign.right,
-                  text: TextSpan(
-                    text: '0 ',
-                    style: ktsBoldText.copyWith(
-                      color: kcCorrect,
-                    ),
-                    children: <TextSpan>[
-                      TextSpan(
-                        text: "/ ",
-                        style: ktsBoldText.copyWith(
-                          color: kcBackgroundProgress,
-                        ),
-                      ),
-                      TextSpan(
-                          text: "0 ",
-                          style: ktsBoldText.copyWith(
-                            color: kcWrong,
-                          )),
-                      TextSpan(
-                        text: "/ ",
-                        style: ktsBoldText.copyWith(
-                          color: kcBackgroundProgress,
-                        ),
-                      ),
-                      TextSpan(
-                          text: "0",
-                          style: ktsBoldText.copyWith(
-                              color: kcBackgroundProgress)),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
-          verticalSpaceTiny,
-          LinearProgressIndicator(
-            value: _value,
-            backgroundColor: kcBackgroundProgress,
-            minHeight: 5,
-            valueColor: new AlwaysStoppedAnimation<Color>(kcPrimaryColor),
-          ),
+          PartOverall(part: 'part7'),
           verticalSpaceSmall,
           SizedBox(
             width: double.infinity,
@@ -422,5 +102,121 @@ class Overall extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+class PartOverall extends StatefulWidget {
+  final String part;
+  const PartOverall({Key? key, required this.part}) : super(key: key);
+
+  @override
+  State<PartOverall> createState() => _PartOverallState();
+}
+
+class _PartOverallState extends State<PartOverall> {
+  int numCorrect = 0, numInCorrect = 0, numUnSelect = 0;
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+        future: FirebaseHandler.getOverallPart(widget.part),
+        builder: (context, AsyncSnapshot<List<Result>> snapshot) {
+          if (snapshot.data == null) {
+            numCorrect = 0;
+            numInCorrect = 0;
+            numUnSelect = 0;
+          } else {
+            List<Result> lResult = snapshot.data!.map((doc) => doc).toList();
+            lResult.forEach((result) {
+              numCorrect += result.numberCorrect;
+              numInCorrect += result.numberInCorrect;
+              numUnSelect += result.numberUnSelect;
+            });
+          }
+
+          if (snapshot.hasError) {
+            print(snapshot.error);
+            return Center(child: Text("Something Error"));
+          }
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(
+                child: CircularProgressIndicator(color: Colors.black));
+          }
+          return Column(
+            children: [
+              Stack(
+                children: [
+                  Text("Part " + widget.part.substring(4) + ":",
+                      style: ktsBoldText),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width - 40,
+                    child: RichText(
+                      textAlign: TextAlign.right,
+                      text: TextSpan(
+                        text: numCorrect.toString(),
+                        style: ktsBoldText.copyWith(
+                          color: kcCorrect,
+                        ),
+                        children: <TextSpan>[
+                          TextSpan(
+                            text: " / ",
+                            style: ktsBoldText.copyWith(
+                              color: kcBackgroundProgress,
+                            ),
+                          ),
+                          TextSpan(
+                              text: numInCorrect.toString(),
+                              style: ktsBoldText.copyWith(
+                                color: kcWrong,
+                              )),
+                          TextSpan(
+                            text: " / ",
+                            style: ktsBoldText.copyWith(
+                              color: kcBackgroundProgress,
+                            ),
+                          ),
+                          TextSpan(
+                              text: numUnSelect.toString(),
+                              style: ktsBoldText.copyWith(
+                                  color: kcBackgroundProgress)),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              verticalSpaceTiny,
+              ((numCorrect + numInCorrect + numUnSelect) == 0)
+                  ? LinearProgressIndicator(
+                      value: 0.1,
+                      backgroundColor: kcBackgroundProgress,
+                      minHeight: 5,
+                      valueColor:
+                          new AlwaysStoppedAnimation<Color>(kcPrimaryColor),
+                    )
+                  : Stack(
+                      children: [
+                        LinearProgressIndicator(
+                          value: 0,
+                          backgroundColor: kcBackgroundProgress,
+                          minHeight: 5,
+                          valueColor:
+                              new AlwaysStoppedAnimation<Color>(kcPrimaryColor),
+                        ),
+                        SizedBox(
+                            width: (numCorrect + numInCorrect) *
+                                (MediaQuery.of(context).size.width - 40) /
+                                (numCorrect + numInCorrect + numUnSelect),
+                            child: LinearProgressIndicator(
+                              value: numCorrect / (numCorrect + numInCorrect),
+                              backgroundColor: kcWrong,
+                              minHeight: 5,
+                              valueColor:
+                                  new AlwaysStoppedAnimation<Color>(kcCorrect),
+                            )),
+                      ],
+                    ),
+            ],
+          );
+        });
   }
 }
