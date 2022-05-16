@@ -11,7 +11,7 @@ class DialogQuizProvider extends ChangeNotifier {
 
   late Result result;
 
-  getResult() async {
+  getResult(int duration) async {
     for (int i = 0; i < numberQuestion; i++) {
       result.chooseList.add(allQuestion[i].indexAnswer!);
       result.correctList.add(allQuestion[i].correctAnswer!);
@@ -30,7 +30,8 @@ class DialogQuizProvider extends ChangeNotifier {
       }
     }
 
-    await FirebaseHandler.addResultToFirebase(testQuiz, partQuiz, result);
+    await FirebaseHandler.addResultToFirebase(
+        testQuiz, partQuiz, result, duration);
   }
 
   void selectAnswer(int answerIndex, int index) {

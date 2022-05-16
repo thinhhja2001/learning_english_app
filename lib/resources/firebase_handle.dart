@@ -155,10 +155,15 @@ class FirebaseHandler {
 
   static Future<UserData> getCurrentUser() async =>
       await AuthMethods().getUserDetails().then((data) {
-        return UserData(email: data.email, name: data.name, uid: data.uid);
+        return UserData(
+          email: data.email,
+          name: data.name,
+          uid: data.uid,
+        );
       });
 
-  static addResultToFirebase(String test, String part, Result result) async {
+  static addResultToFirebase(
+      String test, String part, Result result, int duration) async {
     UserData user = await getCurrentUser();
     DateTime currentPhoneDate = DateTime.now(); //DateTime
     Timestamp myTimeStamp = Timestamp.fromDate(currentPhoneDate); //To TimeStamp
@@ -178,7 +183,8 @@ class FirebaseHandler {
           'numInCorrect': result.numberInCorrect,
           'answerList': result.correctList,
           'chooseList': result.chooseList,
-          'time': myTimeStamp
+          'time': myTimeStamp,
+          'duration': duration
         })
         .then((value) => print("Add Result ${value.id} successfully"))
         .catchError((error) => print("Failed to update Result: $error"));
@@ -204,9 +210,9 @@ class FirebaseHandler {
             .get();
         results =
             testSnapshot.docs.map((doc) => Result.fromSnap(snap: doc)).toList();
+
         if (results.isNotEmpty) {
           results.sort((a, b) => a.time!.compareTo(b.time!));
-          print(results);
           numberCorrect += results.last.numberCorrect;
           numberInCorrect += results.last.numberInCorrect;
           numberUnSelect += results.last.numberUnSelect;
@@ -265,11 +271,10 @@ class FirebaseHandler {
               (lPartScore[0] * 90 + lPartScore[1] * 100 + lPartScore[2] * 305));
   }
 
-  static Future<List> getTimeLearned() async {
+  static Future<List<Result>> getTimeLearned() async {
     UserData user = await getCurrentUser();
     List testListID = [];
     List<Result> results = [];
-    List<int> lTimeLearned = [0, 0, 0, 0, 0, 0, 0];
     List lPart = [
       'part1',
       'part2',
@@ -302,7 +307,7 @@ class FirebaseHandler {
     UserData user = await getCurrentUser();
     List testListID = [];
     List<Result> results = [];
-    List<Result> latestResults = [];
+    List<Result> highestResult = [];
 
     QuerySnapshot testSnapshot =
         await userFR.doc(user.uid).collection('results').get();
@@ -317,12 +322,12 @@ class FirebaseHandler {
       results =
           testSnapshot.docs.map((doc) => Result.fromSnap(snap: doc)).toList();
       if (results.isNotEmpty) {
-        results.sort((a, b) => a.time!.compareTo(b.time!));
-        latestResults.add(results.last);
+        results.sort((a, b) => a.numberCorrect.compareTo(b.numberCorrect));
+        highestResult.add(results.last);
       }
     }
     // print(results);
-    return latestResults;
+    return highestResult;
   }
 
   static Future<List<Result>> getHistoryResult() async {

@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -20,6 +21,16 @@ class DialogListAnswer extends StatefulWidget {
 }
 
 class _DialogListAnswerState extends State<DialogListAnswer> {
+  int duration = 0;
+  late Timer timer;
+  @override
+  void initState() {
+    timer = Timer.periodic(Duration(seconds: 1), (timer) {
+      duration++;
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     DialogQuizProvider dialogQuizProvider =
@@ -139,7 +150,8 @@ class _DialogListAnswerState extends State<DialogListAnswer> {
                       ),
                       ElevatedButton(
                         onPressed: () async {
-                          await dialogQuizProvider.getResult();
+                          timer.cancel();
+                          await dialogQuizProvider.getResult(duration);
                           Get.back();
                           Get.off(ReviewScreen());
                         },

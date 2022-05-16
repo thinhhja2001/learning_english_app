@@ -32,8 +32,8 @@ class _HistoryScreenState extends State<HistoryScreen> {
           backgroundColor: kcWhiteColor,
           title: const Text("History", style: ktsTitleAppBar),
         ),
-        body: StreamBuilder(
-            stream: Stream.fromFuture(FirebaseHandler.getHistoryResult()),
+        body: FutureBuilder(
+            future: FirebaseHandler.getHistoryResult(),
             builder: (context, AsyncSnapshot<List<Result>> snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(
@@ -42,7 +42,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
               if (snapshot.hasError) {
                 return const Center(child: Text("Something error"));
               }
-              if (snapshot.data == null) {
+              if (snapshot.data == null || snapshot.data!.isEmpty) {
                 return Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -101,7 +101,9 @@ class HistoryContainer extends StatelessWidget {
         practiceFile.id!, practiceFile.practice.practicePart.name);
     loadingProvider.updateLoading();
 
-    Get.to(PageQuizScreen());
+    Get.to(
+      PageQuizScreen(),
+    );
   }
 
   @override
@@ -171,7 +173,9 @@ class HistoryContainer extends StatelessWidget {
                     children: [
                       Text(practicePartName[part - 1]),
                       Text(
-                        practicePartTitle[part - 1] + " 0" + part.toString(),
+                        practicePartTitle[part - 1] +
+                            " 0" +
+                            historyResult.testID!.substring(4),
                         style: ktsBoldText,
                       ),
                       verticalSpaceSmall,
@@ -192,7 +196,9 @@ class HistoryContainer extends StatelessWidget {
                                   (MediaQuery.of(context).size.width * 2 / 3) /
                                   (numCorrect + numInCorrect + numUnSelect),
                               child: LinearProgressIndicator(
-                                value: numCorrect / (numCorrect + numInCorrect),
+                                value: (numCorrect + numInCorrect) == 0
+                                    ? 0
+                                    : numCorrect / (numCorrect + numInCorrect),
                                 backgroundColor: kcWrong,
                                 minHeight: 5,
                                 valueColor: new AlwaysStoppedAnimation<Color>(

@@ -9,6 +9,7 @@ class Result {
   late Timestamp? time;
   late String? testID;
   late String? part;
+  late int? duration;
 
   Result(
       {required this.numberUnSelect,
@@ -18,6 +19,7 @@ class Result {
       required this.correctList,
       this.testID,
       this.part,
+      this.duration,
       this.time});
 
   void disposeValue() {
@@ -40,6 +42,7 @@ class Result {
         correctList: snapshot['answerList'] ?? [],
         testID: testID,
         part: part,
+        duration: snapshot['duration'] ?? 0,
         time: snapshot['time'] ?? DateTime.now().millisecondsSinceEpoch);
   }
 }

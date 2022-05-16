@@ -7,8 +7,11 @@ class UserData {
   late final String _email;
   late final String _name;
   late final String _uid;
-
-  UserData({required String email, required String name, required String uid}) {
+  UserData({
+    required String email,
+    required String name,
+    required String uid,
+  }) {
     _email = email;
     _name = name;
     _uid = uid;
@@ -23,6 +26,9 @@ class UserData {
     var snapshot = snap.data() as Map<String, dynamic>;
 
     return UserData(
-        email: snapshot['email'], name: snapshot['name'], uid: snapshot['uid']);
+      email: snapshot['email'],
+      name: snapshot['name'],
+      uid: snapshot['uid'],
+    );
   }
 }

@@ -45,4 +45,8 @@ class SupportFunction {
       result += (5 - mod);
     return result;
   }
+
+  static int toMinutes(int second) {
+    return (second / 60).round();
+  }
 }

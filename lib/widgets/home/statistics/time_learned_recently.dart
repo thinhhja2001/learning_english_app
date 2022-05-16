@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:learning_english_app/models/practice/result.dart';
 import 'package:learning_english_app/resources/firebase_handle.dart';
+import 'package:learning_english_app/resources/support_function.dart';
 import 'package:learning_english_app/utils/colors.dart';
 import 'package:learning_english_app/utils/constants.dart';
 import 'package:learning_english_app/utils/styles.dart';
@@ -102,7 +104,7 @@ class _TimeLearnedRecentlyState extends State<TimeLearnedRecently> {
             _target = (snapshot.data! * 1.0);
           return FutureBuilder(
               future: FirebaseHandler.getTimeLearned(),
-              builder: (context, AsyncSnapshot<List> snapshot) {
+              builder: (context, AsyncSnapshot<List<Result>> snapshot) {
                 if (snapshot.hasError) {
                   print(snapshot.error);
                   return Center(child: Text("Something Error"));
@@ -111,15 +113,17 @@ class _TimeLearnedRecentlyState extends State<TimeLearnedRecently> {
                   return Center(
                       child: CircularProgressIndicator(color: Colors.black));
                 }
-                List lResult = snapshot.data!.map((doc) => doc).toList();
+                List<Result> lResult =
+                    snapshot.data!.map((doc) => doc).toList();
                 List<int> lTimeLearned = [0, 0, 0, 0, 0, 0, 0];
                 if (lResult.isNotEmpty) {
                   lResult.forEach((result) {
                     DateTime timeLearned =
                         DateTime.parse(result.time!.toDate().toString());
                     int differ = timeLearned.difference(now).inDays;
-                    print(differ);
-                    if (differ <= 0 && differ >= -6) lTimeLearned[6 + differ]++;
+                    if (differ <= 0 && differ >= -6)
+                      lTimeLearned[6 + differ] +=
+                          SupportFunction.toMinutes(result.duration ?? 0);
                   });
                 }
                 List<ChartData> chartData = [
@@ -213,10 +217,10 @@ class _TimeLearnedRecentlyState extends State<TimeLearnedRecently> {
                               ),
                             ).then((valueFromDialog) {
                               // use the value as you wish
-                              setState(() {
-                                _target = valueFromDialog;
-                              });
-                              print(valueFromDialog);
+                              if (_target != valueFromDialog)
+                                setState(() {
+                                  _target = valueFromDialog;
+                                });
                             });
                           },
                           child: Text("Set time target"),

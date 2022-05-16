@@ -120,6 +120,14 @@ class _PartOverallState extends State<PartOverall> {
     return FutureBuilder(
         future: FirebaseHandler.getOverallPart(widget.part),
         builder: (context, AsyncSnapshot<List<Result>> snapshot) {
+          if (snapshot.hasError) {
+            print(snapshot.error);
+            return Center(child: Text("Something Error"));
+          }
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(
+                child: CircularProgressIndicator(color: Colors.black));
+          }
           if (snapshot.data == null) {
             numCorrect = 0;
             numInCorrect = 0;
@@ -131,15 +139,6 @@ class _PartOverallState extends State<PartOverall> {
               numInCorrect += result.numberInCorrect;
               numUnSelect += result.numberUnSelect;
             });
-          }
-
-          if (snapshot.hasError) {
-            print(snapshot.error);
-            return Center(child: Text("Something Error"));
-          }
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
-                child: CircularProgressIndicator(color: Colors.black));
           }
           return Column(
             children: [
@@ -207,7 +206,9 @@ class _PartOverallState extends State<PartOverall> {
                                 (MediaQuery.of(context).size.width - 40) /
                                 (numCorrect + numInCorrect + numUnSelect),
                             child: LinearProgressIndicator(
-                              value: numCorrect / (numCorrect + numInCorrect),
+                              value: (numCorrect + numInCorrect) == 0
+                                  ? 0
+                                  : numCorrect / (numCorrect + numInCorrect),
                               backgroundColor: kcWrong,
                               minHeight: 5,
                               valueColor:

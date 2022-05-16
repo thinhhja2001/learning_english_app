@@ -76,6 +76,7 @@ class ReviewScreen extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(horizontal: 10.0),
                         child: SizedBox(
                           width: double.infinity,
+                          height: 50,
                           child: ElevatedButton(
                               onPressed: () {
                                 dialogQuizProvider.disposeValue();
