@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:learning_english_app/models/practice/result.dart';
 import 'package:learning_english_app/resources/firebase_handle.dart';
-import 'package:learning_english_app/screens/history_screen.dart';
+import 'package:learning_english_app/screens/statistic/history_screen.dart';
 import 'package:learning_english_app/utils/colors.dart';
 import 'package:learning_english_app/utils/constants.dart';
 import 'package:learning_english_app/utils/styles.dart';
@@ -22,7 +22,7 @@ class Overall extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           verticalSpaceSmall,
-          Text(
+          const Text(
             "Overall",
             style: ktsTitleWidget,
           ),

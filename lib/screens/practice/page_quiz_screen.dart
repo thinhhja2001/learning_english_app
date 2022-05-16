@@ -29,7 +29,6 @@ class _PageQuizScreenState extends State<PageQuizScreen> {
   @override
   void initState() {
     // TODO: implement initState
-    // countDocuments('test1', 'part6');
     super.initState();
   }
 
@@ -38,18 +37,9 @@ class _PageQuizScreenState extends State<PageQuizScreen> {
         .collection("tests")
         .doc(testId)
         .collection(part)
-        .get(); // Count of Documents in Collection
+        .get();
+    // Count of Documents in Collection
 
-    // Get data from docs and convert map to List
-    // print(count);
-
-    // if (count == 0) {
-    //   count++;
-    //   setState(() {
-
-    //     count++;
-    //   });
-    // }
     this.allData = querySnapshot.docs.map((doc) => doc.id).toList();
 
     print(this.allData);
@@ -123,14 +113,6 @@ class _PageQuizScreenState extends State<PageQuizScreen> {
                             await swiperController.previous(),
                         nextQuestion: () async =>
                             await swiperController.next()));
-                // child: QuestionWidget(
-                //   pageQuizProvider: _pageQuizProvider,
-                //   documentId: allData[index],
-                // ));
-                // return ReviewWidget(
-                //     tooltipBehavior: tooltipBehavior,
-                //     chartData: chartData,
-                //     swiperController: swiperController);
               }),
         ));
   }

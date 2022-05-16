@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:learning_english_app/providers/pratice/user_provider.dart';
 import 'package:learning_english_app/screens/favorite_screen.dart';
-import 'package:learning_english_app/screens/statistics_screen.dart';
+import 'package:learning_english_app/screens/statistic/statistics_screen.dart';
 import 'package:learning_english_app/utils/colors.dart';
 import 'package:learning_english_app/utils/styles.dart';
 import 'package:learning_english_app/screens/practice/practice_screen.dart';

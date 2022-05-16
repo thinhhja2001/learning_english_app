@@ -202,7 +202,8 @@ class FirebaseHandler {
             .doc(id)
             .collection(part)
             .get();
-        results = testSnapshot.docs.map((doc) => Result.fromSnap(doc)).toList();
+        results =
+            testSnapshot.docs.map((doc) => Result.fromSnap(snap: doc)).toList();
         if (results.isNotEmpty) {
           results.sort((a, b) => a.time!.compareTo(b.time!));
           print(results);
@@ -243,7 +244,8 @@ class FirebaseHandler {
             .doc(id)
             .collection(part)
             .get();
-        results = testSnapshot.docs.map((doc) => Result.fromSnap(doc)).toList();
+        results =
+            testSnapshot.docs.map((doc) => Result.fromSnap(snap: doc)).toList();
         if (results.isNotEmpty) {
           results.sort((a, b) => a.time!.compareTo(b.time!));
           print(results);
@@ -290,7 +292,7 @@ class FirebaseHandler {
             .collection(part)
             .get();
         results +=
-            testSnapshot.docs.map((doc) => Result.fromSnap(doc)).toList();
+            testSnapshot.docs.map((doc) => Result.fromSnap(snap: doc)).toList();
       }
     }
     return results;
@@ -312,7 +314,8 @@ class FirebaseHandler {
           .doc(id)
           .collection(part)
           .get();
-      results = testSnapshot.docs.map((doc) => Result.fromSnap(doc)).toList();
+      results =
+          testSnapshot.docs.map((doc) => Result.fromSnap(snap: doc)).toList();
       if (results.isNotEmpty) {
         results.sort((a, b) => a.time!.compareTo(b.time!));
         latestResults.add(results.last);
@@ -320,6 +323,40 @@ class FirebaseHandler {
     }
     // print(results);
     return latestResults;
+  }
+
+  static Future<List<Result>> getHistoryResult() async {
+    UserData user = await getCurrentUser();
+    List testListID = [];
+    List<Result> results = [];
+    List lPart = [
+      'part1',
+      'part2',
+      'part3',
+      'part4',
+      'part5',
+      'part6',
+      'part7'
+    ];
+
+    QuerySnapshot testSnapshot =
+        await userFR.doc(user.uid).collection('results').get();
+    testListID = testSnapshot.docs.map((doc) => doc.id).toList();
+    for (var id in testListID) {
+      for (String part in lPart) {
+        testSnapshot = await userFR
+            .doc(user.uid)
+            .collection('results')
+            .doc(id)
+            .collection(part)
+            .get();
+        results += testSnapshot.docs
+            .map((doc) => Result.fromSnap(snap: doc, testID: id, part: part))
+            .toList();
+      }
+    }
+    // print(results);
+    return results;
   }
 
   static updateTarget(int target) async {

@@ -24,6 +24,7 @@ class AppBarQuizPractice extends StatelessWidget with PreferredSizeWidget {
         Provider.of<DialogQuizProvider>(context);
 
     PageQuizProvider _pageQuizProvider = Provider.of<PageQuizProvider>(context);
+    print(_pageQuizProvider.practiceFile.fileTitle);
     return AppBar(
       leading: IconButton(
           onPressed: () {
@@ -35,7 +36,7 @@ class AppBarQuizPractice extends StatelessWidget with PreferredSizeWidget {
             color: Colors.black,
           )),
       title: Text(
-        _pageQuizProvider.practiceFile.fileTitle!,
+        _pageQuizProvider.practiceFile.fileTitle ?? "",
         style: kDefaultTextStyle.copyWith(fontSize: 20),
       ),
       backgroundColor: kcWhiteColor,

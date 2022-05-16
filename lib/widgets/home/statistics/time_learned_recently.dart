@@ -92,7 +92,7 @@ class _TimeLearnedRecentlyState extends State<TimeLearnedRecently> {
   @override
   Widget build(BuildContext context) {
     var numWeekDay = d.weekday;
-
+    now = DateTime(d.year, d.month, d.day, 23, 59);
     return FutureBuilder(
         future: FirebaseHandler.getTarget(),
         builder: (context, AsyncSnapshot<int> snapshot) {
@@ -118,7 +118,8 @@ class _TimeLearnedRecentlyState extends State<TimeLearnedRecently> {
                     DateTime timeLearned =
                         DateTime.parse(result.time!.toDate().toString());
                     int differ = timeLearned.difference(now).inDays;
-                    if (differ < 7) lTimeLearned[6 - differ]++;
+                    print(differ);
+                    if (differ <= 0 && differ >= -6) lTimeLearned[6 + differ]++;
                   });
                 }
                 List<ChartData> chartData = [
