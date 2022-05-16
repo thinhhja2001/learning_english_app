@@ -191,8 +191,27 @@ class FirebaseHandler {
 
   static Future<UserData> getCurrentUser() async =>
       await AuthMethods().getUserDetails().then((data) {
-        return UserData(email: data.email, name: data.name, uid: data.uid);
+        return UserData(
+            email: data.email,
+            name: data.name,
+            uid: data.uid,
+            timeUsed: data.timeUsed);
       });
+  static void updateTimeUsed(UserData currentUser, int timeUsed) async {
+    int currentTimeUsed = currentUser.timeUsed;
+    currentTimeUsed = currentTimeUsed + timeUsed;
+    FirebaseFirestore.instance.collection('users').doc(currentUser.uid).set({
+      'name': currentUser.name,
+      'email': currentUser.email,
+      'uid': currentUser.uid,
+      'timeUsed': currentTimeUsed
+    });
+  }
+
+  static Future<int> getTimeUsed() async {
+    UserData currentUser = await getCurrentUser();
+    return currentUser.timeUsed;
+  }
 
   static addResultToFirebase(String test, String part, Result result) async {
     UserData user = await getCurrentUser();

@@ -89,6 +89,7 @@ class AuthMethods {
         'name': name,
         'uid': userCredential.user!.uid,
         'email': email,
+        'timeUsed': 0
       });
       user = userCredential.user;
       await user!.updateDisplayName(name);

@@ -1,15 +1,19 @@
 // ignore_for_file: prefer_const_constructors
 
 // import 'package:accordion/accordion.dart';
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:learning_english_app/providers/pratice/dialog_quiz_controller.dart';
+import 'package:learning_english_app/resources/firebase_handle.dart';
 import 'package:learning_english_app/widgets/home/practices/question_widget.dart';
 import 'package:learning_english_app/screens/practice/review_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
 
+import '../../models/user.dart';
 import '../../providers/pratice/page_quiz_provider.dart';
 import '../../utils/colors.dart';
 import '../../widgets/home/practices/appbar_quiz_practice.dart';
@@ -23,13 +27,15 @@ class PageQuizScreen extends StatefulWidget {
 
 class _PageQuizScreenState extends State<PageQuizScreen> {
   int maxIndex = 0;
-
+  int timeUsed = 0;
+  late Timer timer;
   var allData = <String>[];
 
   @override
   void initState() {
-    // TODO: implement initState
-    // countDocuments('test1', 'part6');
+    timer = Timer.periodic(Duration(seconds: 1), (timer) {
+      timeUsed++;
+    });
     super.initState();
   }
 
@@ -71,6 +77,9 @@ class _PageQuizScreenState extends State<PageQuizScreen> {
           child: const Text("Yes", style: TextStyle(color: Colors.green)),
           onPressed: () async {
             await dialogQuizProvider.getResult();
+            timer.cancel();
+            UserData currentUser = await FirebaseHandler.getCurrentUser();
+            FirebaseHandler.updateTimeUsed(currentUser, timeUsed);
             Get.back();
             Get.off(ReviewScreen());
           },
@@ -100,10 +109,9 @@ class _PageQuizScreenState extends State<PageQuizScreen> {
               onIndexChanged: (value) {
                 if (value == maxIndex) {
                   showDialog(_dialogQuizProvider);
-                  swiperController
-                      .previous()
-                      .whenComplete(() => print("Complete"))
-                      .onError((error, stackTrace) => print(error));
+                  swiperController.previous().whenComplete(() {
+                    print("Complete");
+                  }).onError((error, stackTrace) => print(error));
                 }
               },
               indicatorLayout: PageIndicatorLayout.SCALE,
