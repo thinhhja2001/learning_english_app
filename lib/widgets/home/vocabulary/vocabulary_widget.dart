@@ -33,16 +33,16 @@ class _VocabularyGeneralState extends State<VocabularyGeneral> {
           children: [
             Padding(
               padding: const EdgeInsets.only(top: 4, bottom: 12),
-              child: Text("List Vocaublary Document",
+              child: Text("List Vocabulary Document",
                   style: ktsBlackBigTitle.copyWith(
-                      fontSize: 24, color: Colors.green)),
+                      fontSize: 24, color: kcPrimaryColor)),
             ),
             Expanded(flex: 1, child: DocumentListScroller()),
             Padding(
               padding: const EdgeInsets.only(top: 20, bottom: 12),
-              child: Text("My Favourite Vocabulary",
+              child: Text("My Favorite Vocabulary",
                   style: ktsBlackBigTitle.copyWith(
-                      fontSize: 24, color: Colors.green)),
+                      fontSize: 24, color: kcPrimaryColor)),
             ),
             Expanded(flex: 1, child: FavouriteWordContainer()),
           ],

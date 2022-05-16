@@ -60,7 +60,12 @@ class DialogQuizProvider extends ChangeNotifier {
     numberQuestion = allQuestion.length;
     testQuiz = test;
     partQuiz = part;
-    result = Result(0, 0, 0, [], []);
+    result = Result(
+        numberCorrect: 0,
+        numberUnSelect: 0,
+        numberInCorrect: 0,
+        chooseList: [],
+        correctList: []);
   }
 
   void disposeValue() {

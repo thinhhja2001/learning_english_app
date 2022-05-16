@@ -21,9 +21,6 @@ class StatisticsScreen extends StatelessWidget {
         ),
         backgroundColor: kcWhiteColor,
         automaticallyImplyLeading: false,
-        actions: <Widget>[
-          DropDownTime(),
-        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
