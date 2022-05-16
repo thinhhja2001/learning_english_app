@@ -10,9 +10,9 @@ class UserProvider extends ChangeNotifier {
   Future<void> getCurrentUser() async =>
       await AuthMethods().getUserDetails().then((data) {
         _user = UserData(
-            email: data.email,
-            name: data.name,
-            uid: data.uid,
-            timeUsed: data.timeUsed);
+          email: data.email,
+          name: data.name,
+          uid: data.uid,
+        );
       });
 }

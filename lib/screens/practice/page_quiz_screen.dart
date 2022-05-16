@@ -27,14 +27,15 @@ class PageQuizScreen extends StatefulWidget {
 
 class _PageQuizScreenState extends State<PageQuizScreen> {
   int maxIndex = 0;
-  int timeUsed = 0;
+  int duration = 0;
   late Timer timer;
+
   var allData = <String>[];
 
   @override
   void initState() {
     timer = Timer.periodic(Duration(seconds: 1), (timer) {
-      timeUsed++;
+      duration++;
     });
     super.initState();
   }
@@ -76,10 +77,8 @@ class _PageQuizScreenState extends State<PageQuizScreen> {
         TextButton(
           child: const Text("Yes", style: TextStyle(color: Colors.green)),
           onPressed: () async {
-            await dialogQuizProvider.getResult();
             timer.cancel();
-            UserData currentUser = await FirebaseHandler.getCurrentUser();
-            FirebaseHandler.updateTimeUsed(currentUser, timeUsed);
+            await dialogQuizProvider.getResult(duration);
             Get.back();
             Get.off(ReviewScreen());
           },
