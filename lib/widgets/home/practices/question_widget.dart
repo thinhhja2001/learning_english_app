@@ -54,7 +54,7 @@ class QuestionWidget extends StatelessWidget {
     final String title = practiceFile.fileTitle!;
     final Quiz quiz = pageQuizProvider.listQuiz[index];
     final String indexQuiz = quiz.id!;
-    final Practice practice = pageQuizProvider.practiceFile.practice;
+    final Practice? practice = pageQuizProvider.practiceFile.practice;
     List<Answer> answerList = quiz.listAnswer!;
 
     return Column(
@@ -88,7 +88,7 @@ class QuestionWidget extends StatelessWidget {
                     topRight: kDefaultBorderRadius)),
             child: Column(
               children: [
-                isListeningTest(practice.practiceType)
+                isListeningTest(practice!.practiceType)
                     // true
                     ? AudioPlayerWidget(
                         audioUrl: quiz.audioUrl!, isRemote: true)

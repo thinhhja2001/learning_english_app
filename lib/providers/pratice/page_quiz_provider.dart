@@ -28,6 +28,7 @@ class PageQuizProvider extends ChangeNotifier {
     _practiceFile = practiceFile;
     _listQuiz = await FirebaseHandler.getListQuiz(
         _practiceFile.id!, _practiceFile.practice.practicePart.name);
+    print(_listQuiz.length);
     quizQuestionDescription = _listQuiz.first.id.toString();
     quizTotalQuestion = _listQuiz.length;
   }
@@ -43,15 +44,6 @@ class PageQuizProvider extends ChangeNotifier {
 
     // Get data from docs and convert map to List
     allNewData = querySnapshot.docs.map((doc) => doc.id).toList();
-    // if (allOldData.length != allNewData.length)
-    // notifyListeners();
-    // print(allOldData);
-    // print(allNewData);
-    // print(allOldData.length != allNewData.length);
-    // if (allOldData.length != allNewData.length) {
-    //   notifyListeners();
-    //   return allNewData;
-    // }
     return allNewData;
   }
 }
