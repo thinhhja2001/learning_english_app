@@ -16,7 +16,7 @@ class SignUpScreen extends StatefulWidget {
 
 class _SignUpScreenState extends State<SignUpScreen> {
   final formKey = GlobalKey<FormState>();
-  final String welcome = "Join the exciting adventure!";
+  final String welcome = "Let us know you information";
   final String rule = "- Password should be 8-20 characters\n" +
       "- Password should have a lower case letter\n" +
       "- Password should have a upper case letter\n" +
@@ -46,205 +46,208 @@ class _SignUpScreenState extends State<SignUpScreen> {
   Widget build(BuildContext context) {
     final signUpProvider = Provider.of<SignUpProvider>(context);
     Size screenSize = MediaQuery.of(context).size;
-    return Form(
-      key: formKey,
-      child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: ListView(
-            children: [
-              verticalSpaceLarge,
-              Text(
-                welcome,
-                style: ktsMediumTitleText,
-              ),
-              verticalSpaceMedium,
-              Container(
-                  height: screenSize.height * 0.1,
-                  child: TextFormField(
-                    controller: _firstName,
-                    decoration: InputDecoration(
-                      labelText: 'First Name',
-                      border: OutlineInputBorder(),
-                    ),
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return "First name is required.";
-                      } else {
-                        return null;
-                      }
-                    },
-                  )),
-              // verticalSpaceSmall,
-              Container(
-                  height: screenSize.height * 0.1,
-                  child: TextFormField(
-                    controller: _lastName,
-                    decoration: InputDecoration(
-                      labelText: 'Last Name',
-                      border: OutlineInputBorder(),
-                    ),
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return "Last name is required.";
-                      } else {
-                        return null;
-                      }
-                    },
-                  )),
-              // verticalSpaceSmall,
-              // Container(
-              //     height: screenSize.height * 0.1,
-              //     child: TextFormField(
-              //       keyboardType: TextInputType.number,
-              //       inputFormatters: <TextInputFormatter>[
-              //         FilteringTextInputFormatter.digitsOnly
-              //       ], // Only n
-              //       decoration: InputDecoration(
-              //         labelText: 'Mobile Number',
-              //         border: OutlineInputBorder(),
-              //       ),
-              //       validator: (value) {
-              //         if (value!.isEmpty) {
-              //           return "Mobile Number is required.";
-              //         }
-              //         if (value.length != 10) {
-              //           return "Mobile Number must have 10 characters.";
-              //         }
-              //         return null;
-              //       },
-              //     )),
-              // verticalSpaceSmall,
-              Container(
-                  height: screenSize.height * 0.1,
-                  child: TextFormField(
-                    keyboardType: TextInputType.emailAddress,
-                    controller: _email,
-                    decoration: InputDecoration(
-                      labelText: 'Email Address',
-                      border: OutlineInputBorder(),
-                    ),
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return "Email Address is required.";
-                      }
-                      if (!RegExp(
-                              r"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
-                          .hasMatch(value)) {
-                        return "Email Address is wrong format.";
-                      }
-                      if (!signUpProvider.isValid) {
-                        signUpProvider.isValid = true;
-                        return signUpProvider.errorMessage;
-                      }
+    return Scaffold(
+      body: Form(
+        key: formKey,
+        child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: ListView(
+              children: [
+                verticalSpaceLarge,
+                Text(
+                  welcome,
+                  style: ktsMediumTitleText,
+                ),
+                verticalSpaceMedium,
+                Container(
+                    height: screenSize.height * 0.1,
+                    child: TextFormField(
+                      controller: _firstName,
+                      decoration: InputDecoration(
+                        labelText: 'First Name',
+                        border: OutlineInputBorder(),
+                      ),
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return "First name is required.";
+                        } else {
+                          return null;
+                        }
+                      },
+                    )),
+                // verticalSpaceSmall,
+                Container(
+                    height: screenSize.height * 0.1,
+                    child: TextFormField(
+                      controller: _lastName,
+                      decoration: InputDecoration(
+                        labelText: 'Last Name',
+                        border: OutlineInputBorder(),
+                      ),
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return "Last name is required.";
+                        } else {
+                          return null;
+                        }
+                      },
+                    )),
+                // verticalSpaceSmall,
+                // Container(
+                //     height: screenSize.height * 0.1,
+                //     child: TextFormField(
+                //       keyboardType: TextInputType.number,
+                //       inputFormatters: <TextInputFormatter>[
+                //         FilteringTextInputFormatter.digitsOnly
+                //       ], // Only n
+                //       decoration: InputDecoration(
+                //         labelText: 'Mobile Number',
+                //         border: OutlineInputBorder(),
+                //       ),
+                //       validator: (value) {
+                //         if (value!.isEmpty) {
+                //           return "Mobile Number is required.";
+                //         }
+                //         if (value.length != 10) {
+                //           return "Mobile Number must have 10 characters.";
+                //         }
+                //         return null;
+                //       },
+                //     )),
+                // verticalSpaceSmall,
+                Container(
+                    height: screenSize.height * 0.1,
+                    child: TextFormField(
+                      keyboardType: TextInputType.emailAddress,
+                      controller: _email,
+                      decoration: InputDecoration(
+                        labelText: 'Email Address',
+                        border: OutlineInputBorder(),
+                      ),
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return "Email Address is required.";
+                        }
+                        if (!RegExp(
+                                r"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
+                            .hasMatch(value)) {
+                          return "Email Address is wrong format.";
+                        }
+                        if (!signUpProvider.isValid) {
+                          signUpProvider.isValid = true;
+                          return signUpProvider.errorMessage;
+                        }
 
+                        return null;
+                      },
+                    )),
+                // verticalSpaceSmall,
+                Container(
+                  height: screenSize.height * 0.1,
+                  child: TextFormField(
+                    controller: _pass,
+                    decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: "Password",
+                        suffixIcon: IconButton(
+                            onPressed: () {
+                              setState(() {
+                                _passwordVisible = !_passwordVisible;
+                              });
+                            },
+                            icon: Icon(
+                              _passwordVisible
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
+                              color: const Color(0xff9FA5C0),
+                            ))),
+                    obscureText: !_passwordVisible,
+                    validator: (val) {
+                      if (val!.isEmpty) return 'Password is required.';
+                      if (!(RegExp(
+                                  r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,20}$')
+                              .hasMatch(val) ||
+                          RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[!@#\$&*~]).{8,20}$')
+                              .hasMatch(val)))
+                        return 'Password is wrong format.';
                       return null;
                     },
-                  )),
-              // verticalSpaceSmall,
-              Container(
-                height: screenSize.height * 0.1,
-                child: TextFormField(
-                  controller: _pass,
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: "Password",
-                      suffixIcon: IconButton(
-                          onPressed: () {
-                            setState(() {
-                              _passwordVisible = !_passwordVisible;
-                            });
-                          },
-                          icon: Icon(
-                            _passwordVisible
-                                ? Icons.visibility
-                                : Icons.visibility_off,
-                            color: const Color(0xff9FA5C0),
-                          ))),
-                  obscureText: !_passwordVisible,
-                  validator: (val) {
-                    if (val!.isEmpty) return 'Password is required.';
-                    if (!(RegExp(
-                                r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,20}$')
-                            .hasMatch(val) ||
-                        RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[!@#\$&*~]).{8,20}$')
-                            .hasMatch(val))) return 'Password is wrong format.';
-                    return null;
-                  },
-                  onSaved: (val) => _pass.text = val!,
-                ),
-              ),
-              // verticalSpaceSmall,
-              Text(rule, style: ktsMediumInputText),
-              verticalSpaceMedium,
-              Container(
-                height: screenSize.height * 0.1,
-                child: TextFormField(
-                  controller: _confirmPass,
-                  obscureText: !_confirmPasswordVisible,
-                  validator: (val) {
-                    if (val!.isEmpty) return 'Confirm password is required';
-                    if (val != _pass.text)
-                      return 'Confirm password does not match';
-                    return null;
-                  },
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: "Confirm Password",
-                      suffixIcon: IconButton(
-                          onPressed: () {
-                            setState(() {
-                              _confirmPasswordVisible =
-                                  !_confirmPasswordVisible;
-                            });
-                          },
-                          icon: Icon(
-                            _confirmPasswordVisible
-                                ? Icons.visibility
-                                : Icons.visibility_off,
-                            color: const Color(0xff9FA5C0),
-                          ))),
-                ),
-              ),
-              verticalSpaceSmall,
-              // signUpProvider.isValid ? Container() : showAlertDialog(context),
-              // signUpProvider.isValid ? Container() : Text("this is errorText"),
-              Row(children: [
-                Expanded(
-                  child: OutlinedButton(
-                    child: Text(
-                      "Back",
-                      style: ktsButton,
-                    ),
-                    style: OutlinedButton.styleFrom(
-                      fixedSize: const Size(165, 50),
-                      primary: kcPrimaryColor,
-                      side: BorderSide(width: 1.0, color: kcPrimaryColor),
-                    ),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
+                    onSaved: (val) => _pass.text = val!,
                   ),
                 ),
-                horizontalSpaceSmall,
-                Expanded(
-                  child: CustomButton(
-                    onPress: () async {
-                      if (formKey.currentState!.validate())
-                        await signUpProvider.signUp(
-                          name: _firstName.text + " " + _lastName.text,
-                          email: _email.text,
-                          password: _pass.text,
-                        );
-                      if (!signUpProvider.isValid)
-                        formKey.currentState!.validate();
+                // verticalSpaceSmall,
+                Text(rule, style: ktsMediumInputText),
+                verticalSpaceMedium,
+                Container(
+                  height: screenSize.height * 0.1,
+                  child: TextFormField(
+                    controller: _confirmPass,
+                    obscureText: !_confirmPasswordVisible,
+                    validator: (val) {
+                      if (val!.isEmpty) return 'Confirm password is required';
+                      if (val != _pass.text)
+                        return 'Confirm password does not match';
+                      return null;
                     },
-                    content: "Sign up",
-                    isLoading: signUpProvider.isLoading,
+                    decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: "Confirm Password",
+                        suffixIcon: IconButton(
+                            onPressed: () {
+                              setState(() {
+                                _confirmPasswordVisible =
+                                    !_confirmPasswordVisible;
+                              });
+                            },
+                            icon: Icon(
+                              _confirmPasswordVisible
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
+                              color: const Color(0xff9FA5C0),
+                            ))),
                   ),
                 ),
-              ]),
-            ],
-          )),
+                verticalSpaceSmall,
+                // signUpProvider.isValid ? Container() : showAlertDialog(context),
+                // signUpProvider.isValid ? Container() : Text("this is errorText"),
+                Row(children: [
+                  Expanded(
+                    child: OutlinedButton(
+                      child: Text(
+                        "Back",
+                        style: ktsButton,
+                      ),
+                      style: OutlinedButton.styleFrom(
+                        fixedSize: const Size(165, 50),
+                        primary: kcPrimaryColor,
+                        side: BorderSide(width: 1.0, color: kcPrimaryColor),
+                      ),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                    ),
+                  ),
+                  horizontalSpaceSmall,
+                  Expanded(
+                    child: CustomButton(
+                      onPress: () async {
+                        if (formKey.currentState!.validate())
+                          await signUpProvider.signUp(
+                            name: _firstName.text + " " + _lastName.text,
+                            email: _email.text,
+                            password: _pass.text,
+                          );
+                        if (!signUpProvider.isValid)
+                          formKey.currentState!.validate();
+                      },
+                      content: "Sign up",
+                      isLoading: signUpProvider.isLoading,
+                    ),
+                  ),
+                ]),
+              ],
+            )),
+      ),
     );
   }
 }

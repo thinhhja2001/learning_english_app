@@ -55,16 +55,17 @@ class SignInScreen extends StatelessWidget {
                     Expanded(
                       flex: 1,
                       child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Image.asset(
                             "assets/images/app_icon.png",
                             height: 100,
-                            width: 100,
+                            width: MediaQuery.of(context).size.width * 0.25,
                           ),
                           const Text(
                             "ELAST",
-                            style: TextStyle(color: Colors.white, fontSize: 80),
+                            style: TextStyle(color: Colors.white, fontSize: 75),
                           )
                         ],
                       ),

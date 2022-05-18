@@ -15,7 +15,9 @@ import 'package:learning_english_app/providers/reading_provider.dart';
 import 'package:learning_english_app/providers/vocabulary/vocaublary_provider.dart';
 import 'package:learning_english_app/screens/authentication/signin_screen.dart';
 import 'package:learning_english_app/providers/authentication/signup_provider.dart';
+import 'package:learning_english_app/screens/authentication/welcome_screen.dart';
 import 'package:learning_english_app/screens/home/home_screen.dart';
+import 'package:learning_english_app/utils/colors.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
@@ -56,10 +58,12 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
             fontFamily: 'Roboto',
+            primaryColor: kPrimaryColor,
+            scaffoldBackgroundColor: Colors.white,
             primarySwatch: Colors.blue,
           ),
           home: FirebaseAuth.instance.currentUser == null
-              ? SignInScreen()
+              ? WelcomeScreen()
               : HomeScreen(),
           routes: <String, WidgetBuilder>{
             '/signin': (BuildContext context) => SignInScreen(),
