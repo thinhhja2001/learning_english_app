@@ -72,6 +72,7 @@ flutter:
     - assets/audios/
     - assets/TOEICTOPIC.json
     - assets/TOEIC600.json
+    - assets/icons/
 
   fonts:
     - family: Roboto
