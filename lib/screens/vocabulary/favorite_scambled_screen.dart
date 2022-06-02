@@ -204,158 +204,164 @@ class _ScrambleQuizWidgetState extends State<ScrambleQuizWidget> {
           )
         : Padding(
             padding: EdgeInsets.symmetric(horizontal: 12, vertical: 40),
-            child: Column(children: [
-              verticalSpaceSmall,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "${numQuestion + 1} of $totalQuestion words",
-                    style:
-                        TextStyle(fontSize: 20, fontWeight: FontWeight.normal),
-                  ),
-                  Text(
-                    "Score: $score",
-                    style:
-                        TextStyle(fontSize: 20, fontWeight: FontWeight.normal),
-                  )
-                ],
-              ),
-              verticalSpaceLarge,
-              Center(
-                child: Text(
-                  scrambleWord,
-                  style: TextStyle(fontSize: 36, fontWeight: FontWeight.normal),
-                ),
-              ),
-              verticalSpaceMedium,
-              Center(
-                child: Text(
-                  "Unscramble the word using all the letters",
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.normal),
-                ),
-              ),
-              verticalSpaceMedium,
-              TextField(
-                enabled: !isSubmit,
-                controller: answerController,
-                style: TextStyle(
-                    fontWeight: FontWeight.normal,
-                    fontSize: 20,
-                    color: isSubmit
-                        ? isCorrect
-                            ? Colors.green
-                            : Colors.red
-                        : Colors.black),
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black),
+            child: SingleChildScrollView(
+              child: Column(children: [
+                verticalSpaceSmall,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "${numQuestion + 1} of $totalQuestion words",
+                      style: TextStyle(
+                          fontSize: 20, fontWeight: FontWeight.normal),
                     ),
-                    disabledBorder: OutlineInputBorder(
-                        borderSide: isCorrect
-                            ? BorderSide(color: Colors.green)
-                            : BorderSide(color: Colors.red)),
-                    suffixIcon: isSubmit
-                        ? isCorrect
-                            ? Icon(Icons.check_circle,
-                                color: Colors.green, size: 32)
-                            : Icon(Icons.cancel, color: Colors.red, size: 32)
-                        : null),
-              ),
-              verticalSpaceLarge,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                      flex: 1,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8),
-                        child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                                primary: Colors.white,
-                                elevation: 8,
-                                minimumSize: Size(
-                                    MediaQuery.of(context).size.width / 2, 50),
-                                side: BorderSide(width: 1, color: Colors.grey)),
-                            onPressed: updateNextQuestion,
-                            child: Text(
-                              "Skip",
-                              style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.blue),
-                            )),
-                      )),
-                  horizontalSpaceTiny,
-                  Expanded(
-                      flex: 1,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8),
-                        child: isSubmit
-                            ? ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                    primary: Colors.green,
-                                    elevation: 8,
-                                    minimumSize: Size(
-                                        MediaQuery.of(context).size.width / 2,
-                                        50),
-                                    side: BorderSide(
-                                        width: 1, color: Colors.grey)),
-                                onPressed: updateNextQuestion,
-                                child: Text(
-                                  "Next",
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white),
-                                ))
-                            : ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                    primary: Colors.blue,
-                                    elevation: 8,
-                                    minimumSize: Size(
-                                        MediaQuery.of(context).size.width / 2,
-                                        50),
-                                    side: BorderSide(
-                                        width: 1, color: Colors.grey)),
-                                onPressed: submit,
-                                child: Text(
-                                  "Submit",
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white),
-                                )),
-                      )),
-                ],
-              ),
-              verticalSpaceLarge,
-              isSubmit
-                  ? Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(
-                          answerWord,
-                          style: TextStyle(
-                              fontSize: 36,
-                              fontWeight: FontWeight.normal,
-                              color: isCorrect ? Colors.green : Colors.red),
-                        ),
-                        verticalSpaceSmall,
-                        Text(
-                          meaning,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontSize: 24,
-                              fontWeight: FontWeight.normal,
-                              color: isCorrect ? Colors.green : Colors.red),
-                        ),
-                      ],
+                    Text(
+                      "Score: $score",
+                      style: TextStyle(
+                          fontSize: 20, fontWeight: FontWeight.normal),
                     )
-                  : SizedBox(),
-              verticalSpaceMedium,
-            ]),
+                  ],
+                ),
+                verticalSpaceLarge,
+                Center(
+                  child: Text(
+                    scrambleWord,
+                    style:
+                        TextStyle(fontSize: 36, fontWeight: FontWeight.normal),
+                  ),
+                ),
+                verticalSpaceMedium,
+                Center(
+                  child: Text(
+                    "Unscramble the word using all the letters",
+                    style:
+                        TextStyle(fontSize: 16, fontWeight: FontWeight.normal),
+                  ),
+                ),
+                verticalSpaceMedium,
+                TextField(
+                  enabled: !isSubmit,
+                  controller: answerController,
+                  style: TextStyle(
+                      fontWeight: FontWeight.normal,
+                      fontSize: 20,
+                      color: isSubmit
+                          ? isCorrect
+                              ? Colors.green
+                              : Colors.red
+                          : Colors.black),
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black),
+                      ),
+                      disabledBorder: OutlineInputBorder(
+                          borderSide: isCorrect
+                              ? BorderSide(color: Colors.green)
+                              : BorderSide(color: Colors.red)),
+                      suffixIcon: isSubmit
+                          ? isCorrect
+                              ? Icon(Icons.check_circle,
+                                  color: Colors.green, size: 32)
+                              : Icon(Icons.cancel, color: Colors.red, size: 32)
+                          : null),
+                ),
+                verticalSpaceLarge,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                        flex: 1,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8),
+                          child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                  primary: Colors.white,
+                                  elevation: 8,
+                                  minimumSize: Size(
+                                      MediaQuery.of(context).size.width / 2,
+                                      50),
+                                  side:
+                                      BorderSide(width: 1, color: Colors.grey)),
+                              onPressed: updateNextQuestion,
+                              child: Text(
+                                "Skip",
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.blue),
+                              )),
+                        )),
+                    horizontalSpaceTiny,
+                    Expanded(
+                        flex: 1,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8),
+                          child: isSubmit
+                              ? ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                      primary: Colors.green,
+                                      elevation: 8,
+                                      minimumSize: Size(
+                                          MediaQuery.of(context).size.width / 2,
+                                          50),
+                                      side: BorderSide(
+                                          width: 1, color: Colors.grey)),
+                                  onPressed: updateNextQuestion,
+                                  child: Text(
+                                    "Next",
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white),
+                                  ))
+                              : ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                      primary: Colors.blue,
+                                      elevation: 8,
+                                      minimumSize: Size(
+                                          MediaQuery.of(context).size.width / 2,
+                                          50),
+                                      side: BorderSide(
+                                          width: 1, color: Colors.grey)),
+                                  onPressed: submit,
+                                  child: Text(
+                                    "Submit",
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white),
+                                  )),
+                        )),
+                  ],
+                ),
+                verticalSpaceLarge,
+                isSubmit
+                    ? Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            answerWord,
+                            style: TextStyle(
+                                fontSize: 36,
+                                fontWeight: FontWeight.normal,
+                                color: isCorrect ? Colors.green : Colors.red),
+                          ),
+                          verticalSpaceSmall,
+                          Text(
+                            meaning,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontSize: 24,
+                                fontWeight: FontWeight.normal,
+                                color: isCorrect ? Colors.green : Colors.red),
+                          ),
+                        ],
+                      )
+                    : SizedBox(),
+                verticalSpaceMedium,
+              ]),
+            ),
           );
   }
 }
