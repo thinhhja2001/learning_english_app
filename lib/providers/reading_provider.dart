@@ -1,9 +1,11 @@
+// ignore_for_file: prefer_const_constructors_in_immutables, prefer_const_constructors
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class ReadingProvider extends ChangeNotifier {
   var scripts = <String>[];
-  DocumentSnapshot? snapshot = null; //Define snapshot
+  DocumentSnapshot? snapshot; //Define snapshot
   void getData() async {
     // Web.
 //     await FirebaseFirestore.instance.enablePersistence();
@@ -39,7 +41,7 @@ class ReadingProvider extends ChangeNotifier {
 class GetUserName extends StatelessWidget {
   final String documentId;
 
-  GetUserName(this.documentId);
+  GetUserName(this.documentId, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

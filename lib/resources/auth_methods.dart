@@ -1,14 +1,14 @@
+// ignore_for_file: unused_element, avoid_print
+
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:learning_english_app/models/user.dart' as model;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 
 import "package:http/http.dart" as http;
-import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthMethods {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -52,7 +52,7 @@ class AuthMethods {
   Future<void> changePassword(String newPassword) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     _token = sharedPreferences.getString("token")!;
-    final url =
+    const url =
         'https://identitytoolkit.googleapis.com/v1/accounts:update?key=""';
     try {
       await http.post(

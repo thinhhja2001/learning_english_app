@@ -7,7 +7,6 @@ import 'package:get/get.dart';
 import 'package:learning_english_app/models/vocabulary/favorite_vocabulary.dart';
 import 'package:learning_english_app/resources/firebase_handle.dart';
 import 'package:learning_english_app/screens/vocabulary/favorite_scambled_screen.dart';
-import 'package:learning_english_app/screens/vocabulary/word_scrambled_screen.dart';
 import 'package:learning_english_app/widgets/home/vocabulary/appbar_favorite_word.dart';
 import 'package:learning_english_app/widgets/home/vocabulary/word_favorite_item.dart';
 

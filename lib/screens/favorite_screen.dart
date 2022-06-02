@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:learning_english_app/utils/colors.dart';
 import 'package:learning_english_app/widgets/home/favorites/favorite_card.dart';
@@ -19,7 +21,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
     return Scaffold(
       backgroundColor: kcGreyColor,
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           "Favorite",
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
         ),
@@ -36,12 +38,12 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
           SizedBox(
             height: 20,
           ),
-          Container(
+          SizedBox(
             height: 40,
             child: ListView(
               scrollDirection: Axis.horizontal,
               children: [
-                Container(
+                SizedBox(
                   height: 20,
                   child: IconButton(
                       onPressed: () {

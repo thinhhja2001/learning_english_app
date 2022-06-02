@@ -1,6 +1,7 @@
+// ignore_for_file: non_constant_identifier_names, prefer_const_constructors, sized_box_for_whitespace
+
 import 'package:flutter/material.dart';
 import 'package:learning_english_app/resources/auth_methods.dart';
-import 'package:provider/provider.dart';
 
 class ResetPassword extends StatefulWidget {
   const ResetPassword({Key? key}) : super(key: key);
@@ -28,7 +29,6 @@ class _ResetPasswordState extends State<ResetPassword> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     switchScreen = 1;
   }
@@ -44,7 +44,7 @@ class _ResetPasswordState extends State<ResetPassword> {
   @override
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
-    return Container(
+    return SizedBox(
         height: screenSize.height * 0.7, child: switchToAnotherScreen(context));
   }
 
@@ -65,29 +65,25 @@ class _ResetPasswordState extends State<ResetPassword> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Container(
-                    child: Text(
-                      "Reset Password",
-                      style: TextStyle(
-                        color: Color.fromRGBO(40, 40, 40, 1),
-                        fontFamily: "Roboto",
-                        fontWeight: FontWeight.bold,
-                        fontSize: 24,
-                      ),
+                  Text(
+                    "Reset Password",
+                    style: TextStyle(
+                      color: Color.fromRGBO(40, 40, 40, 1),
+                      fontFamily: "Roboto",
+                      fontWeight: FontWeight.bold,
+                      fontSize: 24,
                     ),
                   ),
                   SizedBox(
                     height: screenSize.height * 0.015,
                   ),
-                  Container(
-                    child: Text(
-                      "Please make sure your new password must be different from previous used passwords.",
-                      style: TextStyle(
-                        color: Color.fromRGBO(40, 40, 40, 1),
-                        fontFamily: "Roboto",
-                        fontWeight: FontWeight.normal,
-                        fontSize: 14,
-                      ),
+                  Text(
+                    "Please make sure your new password must be different from previous used passwords.",
+                    style: TextStyle(
+                      color: Color.fromRGBO(40, 40, 40, 1),
+                      fontFamily: "Roboto",
+                      fontWeight: FontWeight.normal,
+                      fontSize: 14,
                     ),
                   ),
                 ],
@@ -244,6 +240,7 @@ class _ResetPasswordState extends State<ResetPassword> {
               Padding(
                 padding: const EdgeInsets.all(15.0),
                 child: Column(
+                  // ignore: prefer_const_literals_to_create_immutables
                   children: [
                     Text(
                       "Password Reset Successful",

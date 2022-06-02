@@ -1,3 +1,5 @@
+// ignore_for_file: sized_box_for_whitespace, prefer_const_constructors, non_constant_identifier_names
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -16,7 +18,6 @@ class _ForgetPasswordState extends State<ForgetPassword> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     switchScreen = 1;
   }
@@ -54,29 +55,25 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Container(
-                    child: Text(
-                      "Forgot Password",
-                      style: TextStyle(
-                        color: Color.fromRGBO(40, 40, 40, 1),
-                        fontFamily: "Roboto",
-                        fontWeight: FontWeight.bold,
-                        fontSize: 24,
-                      ),
+                  Text(
+                    "Forgot Password",
+                    style: TextStyle(
+                      color: Color.fromRGBO(40, 40, 40, 1),
+                      fontFamily: "Roboto",
+                      fontWeight: FontWeight.bold,
+                      fontSize: 24,
                     ),
                   ),
                   SizedBox(
                     height: screenSize.height * 0.015,
                   ),
-                  Container(
-                    child: Text(
-                      "Enter the email associated with your account and we’ll send an email instruction to reset your password.",
-                      style: TextStyle(
-                        color: Color.fromRGBO(40, 40, 40, 1),
-                        fontFamily: "Roboto",
-                        fontWeight: FontWeight.normal,
-                        fontSize: 14,
-                      ),
+                  Text(
+                    "Enter the email associated with your account and we’ll send an email instruction to reset your password.",
+                    style: TextStyle(
+                      color: Color.fromRGBO(40, 40, 40, 1),
+                      fontFamily: "Roboto",
+                      fontWeight: FontWeight.normal,
+                      fontSize: 14,
                     ),
                   ),
                 ],
@@ -160,6 +157,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
               Padding(
                 padding: const EdgeInsets.all(15.0),
                 child: Column(
+                  // ignore: prefer_const_literals_to_create_immutables
                   children: [
                     Text(
                       "Check your Email",
@@ -237,22 +235,19 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                   fontSize: 12,
                 ),
               ),
-              Container(
-  
-                child: TextButton(
-                  onPressed: () {
-                    setState(() {
-                      switchScreen = 1;
-                    });
-                  },
-                  child: Text(
-                    "try another email address",
-                    style: TextStyle(
-                      color: Colors.blue,
-                      fontFamily: "Roboto",
-                      fontWeight: FontWeight.bold,
-                      fontSize: 12,
-                    ),
+              TextButton(
+                onPressed: () {
+                  setState(() {
+                    switchScreen = 1;
+                  });
+                },
+                child: Text(
+                  "try another email address",
+                  style: TextStyle(
+                    color: Colors.blue,
+                    fontFamily: "Roboto",
+                    fontWeight: FontWeight.bold,
+                    fontSize: 12,
                   ),
                 ),
               ),

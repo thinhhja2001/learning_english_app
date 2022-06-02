@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors, non_constant_identifier_names, avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:learning_english_app/models/practice/result.dart';
 import 'package:learning_english_app/resources/firebase_handle.dart';
@@ -21,9 +23,10 @@ class Dialog extends StatefulWidget {
 
   final int val;
 
-  Dialog({
+  const Dialog({
+    Key? key,
     required this.val,
-  });
+  }) : super(key: key);
 }
 
 class _DialogState extends State<Dialog> {
@@ -39,7 +42,7 @@ class _DialogState extends State<Dialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: new Text("Set time target (minute)",
+      title: Text("Set time target (minute)",
           style: ktsTitleWidget.copyWith(color: kcBlackColor)),
       content: SizedBox(
         height: 50,
@@ -78,7 +81,7 @@ class _DialogState extends State<Dialog> {
 }
 
 class TimeLearnedRecently extends StatefulWidget {
-  TimeLearnedRecently({Key? key}) : super(key: key);
+  const TimeLearnedRecently({Key? key}) : super(key: key);
 
   @override
   State<TimeLearnedRecently> createState() => _TimeLearnedRecentlyState();
@@ -98,10 +101,11 @@ class _TimeLearnedRecentlyState extends State<TimeLearnedRecently> {
     return FutureBuilder(
         future: FirebaseHandler.getTarget(),
         builder: (context, AsyncSnapshot<int> snapshot) {
-          if (snapshot.data == null)
+          if (snapshot.data == null) {
             _target = 10;
-          else
+          } else {
             _target = (snapshot.data! * 1.0);
+          }
           return FutureBuilder(
               future: FirebaseHandler.getTimeLearned(),
               builder: (context, AsyncSnapshot<List<Result>> snapshot) {
@@ -117,14 +121,15 @@ class _TimeLearnedRecentlyState extends State<TimeLearnedRecently> {
                     snapshot.data!.map((doc) => doc).toList();
                 List<int> lTimeLearned = [0, 0, 0, 0, 0, 0, 0];
                 if (lResult.isNotEmpty) {
-                  lResult.forEach((result) {
+                  for (var result in lResult) {
                     DateTime timeLearned =
                         DateTime.parse(result.time!.toDate().toString());
                     int differ = timeLearned.difference(now).inDays;
-                    if (differ <= 0 && differ >= -6)
+                    if (differ <= 0 && differ >= -6) {
                       lTimeLearned[6 + differ] +=
                           SupportFunction.toMinutes(result.duration ?? 0);
-                  });
+                    }
+                  }
                 }
                 List<ChartData> chartData = [
                   ChartData(
@@ -217,10 +222,11 @@ class _TimeLearnedRecentlyState extends State<TimeLearnedRecently> {
                               ),
                             ).then((valueFromDialog) {
                               // use the value as you wish
-                              if (_target != valueFromDialog)
+                              if (_target != valueFromDialog) {
                                 setState(() {
                                   _target = valueFromDialog;
                                 });
+                              }
                             });
                           },
                           child: Text("Set time target"),

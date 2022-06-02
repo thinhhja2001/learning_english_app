@@ -1,3 +1,5 @@
+// ignore_for_file: sized_box_for_whitespace, prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:learning_english_app/utils/colors.dart';
 
@@ -13,7 +15,6 @@ class _SearchFavoriteState extends State<SearchFavorite> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(10.0),
-      
       child: Container(
         height: 50,
         child: TextField(

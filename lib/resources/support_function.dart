@@ -39,10 +39,11 @@ class SupportFunction {
   static int roundNumberTo5(double number) {
     int result = number.round();
     int mod = result % 5;
-    if (mod < 3)
+    if (mod < 3) {
       result -= mod;
-    else
+    } else {
       result += (5 - mod);
+    }
     return result;
   }
 

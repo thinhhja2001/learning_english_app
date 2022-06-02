@@ -1,6 +1,6 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:learning_english_app/models/practice/practice_file.dart';
 import 'package:learning_english_app/models/practice/result.dart';
@@ -102,7 +102,7 @@ class HistoryContainer extends StatelessWidget {
     loadingProvider.updateLoading();
 
     Get.to(
-      PageQuizScreen(),
+      const PageQuizScreen(),
     );
   }
 
@@ -187,8 +187,8 @@ class HistoryContainer extends StatelessWidget {
                               value: 0,
                               backgroundColor: kcBackgroundProgress,
                               minHeight: 5,
-                              valueColor: new AlwaysStoppedAnimation<Color>(
-                                  kcPrimaryColor),
+                              valueColor:
+                                  AlwaysStoppedAnimation<Color>(kcPrimaryColor),
                             ),
                           ),
                           SizedBox(
@@ -201,8 +201,8 @@ class HistoryContainer extends StatelessWidget {
                                     : numCorrect / (numCorrect + numInCorrect),
                                 backgroundColor: kcWrong,
                                 minHeight: 5,
-                                valueColor: new AlwaysStoppedAnimation<Color>(
-                                    kcCorrect),
+                                valueColor:
+                                    AlwaysStoppedAnimation<Color>(kcCorrect),
                               )),
                         ],
                       ),

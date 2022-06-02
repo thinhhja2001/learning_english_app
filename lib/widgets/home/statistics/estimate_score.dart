@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_final_fields, unused_field, avoid_print, prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:learning_english_app/resources/firebase_handle.dart';
 import 'package:learning_english_app/utils/colors.dart';
@@ -5,7 +7,7 @@ import 'package:learning_english_app/utils/constants.dart';
 import 'package:learning_english_app/utils/styles.dart';
 
 class EstimateScore extends StatefulWidget {
-  EstimateScore({Key? key}) : super(key: key);
+  const EstimateScore({Key? key}) : super(key: key);
 
   @override
   State<EstimateScore> createState() => _EstimateScoreState();
@@ -77,7 +79,7 @@ class _EstimateScoreState extends State<EstimateScore> {
                                       990,
                                   backgroundColor: kcBackgroundProgress,
                                   strokeWidth: 5,
-                                  valueColor: new AlwaysStoppedAnimation<Color>(
+                                  valueColor: AlwaysStoppedAnimation<Color>(
                                       Colors.green),
                                 ),
                               ),
@@ -111,7 +113,7 @@ class _EstimateScoreState extends State<EstimateScore> {
                                   value: estimateListeningScore / 495,
                                   backgroundColor: kcBackgroundProgress,
                                   minHeight: 5,
-                                  valueColor: new AlwaysStoppedAnimation<Color>(
+                                  valueColor: AlwaysStoppedAnimation<Color>(
                                       Colors.purple),
                                 ),
                                 verticalSpaceSmall,
@@ -132,7 +134,7 @@ class _EstimateScoreState extends State<EstimateScore> {
                                   value: estimateReadingScore / 495,
                                   backgroundColor: kcBackgroundProgress,
                                   minHeight: 5,
-                                  valueColor: new AlwaysStoppedAnimation<Color>(
+                                  valueColor: AlwaysStoppedAnimation<Color>(
                                       Colors.blue),
                                 ),
                               ],
