@@ -3,8 +3,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:get/get.dart';
 import 'package:learning_english_app/models/vocabulary/favorite_vocabulary.dart';
 import 'package:learning_english_app/resources/firebase_handle.dart';
+import 'package:learning_english_app/screens/vocabulary/favorite_scambled_screen.dart';
+import 'package:learning_english_app/screens/vocabulary/word_scrambled_screen.dart';
 import 'package:learning_english_app/widgets/home/vocabulary/appbar_favorite_word.dart';
 import 'package:learning_english_app/widgets/home/vocabulary/word_favorite_item.dart';
 
@@ -31,29 +34,69 @@ class FavoriteWordListScreen extends StatelessWidget {
                 favoriteList.add(favorite);
               }).toList();
 
-              return Padding(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
-                  child: AnimationLimiter(
-                      child: GridView.builder(
-                          gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 1,
-                                  childAspectRatio: 5.5,
-                                  mainAxisSpacing: 10),
-                          itemCount: favoriteList.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            return AnimationConfiguration.staggeredGrid(
-                                columnCount: 1,
-                                position: index,
-                                duration: Duration(milliseconds: 1000),
-                                child: ScaleAnimation(
-                                    child: FadeInAnimation(
-                                        delay: Duration(milliseconds: 100),
-                                        child: WordFavoriteItem(
-                                            favoriteWord: favoriteList[index],
-                                            index: index))));
-                          })));
+              return Stack(
+                children: [
+                  Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 16, horizontal: 8),
+                      child: AnimationLimiter(
+                          child: GridView.builder(
+                              gridDelegate:
+                                  SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 1,
+                                      childAspectRatio: 5.5,
+                                      mainAxisSpacing: 10),
+                              itemCount: favoriteList.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                return AnimationConfiguration.staggeredGrid(
+                                    columnCount: 1,
+                                    position: index,
+                                    duration: Duration(milliseconds: 1000),
+                                    child: ScaleAnimation(
+                                        child: FadeInAnimation(
+                                            delay: Duration(milliseconds: 100),
+                                            child: WordFavoriteItem(
+                                                favoriteWord:
+                                                    favoriteList[index],
+                                                index: index))));
+                              }))),
+                  Positioned(
+                    bottom: 20,
+                    left: MediaQuery.of(context).size.width * 0.2,
+                    width: MediaQuery.of(context).size.width * 0.56,
+                    height: 70,
+                    child: Card(
+                      elevation: 10,
+                      color: Colors.pink,
+                      margin: EdgeInsets.all(8),
+                      shape: RoundedRectangleBorder(
+                        side: BorderSide(color: Colors.white54, width: 1),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: InkWell(
+                        onTap: () {
+                          Get.to(FavaoriteScrambleScreen(
+                              listFavorite: favoriteList, topic: "Favorite"));
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: const [
+                            Icon(
+                              Icons.quiz_outlined,
+                              color: Colors.white,
+                            ),
+                            Text('Word Scrambled Game',
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white)),
+                          ],
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              );
             }));
   }
 }

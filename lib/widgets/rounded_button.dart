@@ -16,7 +16,7 @@ class RoundedButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Container(
+    return SizedBox(
       width: size.width * 0.8,
       child: Padding(
         padding: const EdgeInsets.symmetric(
@@ -24,9 +24,11 @@ class RoundedButton extends StatelessWidget {
         ),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(29),
-          child: FlatButton(
-            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 40),
-            color: color,
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 40),
+              primary: color,
+            ),
             onPressed: press,
             child: Text(
               text,

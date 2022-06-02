@@ -1,22 +1,23 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:learning_english_app/models/vocabulary/vocabulary.dart';
+import 'package:learning_english_app/models/vocabulary/favorite_vocabulary.dart';
 
 import 'package:learning_english_app/utils/constants.dart';
 
-class WordScrambleScreen extends StatefulWidget {
-  const WordScrambleScreen(
-      {Key? key, required this.listVocabulary, required this.topic})
+class FavaoriteScrambleScreen extends StatefulWidget {
+  const FavaoriteScrambleScreen(
+      {Key? key, required this.listFavorite, required this.topic})
       : super(key: key);
-  final List<Vocabulary> listVocabulary;
+  final List<FavoriteWord> listFavorite;
   final String topic;
 
   @override
-  State<WordScrambleScreen> createState() => _WordScrambleScreenState();
+  State<FavaoriteScrambleScreen> createState() =>
+      _FavaoriteScrambleScreenState();
 }
 
-class _WordScrambleScreenState extends State<WordScrambleScreen> {
+class _FavaoriteScrambleScreenState extends State<FavaoriteScrambleScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,16 +35,16 @@ class _WordScrambleScreenState extends State<WordScrambleScreen> {
               ]),
               style: TextStyle(color: Colors.black),
             )),
-        body: ScrambleQuizWidget(listVocabulary: widget.listVocabulary));
+        body: ScrambleQuizWidget(listFavorite: widget.listFavorite));
   }
 }
 
 class ScrambleQuizWidget extends StatefulWidget {
   const ScrambleQuizWidget({
     Key? key,
-    required this.listVocabulary,
+    required this.listFavorite,
   }) : super(key: key);
-  final List<Vocabulary> listVocabulary;
+  final List<FavoriteWord> listFavorite;
 
   @override
   State<ScrambleQuizWidget> createState() => _ScrambleQuizWidgetState();
@@ -70,8 +71,8 @@ class _ScrambleQuizWidgetState extends State<ScrambleQuizWidget> {
   }
 
   initQuiz() {
-    widget.listVocabulary.shuffle();
-    totalQuestion = widget.listVocabulary.length;
+    widget.listFavorite.shuffle();
+    totalQuestion = widget.listFavorite.length;
     numQuestion = 0;
     score = 0;
     scrambleWord = "";
@@ -84,7 +85,7 @@ class _ScrambleQuizWidgetState extends State<ScrambleQuizWidget> {
 
   getNewQuestion(int num) {
     List<Characters> charList = [];
-    String currentWord = widget.listVocabulary[num].word!;
+    String currentWord = widget.listFavorite[num].word!;
     String newWord = "";
 
     for (int i = 0; i < currentWord.length; i++) {
@@ -97,7 +98,7 @@ class _ScrambleQuizWidgetState extends State<ScrambleQuizWidget> {
       }
     } while (newWord == currentWord);
 
-    meaning = widget.listVocabulary[num].meaning!;
+    meaning = widget.listFavorite[num].meaning!;
     answerWord = currentWord;
     scrambleWord = newWord;
   }
