@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable, prefer_final_fields, unused_field, prefer_const_constructors, avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:learning_english_app/models/practice/result.dart';
 import 'package:learning_english_app/resources/firebase_handle.dart';
@@ -134,11 +136,11 @@ class _PartOverallState extends State<PartOverall> {
             numUnSelect = 0;
           } else {
             List<Result> lResult = snapshot.data!.map((doc) => doc).toList();
-            lResult.forEach((result) {
+            for (var result in lResult) {
               numCorrect += result.numberCorrect;
               numInCorrect += result.numberInCorrect;
               numUnSelect += result.numberUnSelect;
-            });
+            }
           }
           return Column(
             children: [
@@ -189,8 +191,7 @@ class _PartOverallState extends State<PartOverall> {
                       value: 0.1,
                       backgroundColor: kcBackgroundProgress,
                       minHeight: 5,
-                      valueColor:
-                          new AlwaysStoppedAnimation<Color>(kcPrimaryColor),
+                      valueColor: AlwaysStoppedAnimation<Color>(kcPrimaryColor),
                     )
                   : Stack(
                       children: [
@@ -199,7 +200,7 @@ class _PartOverallState extends State<PartOverall> {
                           backgroundColor: kcBackgroundProgress,
                           minHeight: 5,
                           valueColor:
-                              new AlwaysStoppedAnimation<Color>(kcPrimaryColor),
+                              AlwaysStoppedAnimation<Color>(kcPrimaryColor),
                         ),
                         SizedBox(
                             width: (numCorrect + numInCorrect) *
@@ -212,7 +213,7 @@ class _PartOverallState extends State<PartOverall> {
                               backgroundColor: kcWrong,
                               minHeight: 5,
                               valueColor:
-                                  new AlwaysStoppedAnimation<Color>(kcCorrect),
+                                  AlwaysStoppedAnimation<Color>(kcCorrect),
                             )),
                       ],
                     ),

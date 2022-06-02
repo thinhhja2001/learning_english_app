@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/cupertino.dart';
 import 'package:learning_english_app/models/practice/list_quiz_question.dart';
 import 'package:learning_english_app/models/practice/result.dart';

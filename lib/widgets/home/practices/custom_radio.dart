@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_constructors_in_immutables, use_key_in_widget_constructors
+// ignore_for_file: prefer_const_constructors, prefer_const_constructors_in_immutables, use_key_in_widget_constructors, must_be_immutable
 
 import 'package:flutter/material.dart';
 
@@ -50,8 +50,6 @@ class CustomRadioState extends State<CustomRadio> {
       }
     }
   }
-
-  void UpdateData() {}
 
   @override
   Widget build(BuildContext context) {

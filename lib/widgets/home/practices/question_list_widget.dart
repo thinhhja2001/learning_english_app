@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, avoid_print, prefer_const_literals_to_create_immutables
 
 import 'package:custom_radio_grouped_button/custom_radio_grouped_button.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +14,6 @@ class _QuestionListWidgetState extends State<QuestionListWidget> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      // ignore: prefer_const_literals_to_create_immutables
       children: [
         Padding(
             padding: EdgeInsets.symmetric(vertical: 8),
@@ -27,7 +26,6 @@ class _QuestionListWidgetState extends State<QuestionListWidget> {
                 CustomCheckBoxGroup(
                   // scrollController: ScrollController(),
                   unSelectedColor: Theme.of(context).canvasColor,
-                  // ignore: prefer_const_literals_to_create_immutables
                   buttonLables: [
                     "A",
                     "B",

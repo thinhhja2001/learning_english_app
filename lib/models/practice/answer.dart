@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:learning_english_app/resources/firebase_handle.dart';
 import 'package:learning_english_app/resources/support_function.dart';
 
 class Answer {

@@ -8,13 +8,23 @@ import 'package:learning_english_app/utils/constants.dart';
 import 'package:learning_english_app/utils/styles.dart';
 import 'package:learning_english_app/widgets/custom/draw_half_circle.dart';
 
-class EmailVerifyScreen extends StatelessWidget {
-  EmailVerifyScreen({Key? key}) : super(key: key);
+class EmailVerifyScreen extends StatefulWidget {
+  const EmailVerifyScreen({Key? key}) : super(key: key);
+
+  @override
+  State<EmailVerifyScreen> createState() => _EmailVerifyScreenState();
+}
+
+class _EmailVerifyScreenState extends State<EmailVerifyScreen> {
   final User _user = FirebaseAuth.instance.currentUser!;
+
   String title = "Just one more step";
+
   String description =
       "We have sent a verification link to this email. Please check your email and confirm";
+
   String buttonContent = "Go to Login";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -90,7 +100,7 @@ class EmailVerifyScreen extends StatelessWidget {
                                 onPressed: () {
                                   Get.to(SignInScreen());
                                 },
-                                child: new Text(
+                                child: Text(
                                   buttonContent,
                                   style:
                                       ktsButton.copyWith(color: kcWhiteColor),

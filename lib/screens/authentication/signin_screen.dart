@@ -1,12 +1,11 @@
+// ignore_for_file: unused_element, prefer_const_constructors, unused_local_variable
+
 import 'package:flutter/material.dart';
 import 'package:learning_english_app/providers/authentication/signin_provider.dart';
-import 'package:learning_english_app/screens/authentication/email_verify_screen.dart';
 import 'package:learning_english_app/screens/authentication/signup_screen.dart';
-import 'package:learning_english_app/screens/statistic/statistics_screen.dart';
 import 'package:learning_english_app/utils/constants.dart';
 import 'package:learning_english_app/widgets/custom/custom_error_box.dart';
 import 'package:learning_english_app/widgets/reset_password/forget_password_widget.dart';
-import 'package:learning_english_app/widgets/reset_password/reset_password_widget.dart';
 import 'package:provider/provider.dart';
 
 import '../../widgets/custom/custom_input_field.dart';

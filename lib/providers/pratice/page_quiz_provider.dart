@@ -1,5 +1,7 @@
 // import 'dart:ffi';
 
+// ignore_for_file: avoid_print
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:learning_english_app/models/practice/practice_file.dart';
@@ -33,9 +35,8 @@ class PageQuizProvider extends ChangeNotifier {
     quizTotalQuestion = _listQuiz.length;
   }
 
-  void countDocuments(
-      String testId, String part, List<String> allOldData) async {
-    var allNewData;
+  countDocuments(String testId, String part, List<String> allOldData) async {
+    List<String> allNewData;
     QuerySnapshot querySnapshot = await FirebaseFirestore.instance
         .collection("tests")
         .doc(testId)

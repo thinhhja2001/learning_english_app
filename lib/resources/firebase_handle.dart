@@ -1,7 +1,5 @@
 // ignore_for_file: avoid_print, invalid_return_type_for_catch_error
 
-import 'dart:collection';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:learning_english_app/models/practice/answer.dart';
@@ -169,8 +167,7 @@ class FirebaseHandler {
     Timestamp myTimeStamp = Timestamp.fromDate(currentPhoneDate); //To TimeStamp
 
     Map<String, Object> dummyMap = {};
-    DocumentReference df =
-        await userFR.doc(user.uid).collection('results').doc(test);
+    DocumentReference df = userFR.doc(user.uid).collection('results').doc(test);
     df.set(dummyMap);
     return await userFR
         .doc(user.uid)
@@ -221,15 +218,16 @@ class FirebaseHandler {
         }
       }
     }
-    if (numberCorrect == 0)
+    if (numberCorrect == 0) {
       return 5;
-    else
+    } else {
       return SupportFunction.roundNumberTo5(
           (numberCorrect / (numberInCorrect + numberUnSelect + numberCorrect)) *
               (lPartScore[0] * 30 +
                   lPartScore[1] * 105 +
                   lPartScore[2] * 245 +
                   lPartScore[3] * 115));
+    }
   }
 
   static Future<int> estimateReading() async {
@@ -263,12 +261,13 @@ class FirebaseHandler {
         }
       }
     }
-    if (numberCorrect == 0)
+    if (numberCorrect == 0) {
       return 5;
-    else
+    } else {
       return SupportFunction.roundNumberTo5(
           (numberCorrect / (numberInCorrect + numberUnSelect + numberCorrect)) *
               (lPartScore[0] * 90 + lPartScore[1] * 100 + lPartScore[2] * 305));
+    }
   }
 
   static Future<List<Result>> getTimeLearned() async {

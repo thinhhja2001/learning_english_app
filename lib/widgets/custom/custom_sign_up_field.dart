@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors, body_might_complete_normally_nullable
+
 import 'package:flutter/material.dart';
 import 'package:learning_english_app/utils/constants.dart';
 import 'package:learning_english_app/utils/styles.dart';
@@ -92,7 +94,9 @@ class _CustomeSignUpFieldState extends State<CustomeSignUpField> {
                                   ))
                               : null),
                       validator: (value) {
-                        if (value == null || value.isEmpty) return null;
+                        if (value == null || value.isEmpty) {
+                          return null;
+                        }
                       },
                     ),
                   )),

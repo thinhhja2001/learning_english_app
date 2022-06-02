@@ -1,6 +1,7 @@
+// ignore_for_file: non_constant_identifier_names, sized_box_for_whitespace, prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:learning_english_app/utils/colors.dart';
-import 'package:learning_english_app/utils/styles.dart';
 
 class FavoriteCard extends StatefulWidget {
   final List<Map<String, dynamic>>? Questions;
@@ -93,9 +94,7 @@ class _FavoriteCardState extends State<FavoriteCard> {
                   padding: const EdgeInsets.all(10.0),
                   child: ElevatedButton(
                     onPressed: () {
-                      setState(() {
-                        
-                      });
+                      setState(() {});
                     },
                     style: ElevatedButton.styleFrom(
                         elevation: 0,
@@ -113,7 +112,7 @@ class _FavoriteCardState extends State<FavoriteCard> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Row(
-                              children: [
+                              children: const [
                                 Icon(
                                   // <-- Icon
                                   Icons.check,
@@ -145,6 +144,7 @@ class _FavoriteCardState extends State<FavoriteCard> {
                               height: 5,
                             ),
                             Row(
+                              // ignore: prefer_const_literals_to_create_immutables
                               children: [
                                 DecoratedBox(
                                   decoration: BoxDecoration(

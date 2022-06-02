@@ -1,5 +1,6 @@
+// ignore_for_file: unnecessary_getters_setters, prefer_const_constructors
+
 import 'package:flutter/cupertino.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:learning_english_app/resources/auth_methods.dart';
 import 'package:learning_english_app/screens/authentication/email_verify_screen.dart';
@@ -9,9 +10,9 @@ class SignUpProvider extends ChangeNotifier {
   bool get isLoading => _isLoading;
 
   bool _isValid = true;
-  bool get isValid => this._isValid;
+  bool get isValid => _isValid;
 
-  set isValid(bool value) => this._isValid = value;
+  set isValid(bool value) => _isValid = value;
 
   String _errorMessage = "";
   String get errorMessage => _errorMessage;

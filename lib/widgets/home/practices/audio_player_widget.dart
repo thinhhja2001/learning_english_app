@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, must_be_immutable
 
 import 'dart:typed_data';
 

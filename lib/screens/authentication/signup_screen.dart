@@ -1,4 +1,5 @@
-import 'package:awesome_dialog/awesome_dialog.dart';
+// ignore_for_file: prefer_adjacent_string_concatenation, unused_field, prefer_final_fields, prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:learning_english_app/providers/authentication/signup_provider.dart';
 import 'package:learning_english_app/utils/colors.dart';
@@ -26,7 +27,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _passwordVisible = false;
     _confirmPasswordVisible = false;
@@ -59,7 +59,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   style: ktsMediumTitleText,
                 ),
                 verticalSpaceMedium,
-                Container(
+                SizedBox(
                     height: screenSize.height * 0.1,
                     child: TextFormField(
                       controller: _firstName,
@@ -76,7 +76,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       },
                     )),
                 // verticalSpaceSmall,
-                Container(
+                SizedBox(
                     height: screenSize.height * 0.1,
                     child: TextFormField(
                       controller: _lastName,
@@ -115,7 +115,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 //       },
                 //     )),
                 // verticalSpaceSmall,
-                Container(
+                SizedBox(
                     height: screenSize.height * 0.1,
                     child: TextFormField(
                       keyboardType: TextInputType.emailAddress,
@@ -142,7 +142,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       },
                     )),
                 // verticalSpaceSmall,
-                Container(
+                SizedBox(
                   height: screenSize.height * 0.1,
                   child: TextFormField(
                     controller: _pass,
@@ -168,8 +168,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,20}$')
                               .hasMatch(val) ||
                           RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[!@#\$&*~]).{8,20}$')
-                              .hasMatch(val)))
+                              .hasMatch(val))) {
                         return 'Password is wrong format.';
+                      }
                       return null;
                     },
                     onSaved: (val) => _pass.text = val!,
@@ -178,15 +179,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 // verticalSpaceSmall,
                 Text(rule, style: ktsMediumInputText),
                 verticalSpaceMedium,
-                Container(
+                SizedBox(
                   height: screenSize.height * 0.1,
                   child: TextFormField(
                     controller: _confirmPass,
                     obscureText: !_confirmPasswordVisible,
                     validator: (val) {
                       if (val!.isEmpty) return 'Confirm password is required';
-                      if (val != _pass.text)
+                      if (val != _pass.text) {
                         return 'Confirm password does not match';
+                      }
                       return null;
                     },
                     decoration: InputDecoration(
@@ -231,14 +233,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   Expanded(
                     child: CustomButton(
                       onPress: () async {
-                        if (formKey.currentState!.validate())
+                        if (formKey.currentState!.validate()) {
                           await signUpProvider.signUp(
                             name: _firstName.text + " " + _lastName.text,
                             email: _email.text,
                             password: _pass.text,
                           );
-                        if (!signUpProvider.isValid)
+                        }
+                        if (!signUpProvider.isValid) {
                           formKey.currentState!.validate();
+                        }
                       },
                       content: "Sign up",
                       isLoading: signUpProvider.isLoading,

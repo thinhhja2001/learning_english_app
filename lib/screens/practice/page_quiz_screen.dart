@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, avoid_print
 
 // import 'package:accordion/accordion.dart';
 import 'dart:async';
@@ -7,19 +7,17 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:learning_english_app/providers/pratice/dialog_quiz_controller.dart';
-import 'package:learning_english_app/resources/firebase_handle.dart';
 import 'package:learning_english_app/widgets/home/practices/question_widget.dart';
 import 'package:learning_english_app/screens/practice/review_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
 
-import '../../models/user.dart';
 import '../../providers/pratice/page_quiz_provider.dart';
 import '../../utils/colors.dart';
 import '../../widgets/home/practices/appbar_quiz_practice.dart';
 
 class PageQuizScreen extends StatefulWidget {
-  PageQuizScreen({Key? key}) : super(key: key);
+  const PageQuizScreen({Key? key}) : super(key: key);
 
   @override
   State<PageQuizScreen> createState() => _PageQuizScreenState();
@@ -48,10 +46,10 @@ class _PageQuizScreenState extends State<PageQuizScreen> {
         .get();
     // Count of Documents in Collection
 
-    this.allData = querySnapshot.docs.map((doc) => doc.id).toList();
+    allData = querySnapshot.docs.map((doc) => doc.id).toList();
 
-    print(this.allData);
-    maxIndex = this.allData.length;
+    print(allData);
+    maxIndex = allData.length;
   }
 
   void showDialog(DialogQuizProvider dialogQuizProvider) {
