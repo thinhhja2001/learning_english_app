@@ -11,6 +11,8 @@ import 'package:learning_english_app/screens/vocabulary/word_scrambled_screen.da
 import 'package:learning_english_app/widgets/home/vocabulary/appbar_favorite_word.dart';
 import 'package:learning_english_app/widgets/home/vocabulary/word_favorite_item.dart';
 
+import '../../utils/constants.dart';
+
 class FavoriteWordListScreen extends StatelessWidget {
   const FavoriteWordListScreen({Key? key}) : super(key: key);
   @override
@@ -46,19 +48,22 @@ class FavoriteWordListScreen extends StatelessWidget {
                                       crossAxisCount: 1,
                                       childAspectRatio: 5.5,
                                       mainAxisSpacing: 10),
-                              itemCount: favoriteList.length,
+                              itemCount: favoriteList.length + 1,
                               itemBuilder: (BuildContext context, int index) {
-                                return AnimationConfiguration.staggeredGrid(
-                                    columnCount: 1,
-                                    position: index,
-                                    duration: Duration(milliseconds: 1000),
-                                    child: ScaleAnimation(
-                                        child: FadeInAnimation(
-                                            delay: Duration(milliseconds: 100),
-                                            child: WordFavoriteItem(
-                                                favoriteWord:
-                                                    favoriteList[index],
-                                                index: index))));
+                                return index < favoriteList.length
+                                    ? AnimationConfiguration.staggeredGrid(
+                                        columnCount: 1,
+                                        position: index,
+                                        duration: Duration(milliseconds: 1000),
+                                        child: ScaleAnimation(
+                                            child: FadeInAnimation(
+                                                delay:
+                                                    Duration(milliseconds: 100),
+                                                child: WordFavoriteItem(
+                                                    favoriteWord:
+                                                        favoriteList[index],
+                                                    index: index))))
+                                    : verticalSpaceLarge;
                               }))),
                   Positioned(
                     bottom: 20,
