@@ -5,6 +5,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:learning_english_app/providers/authentication/email_verify_provider.dart';
+import 'package:learning_english_app/providers/favorite_provider.dart';
 import 'package:learning_english_app/providers/pratice/dialog_quiz_controller.dart';
 import 'package:learning_english_app/providers/pratice/loading_provider.dart';
 import 'package:learning_english_app/providers/pratice/page_quiz_provider.dart';
@@ -52,6 +53,9 @@ class MyApp extends StatelessWidget {
             create: (context) => LoadingProvider()),
         ChangeNotifierProvider<VocabularyProvider>(
             create: (context) => VocabularyProvider()),
+        ChangeNotifierProvider<FavoriteProvider>(
+          create: (context) => FavoriteProvider(),
+        )
       ],
       child: GetMaterialApp(
           title: 'Flutter Demo',

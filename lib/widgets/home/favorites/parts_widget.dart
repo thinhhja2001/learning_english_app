@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../../../providers/favorite_provider.dart';
 import '../../../utils/colors.dart';
 
 class FavoriteParts extends StatefulWidget {
   final String title;
-  const FavoriteParts({Key? key, required this.title}) : super(key: key);
+  final int index;
+  const FavoriteParts(
+      {Key? key,
+      required this.title,
+      required this.index})
+      : super(key: key);
 
   @override
   State<FavoriteParts> createState() => _FavoritePartsState();
@@ -12,23 +19,16 @@ class FavoriteParts extends StatefulWidget {
 
 class _FavoritePartsState extends State<FavoriteParts> {
   IconData? iconPart;
-  Color colorPart = kcSecondBackgroundButton;
-  bool isPressed = false;
 
-  void changeBackground() {
-    if (isPressed == true) {
-      iconPart = null;
-      colorPart = kcSecondBackgroundButton;
-      isPressed = false;
-    } else {
-      isPressed = true;
-      iconPart = Icons.check;
-      colorPart = kPrimaryColor;
-    }
+  @override
+  void initState() {
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    FavoriteProvider favoriteProvider = Provider.of<FavoriteProvider>(context);
+    Color colorPart = favoriteProvider.indexClicked[widget.index] ? kPrimaryColor : kcSecondBackgroundButton;
     return Padding(
       padding: const EdgeInsets.only(left: 5),
       child: ElevatedButton(
@@ -40,9 +40,7 @@ class _FavoritePartsState extends State<FavoriteParts> {
               borderRadius: BorderRadius.circular(30.0),
             ))),
         onPressed: () {
-          setState(() {
-            changeBackground();
-          });
+          favoriteProvider.partClicked(widget.index);
         },
       ),
     );

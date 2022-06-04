@@ -28,9 +28,18 @@ class PageQuizProvider extends ChangeNotifier {
 
   updatePractice(PracticeFile practiceFile) async {
     _practiceFile = practiceFile;
+    print("ID: " + practiceFile.id!);
+    print("name: " + practiceFile.practice.practicePart.name);
+
     _listQuiz = await FirebaseHandler.getListQuiz(
         _practiceFile.id!, _practiceFile.practice.practicePart.name);
     print(_listQuiz.length);
+    quizQuestionDescription = _listQuiz.first.id.toString();
+    quizTotalQuestion = _listQuiz.length;
+  }
+
+  updatePracticeFavorite(String test, String part) async {
+    _listQuiz = await FirebaseHandler.getListQuiz(test, part);
     quizQuestionDescription = _listQuiz.first.id.toString();
     quizTotalQuestion = _listQuiz.length;
   }
