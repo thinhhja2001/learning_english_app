@@ -16,6 +16,7 @@ import 'package:learning_english_app/resources/firebase_reference.dart';
 import 'package:learning_english_app/resources/support_function.dart';
 import 'package:learning_english_app/utils/constants.dart';
 
+import '../models/favorite.dart';
 import 'auth_methods.dart';
 
 CollectionReference _collectionRef =
@@ -99,6 +100,7 @@ class FirebaseHandler {
     practiceFileList = testQuerySnapshot.docs
         .map((doc) => PracticeFile.fromFireStore(doc.id, practice))
         .toList();
+        print(practiceFileList[0].id);
     if (practice.practicePart == PracticePart.part7) {
       practiceFileList.removeWhere((element) =>
           element.id == 'test6' ||
@@ -107,6 +109,11 @@ class FirebaseHandler {
     }
     return practiceFileList;
   }
+
+  // static Future<PracticeFile> getPracticeFile()async
+  // {
+    
+  // }
 
   // Get List Question from Question Document
   static Future<List<Answer>> getListAnswer(
@@ -383,9 +390,13 @@ class FirebaseHandler {
     return await userFR
         .doc(user.uid)
         .collection('favorites')
-        .doc(test)
-        .collection(part)
-        .add({'title': title, 'index': index, 'time': myTimeStamp})
+        .add({
+          'title': title,
+          'index': index,
+          'time': myTimeStamp,
+          'part': part,
+          'test': test,
+        })
         .then((value) => print("Add Favorite ${value.id} successfully"))
         .catchError((error) => print("Failed to update favorite: $error"));
   }
@@ -393,10 +404,12 @@ class FirebaseHandler {
   static deleteFromFavorite(String test, String part, String index) async {
     UserData user = await getCurrentUser();
     CollectionReference favoriteFR =
-        userFR.doc(user.uid).collection('favorites').doc(test).collection(part);
+        userFR.doc(user.uid).collection('favorites');
     List<String> listID = [];
     await favoriteFR
         .where('index', isEqualTo: index)
+        .where('part', isEqualTo: part)
+        .where('test', isEqualTo: test)
         .get()
         .then((QuerySnapshot querySnapshot) {
       for (var doc in querySnapshot.docs) {
@@ -492,5 +505,19 @@ class FirebaseHandler {
         .collection('wordFavorites');
 
     return favoriteFR.orderBy('time', descending: true).snapshots();
+  }
+
+  static Future<List<Favorite>> getListFavoriteTest() async {
+    List<Favorite> favoriteList = [];
+    QuerySnapshot favoriteQuerySnapshot = await userFR
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .collection('favorites')
+        .orderBy('part', descending: true)
+        .get();
+    favoriteList = favoriteQuerySnapshot.docs
+        .map((doc) => Favorite.fromSnap(doc))
+        .toList();
+    print(favoriteList[0].id);
+    return favoriteList;
   }
 }

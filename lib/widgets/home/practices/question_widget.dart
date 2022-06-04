@@ -103,9 +103,9 @@ class QuestionWidget extends StatelessWidget {
                         stream: userFR
                             .doc(FirebaseAuth.instance.currentUser!.uid)
                             .collection("favorites")
-                            .doc(test)
-                            .collection(part)
-                            .where("index", isEqualTo: indexQuiz)
+                            .where('index', isEqualTo: indexQuiz)
+                            .where('part', isEqualTo: part)
+                            .where('test', isEqualTo: test)
                             .snapshots(),
                         builder:
                             (BuildContext context, AsyncSnapshot snapshot) {
