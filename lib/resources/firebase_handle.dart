@@ -1,7 +1,10 @@
 // ignore_for_file: avoid_print, invalid_return_type_for_catch_error
 
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:learning_english_app/models/practice/answer.dart';
 import 'package:learning_english_app/models/practice/list_quiz_question.dart';
 import 'package:learning_english_app/models/practice/practice.dart';
@@ -15,9 +18,12 @@ import 'package:learning_english_app/models/vocabulary/vocabulary_topic.dart';
 import 'package:learning_english_app/resources/firebase_reference.dart';
 import 'package:learning_english_app/resources/support_function.dart';
 import 'package:learning_english_app/utils/constants.dart';
+import 'package:path/path.dart';
 
 import '../models/favorite.dart';
 import 'auth_methods.dart';
+
+final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
 CollectionReference _collectionRef =
     FirebaseFirestore.instance.collection('tests');
@@ -100,7 +106,7 @@ class FirebaseHandler {
     practiceFileList = testQuerySnapshot.docs
         .map((doc) => PracticeFile.fromFireStore(doc.id, practice))
         .toList();
-        print(practiceFileList[0].id);
+    print(practiceFileList[0].id);
     if (practice.practicePart == PracticePart.part7) {
       practiceFileList.removeWhere((element) =>
           element.id == 'test6' ||
@@ -112,7 +118,7 @@ class FirebaseHandler {
 
   // static Future<PracticeFile> getPracticeFile()async
   // {
-    
+
   // }
 
   // Get List Question from Question Document
@@ -161,10 +167,10 @@ class FirebaseHandler {
   static Future<UserData> getCurrentUser() async =>
       await AuthMethods().getUserDetails().then((data) {
         return UserData(
-          email: data.email,
-          name: data.name,
-          uid: data.uid,
-        );
+            email: data.email,
+            name: data.name,
+            uid: data.uid,
+            avatarURL: data.avatarURL);
       });
 
   static addResultToFirebase(
@@ -519,5 +525,28 @@ class FirebaseHandler {
         .toList();
     print(favoriteList[0].id);
     return favoriteList;
+  }
+
+  Future<String> uploadImage(File image) async {
+    String fileName = basename(image.path);
+    Reference storageRef =
+        FirebaseStorage.instance.ref().child('images/$fileName');
+    await storageRef.putFile(image);
+    String downloadURL = await storageRef.getDownloadURL();
+    print("Download url = " + downloadURL);
+    return downloadURL;
+  }
+
+  Future<void> setUserProfile(
+      UserData user, File? image, String username, String imageURL) async {
+    if (image != null) {
+      imageURL = await uploadImage(image);
+    }
+    await _firestore.collection("users").doc(user.uid).set({
+      'name': username,
+      'uid': user.uid,
+      'email': user.email,
+      'avatarURL': imageURL,
+    });
   }
 }

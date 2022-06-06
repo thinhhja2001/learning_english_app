@@ -134,5 +134,4 @@ class FavoriteProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void getFavoritesData() {}
 }

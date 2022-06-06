@@ -89,6 +89,7 @@ class AuthMethods {
         'name': name,
         'uid': userCredential.user!.uid,
         'email': email,
+        'avatarURL': "",
         'timeUsed': 0
       });
       user = userCredential.user;
@@ -107,6 +108,10 @@ class AuthMethods {
       return e.toString();
     }
     return result;
+  }
+
+  Future<void> signOut() async {
+    await FirebaseAuth.instance.signOut();
   }
 
   Future<String> loginUser(
