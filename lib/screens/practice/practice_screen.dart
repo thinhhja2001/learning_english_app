@@ -27,14 +27,20 @@ class PracticeScreen extends StatelessWidget {
                   return const Center(child: Text("Something error"));
                 } else {
                   return Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       InkWell(
                         onTap: () {},
-                        child: const CircleAvatar(
-                          radius: 20,
-                          backgroundImage:
-                              AssetImage("assets/images/default_avatar.jpg"),
-                        ),
+                        child: userProvider.user.avatarURL == ""
+                            ? const CircleAvatar(
+                                radius: 20,
+                                backgroundImage: AssetImage(
+                                    "assets/images/default_avatar.jpg"),
+                              )
+                            : CircleAvatar(
+                                backgroundImage:
+                                    NetworkImage(userProvider.user.avatarURL),
+                              ),
                       ),
                       Padding(
                         padding: const EdgeInsets.only(left: kDefaultPadding),

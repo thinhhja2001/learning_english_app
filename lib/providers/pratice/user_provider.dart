@@ -13,6 +13,7 @@ class UserProvider extends ChangeNotifier {
           email: data.email,
           name: data.name,
           uid: data.uid,
+          avatarURL: data.avatarURL,
         );
       });
 }

@@ -2,9 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:learning_english_app/screens/favorite_screen.dart';
+import 'package:learning_english_app/screens/menu/menu_screen.dart';
 import 'package:learning_english_app/screens/statistic/statistics_screen.dart';
 import 'package:learning_english_app/utils/colors.dart';
-import 'package:learning_english_app/utils/styles.dart';
 import 'package:learning_english_app/screens/practice/practice_screen.dart';
 import 'package:learning_english_app/widgets/home/vocabulary/vocabulary_widget.dart';
 
@@ -26,12 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
     VocabularyGeneral(),
     StatisticsScreen(),
     FavoriteScreen(),
-    Center(
-      child: Text(
-        'Index 4: Menu',
-        style: kBottomNavigationItemStyle,
-      ),
-    ),
+    MenuScreen(),
   ];
   @override
   Widget build(BuildContext context) {
