@@ -1,13 +1,13 @@
 // ignore_for_file: must_be_immutable, prefer_final_fields, unused_field, prefer_const_constructors, avoid_print
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:learning_english_app/models/practice/result.dart';
 import 'package:learning_english_app/resources/firebase_handle.dart';
 import 'package:learning_english_app/screens/statistic/history_screen.dart';
 import 'package:learning_english_app/utils/colors.dart';
 import 'package:learning_english_app/utils/constants.dart';
 import 'package:learning_english_app/utils/styles.dart';
-
 class Overall extends StatelessWidget {
   Overall({Key? key}) : super(key: key);
   double _value = 0.1;
@@ -82,11 +82,12 @@ class Overall extends StatelessWidget {
             width: double.infinity,
             child: ElevatedButton(
               onPressed: () {
-                showModalBottomSheet(
-                  context: context,
-                  builder: (context) => HistoryScreen(),
-                  isScrollControlled: true,
-                );
+                // showModalBottomSheet(
+                //   context: context,
+                //   builder: (context) => HistoryScreen(),
+                //   isScrollControlled: true,
+                // );
+                Get.to(HistoryScreen());
               },
               child: Text("View history"),
               style: ButtonStyle(
@@ -106,15 +107,12 @@ class Overall extends StatelessWidget {
     );
   }
 }
-
 class PartOverall extends StatefulWidget {
   final String part;
   const PartOverall({Key? key, required this.part}) : super(key: key);
-
   @override
   State<PartOverall> createState() => _PartOverallState();
 }
-
 class _PartOverallState extends State<PartOverall> {
   int numCorrect = 0, numInCorrect = 0, numUnSelect = 0;
   @override
