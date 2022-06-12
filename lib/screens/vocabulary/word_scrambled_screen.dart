@@ -57,6 +57,7 @@ class _ScrambleQuizWidgetState extends State<ScrambleQuizWidget> {
   var scrambleWord = "";
   var answerWord = "";
   var meaning = "";
+  var define = "";
   bool isSubmit = false;
   bool isCorrect = false;
   bool showResult = false;
@@ -77,6 +78,7 @@ class _ScrambleQuizWidgetState extends State<ScrambleQuizWidget> {
     scrambleWord = "";
     answerWord = "";
     meaning = "";
+    define = "";
     isCorrect = false;
     isSubmit = false;
     showResult = false;
@@ -98,6 +100,7 @@ class _ScrambleQuizWidgetState extends State<ScrambleQuizWidget> {
     } while (newWord == currentWord);
 
     meaning = widget.listVocabulary[num].meaning!;
+    define = widget.listVocabulary[num].define!;
     answerWord = currentWord;
     scrambleWord = newWord;
   }
@@ -232,7 +235,9 @@ class _ScrambleQuizWidgetState extends State<ScrambleQuizWidget> {
                 verticalSpaceMedium,
                 Center(
                   child: Text(
-                    "Unscramble the word using all the letters",
+                    define.isEmpty
+                        ? "Unscramble the word using all the letters"
+                        : define,
                     style:
                         TextStyle(fontSize: 16, fontWeight: FontWeight.normal),
                   ),
@@ -265,74 +270,85 @@ class _ScrambleQuizWidgetState extends State<ScrambleQuizWidget> {
                           : null),
                 ),
                 verticalSpaceLarge,
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                        flex: 1,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8),
-                          child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                  primary: Colors.white,
-                                  elevation: 8,
-                                  minimumSize: Size(
-                                      MediaQuery.of(context).size.width / 2,
-                                      50),
-                                  side:
-                                      BorderSide(width: 1, color: Colors.grey)),
-                              onPressed: updateNextQuestion,
-                              child: Text(
-                                "Skip",
-                                style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.blue),
+                isSubmit
+                    ? Row(
+                        children: [
+                          Expanded(
+                            flex: 1,
+                            child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                    primary: Colors.green,
+                                    elevation: 8,
+                                    minimumSize: Size(
+                                        MediaQuery.of(context).size.width / 2,
+                                        50),
+                                    side: BorderSide(
+                                        width: 1, color: Colors.grey)),
+                                onPressed: updateNextQuestion,
+                                child: Text(
+                                  "Next",
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white),
+                                )),
+                          ),
+                        ],
+                      )
+                    : Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                              flex: 1,
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 8),
+                                child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                        primary: Colors.white,
+                                        elevation: 8,
+                                        minimumSize: Size(
+                                            MediaQuery.of(context).size.width /
+                                                2,
+                                            50),
+                                        side: BorderSide(
+                                            width: 1, color: Colors.grey)),
+                                    onPressed: updateNextQuestion,
+                                    child: Text(
+                                      "Skip",
+                                      style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.blue),
+                                    )),
                               )),
-                        )),
-                    horizontalSpaceTiny,
-                    Expanded(
-                        flex: 1,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8),
-                          child: isSubmit
-                              ? ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                      primary: Colors.green,
-                                      elevation: 8,
-                                      minimumSize: Size(
-                                          MediaQuery.of(context).size.width / 2,
-                                          50),
-                                      side: BorderSide(
-                                          width: 1, color: Colors.grey)),
-                                  onPressed: updateNextQuestion,
-                                  child: Text(
-                                    "Next",
-                                    style: TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white),
-                                  ))
-                              : ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                      primary: Colors.blue,
-                                      elevation: 8,
-                                      minimumSize: Size(
-                                          MediaQuery.of(context).size.width / 2,
-                                          50),
-                                      side: BorderSide(
-                                          width: 1, color: Colors.grey)),
-                                  onPressed: submit,
-                                  child: Text(
-                                    "Submit",
-                                    style: TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white),
-                                  )),
-                        )),
-                  ],
-                ),
+                          horizontalSpaceTiny,
+                          Expanded(
+                              flex: 1,
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 8),
+                                child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                        primary: Colors.blue,
+                                        elevation: 8,
+                                        minimumSize: Size(
+                                            MediaQuery.of(context).size.width /
+                                                2,
+                                            50),
+                                        side: BorderSide(
+                                            width: 1, color: Colors.grey)),
+                                    onPressed: submit,
+                                    child: Text(
+                                      "Submit",
+                                      style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white),
+                                    )),
+                              )),
+                        ],
+                      ),
                 verticalSpaceLarge,
                 isSubmit
                     ? Column(

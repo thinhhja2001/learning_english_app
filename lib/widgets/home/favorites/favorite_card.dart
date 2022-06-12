@@ -207,7 +207,6 @@ class _FavoriteCardState extends State<FavoriteCard> {
                                     children: [
                                       InkWell(
                                         onTap: () {
-                                          print("favorite tapped");
                                           pressItem(
                                             loadingProvider,
                                             pageQuizProvider,

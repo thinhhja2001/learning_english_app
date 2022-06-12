@@ -64,41 +64,45 @@ class FavoriteWordListScreen extends StatelessWidget {
                                                     index: index))))
                                     : verticalSpaceLarge;
                               }))),
-                  Positioned(
-                    bottom: 20,
-                    left: MediaQuery.of(context).size.width * 0.2,
-                    width: MediaQuery.of(context).size.width * 0.56,
-                    height: 70,
-                    child: Card(
-                      elevation: 10,
-                      color: Colors.pink,
-                      margin: EdgeInsets.all(8),
-                      shape: RoundedRectangleBorder(
-                        side: BorderSide(color: Colors.white54, width: 1),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: InkWell(
-                        onTap: () {
-                          Get.to(FavaoriteScrambleScreen(
-                              listFavorite: favoriteList, topic: "Favorite"));
-                        },
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: const [
-                            Icon(
-                              Icons.quiz_outlined,
-                              color: Colors.white,
+                  favoriteList.isNotEmpty
+                      ? Positioned(
+                          bottom: 20,
+                          left: MediaQuery.of(context).size.width * 0.2,
+                          width: MediaQuery.of(context).size.width * 0.56,
+                          height: 70,
+                          child: Card(
+                            elevation: 10,
+                            color: Colors.pink,
+                            margin: EdgeInsets.all(8),
+                            shape: RoundedRectangleBorder(
+                              side: BorderSide(color: Colors.white54, width: 1),
+                              borderRadius: BorderRadius.circular(10),
                             ),
-                            Text('Word Scrambled Game',
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white)),
-                          ],
-                        ),
-                      ),
-                    ),
-                  )
+                            child: InkWell(
+                              onTap: () {
+                                Get.to(FavaoriteScrambleScreen(
+                                    listFavorite: favoriteList,
+                                    topic: "Favorite"));
+                              },
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: const [
+                                  Icon(
+                                    Icons.quiz_outlined,
+                                    color: Colors.white,
+                                  ),
+                                  Text('Word Scrambled Game',
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white)),
+                                ],
+                              ),
+                            ),
+                          ),
+                        )
+                      : SizedBox()
                 ],
               );
             }));

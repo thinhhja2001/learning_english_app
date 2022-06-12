@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable, prefer_final_fields, unused_field, prefer_const_constructors, avoid_print
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:learning_english_app/models/practice/result.dart';
 import 'package:learning_english_app/resources/firebase_handle.dart';
 import 'package:learning_english_app/screens/statistic/history_screen.dart';
@@ -82,11 +83,12 @@ class Overall extends StatelessWidget {
             width: double.infinity,
             child: ElevatedButton(
               onPressed: () {
-                showModalBottomSheet(
-                  context: context,
-                  builder: (context) => HistoryScreen(),
-                  isScrollControlled: true,
-                );
+                // showModalBottomSheet(
+                //   context: context,
+                //   builder: (context) => HistoryScreen(),
+                //   isScrollControlled: true,
+                // );
+                Get.to(HistoryScreen());
               },
               child: Text("View history"),
               style: ButtonStyle(

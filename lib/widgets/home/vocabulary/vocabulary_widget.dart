@@ -20,8 +20,8 @@ class _VocabularyGeneralState extends State<VocabularyGeneral> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Vocabulary", style: ktsTitleAppBar),
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
+        backgroundColor: kcWhiteColor,
+        automaticallyImplyLeading: false,
       ),
       backgroundColor: kcGreyColor,
       body: Padding(

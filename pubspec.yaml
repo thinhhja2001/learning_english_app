@@ -50,6 +50,7 @@ dependencies:
   firebase_storage: ^10.2.15
   flutter_staggered_animations: ^1.0.0
   web_scraper: ^0.1.4
+  image_picker: ^0.8.5+3
 
 dev_dependencies:
   flutter_lints: ^1.0.0

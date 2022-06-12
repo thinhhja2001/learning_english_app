@@ -9,7 +9,6 @@ const TextStyle ktsMediumTitleText =
 
 const TextStyle ktsMediumLabelInputText = TextStyle(
     color: kcPrimaryTextColor, fontWeight: FontWeight.bold, fontSize: h4);
-
 const TextStyle ktsMediumInputText =
     TextStyle(color: kcPrimaryTextColor, fontSize: h4);
 

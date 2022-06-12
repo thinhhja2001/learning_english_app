@@ -222,9 +222,9 @@ class _TimeLearnedRecentlyState extends State<TimeLearnedRecently> {
                               ),
                             ).then((valueFromDialog) {
                               // use the value as you wish
-                              if (_target != valueFromDialog) {
+                              if (_target != valueFromDialog * 1.0) {
                                 setState(() {
-                                  _target = valueFromDialog;
+                                  _target = valueFromDialog * 1.0;
                                 });
                               }
                             });

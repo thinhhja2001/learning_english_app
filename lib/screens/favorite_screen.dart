@@ -40,6 +40,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
 
         backgroundColor: kcWhiteColor,
         foregroundColor: kcBlackColor,
+        automaticallyImplyLeading: false,
       ),
       body: SingleChildScrollView(
         child: Column(
