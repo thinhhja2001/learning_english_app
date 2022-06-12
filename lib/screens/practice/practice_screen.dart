@@ -16,6 +16,7 @@ class PracticeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
           backgroundColor: Colors.white,
+          automaticallyImplyLeading: false,
           title: FutureBuilder(
               future: userProvider.getCurrentUser(),
               builder: (context, snapshot) {
