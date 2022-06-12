@@ -523,7 +523,6 @@ class FirebaseHandler {
     favoriteList = favoriteQuerySnapshot.docs
         .map((doc) => Favorite.fromSnap(doc))
         .toList();
-    print(favoriteList[0].id);
     return favoriteList;
   }
 
