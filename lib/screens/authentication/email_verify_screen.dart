@@ -72,7 +72,7 @@ class _EmailVerifyScreenState extends State<EmailVerifyScreen> {
                             textAlign: TextAlign.center,
                           ),
                         ),
-                        verticalSpaceSmall,
+                        verticalSpaceTiny,
                         Text(
                           _user.email!,
                           style: ktsMediumLabelInputText.copyWith(
