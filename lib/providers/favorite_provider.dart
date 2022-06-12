@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:learning_english_app/resources/firebase_handle.dart';
 
@@ -44,7 +45,8 @@ class FavoriteProvider with ChangeNotifier {
   Future<void> getAllFavoriteData() async {
     _loading = true;
     notifyListeners();
-    await FirebaseHandler.getListFavoriteTest().then((value) {
+    try{
+  await FirebaseHandler.getListFavoriteTest().then((value) {
       _loading = false;
       _favorites = value;
       _currentPart = value;
@@ -58,6 +60,12 @@ class FavoriteProvider with ChangeNotifier {
       getListPart();
       notifyListeners();
     });
+    } on FirebaseException
+    {
+      _loading = true;
+      notifyListeners();
+    }
+    
   }
 
   Future<bool> checkResult(String part,String test,int index) async
