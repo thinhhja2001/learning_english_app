@@ -98,7 +98,8 @@ class _EstimateScoreState extends State<EstimateScore> {
                                 RichText(
                                   text: TextSpan(
                                     text: 'Listening: ',
-                                    style: ktsBoldText,
+                                    style: ktsBoldText.copyWith(
+                                        color: kcPrimaryColor),
                                     children: <TextSpan>[
                                       TextSpan(
                                           text:
@@ -120,7 +121,8 @@ class _EstimateScoreState extends State<EstimateScore> {
                                 RichText(
                                   text: TextSpan(
                                     text: 'Reading: ',
-                                    style: ktsBoldText,
+                                    style: ktsBoldText.copyWith(
+                                        color: kcPrimaryColor),
                                     children: <TextSpan>[
                                       TextSpan(
                                           text: estimateReadingScore.toString(),
