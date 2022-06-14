@@ -83,7 +83,6 @@ class _DialogListAnswerState extends State<DialogListAnswer> {
                     itemBuilder: ((context, index) {
                       QuizQuestion quizQuestion =
                           dialogQuizProvider.allQuestion[index];
-                      print("Cau $index chon la ${quizQuestion.indexAnswer}");
                       return Column(
                         children: [
                           CustomRadio(
@@ -129,45 +128,59 @@ class _DialogListAnswerState extends State<DialogListAnswer> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      OutlinedButton(
-                        onPressed: () {
-                          Get.back();
-                        },
-                        style: ButtonStyle(
-                          side: MaterialStateProperty.all<BorderSide>(
-                              BorderSide(width: 1.0, color: Colors.green)),
-                          shape: MaterialStateProperty.all(
-                              RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10.0))),
-                          fixedSize:
-                              MaterialStateProperty.all<Size>(Size(180, 40)),
-                        ),
-                        child: Text(
-                          "Back",
-                          style:
-                              ktsDialogActionText.copyWith(color: Colors.green),
+                      Expanded(
+                        flex: 1,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: OutlinedButton(
+                            onPressed: () {
+                              Get.back();
+                            },
+                            style: ButtonStyle(
+                              side: MaterialStateProperty.all<BorderSide>(
+                                  BorderSide(width: 1.0, color: Colors.green)),
+                              shape: MaterialStateProperty.all(
+                                  RoundedRectangleBorder(
+                                      borderRadius:
+                                          BorderRadius.circular(10.0))),
+                              fixedSize: MaterialStateProperty.all<Size>(
+                                  Size(180, 40)),
+                            ),
+                            child: Text(
+                              "Back",
+                              style: ktsDialogActionText.copyWith(
+                                  color: Colors.green),
+                            ),
+                          ),
                         ),
                       ),
-                      ElevatedButton(
-                        onPressed: () async {
-                          timer.cancel();
-                          await dialogQuizProvider.getResult(duration);
-                          Get.back();
-                          Get.off(ReviewScreen());
-                        },
-                        style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all<Color>(Colors.green),
-                          shape: MaterialStateProperty.all(
-                              RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10.0))),
-                          fixedSize:
-                              MaterialStateProperty.all<Size>(Size(180, 40)),
-                        ),
-                        child: Text(
-                          "Submit",
-                          style:
-                              ktsDialogActionText.copyWith(color: Colors.white),
+                      Expanded(
+                        flex: 1,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: ElevatedButton(
+                            onPressed: () async {
+                              timer.cancel();
+                              await dialogQuizProvider.getResult(duration);
+                              Get.back();
+                              Get.off(ReviewScreen());
+                            },
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all<Color>(
+                                  Colors.green),
+                              shape: MaterialStateProperty.all(
+                                  RoundedRectangleBorder(
+                                      borderRadius:
+                                          BorderRadius.circular(10.0))),
+                              fixedSize: MaterialStateProperty.all<Size>(
+                                  Size(180, 40)),
+                            ),
+                            child: Text(
+                              "Submit",
+                              style: ktsDialogActionText.copyWith(
+                                  color: Colors.white),
+                            ),
+                          ),
                         ),
                       ),
                     ],
