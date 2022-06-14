@@ -140,4 +140,5 @@ Login In|Sign Up|Verify Email|Forget Password
 |1|Nguyễn Duy Phúc|19522038|[duyphuc](https://github.com/NguyenDuyPhuc01012001)
 |2|Cao Nguyễn Minh Quân|19522074|[minhquan](https://github.com/minhquancn18)|
 |3|Nguyễn Doãn Thịnh|19522281|[doanthinh](https://github.com/thinhhja2001)
+|4|Hoàng Quốc Trọng|19522408|[quoctrong](https://github.com/hoangquoctrong)
 
