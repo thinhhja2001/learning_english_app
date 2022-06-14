@@ -60,23 +60,21 @@ class CustomRadioState extends State<CustomRadio> {
         child: Row(
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8),
+              padding: const EdgeInsets.only(left: 8, right: 4),
               child: Center(
                   child: Text('${widget.numberQuestion}', style: ktsBoldText)),
             ),
             Expanded(
-              child: Center(
-                child: SizedBox(
-                  height: 60,
-                  child: ListView.builder(
-                    physics: NeverScrollableScrollPhysics(),
-                    scrollDirection: Axis.horizontal,
-                    itemCount: sampleData.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return RadioItem(
-                          sampleData[index], widget.isShowingAnswer);
-                    },
-                  ),
+              flex: 1,
+              child: SizedBox(
+                height: 60,
+                child: ListView.builder(
+                  physics: NeverScrollableScrollPhysics(),
+                  scrollDirection: Axis.horizontal,
+                  itemCount: sampleData.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return RadioItem(sampleData[index], widget.isShowingAnswer);
+                  },
                 ),
               ),
             ),
@@ -105,7 +103,7 @@ class RadioItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 8.0),
       child: SizedBox(
         width: 70,
         child: Row(
