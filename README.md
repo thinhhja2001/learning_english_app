@@ -48,10 +48,89 @@ As a student, you can do:
 <a name="manhinh"></a>
 ## List of Screen
 
+### 0. Greeting
+
+<img src="/Image/greeting.jpg" width="200" />
+
 ### 1. Authentication
-Login In             |  Sign Up
-:-------------------------:|:-------------------------:
-![](Image/login)  |  ![](Image/signup)
+
+Login In|Sign Up|Verify Email|Forget Password
+:-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:
+<img src="/Image/login.jpg" width="200" />|<img src="/Image/signup.jpg" width="200" />|<img src="/Image/emailverify.jpg" width="200" />|<img src="/Image/forgetpassword.jpg" width="200" />
+
+### 2. Home
+
+#### 2.1. Practice
+
+##### 2.1.1. List Quiz
+<p float="left">
+  <img src="/Image/pratice.jpg" width="200" />
+  <img src="/Image/praticelist.jpg" width="200" /> 
+</p>
+
+##### 2.1.2. Quiz
+<p float="left">
+  <img src="/Image/practicetest1.jpg" width="200" />
+  <img src="/Image/praticetest2.jpg" width="200" />
+  <img src="/Image/practicetest3.jpg" width="200" />
+  <img src="/Image/practicetest4.jpg" width="200" />
+</p>
+
+##### 2.1.3. Question Sheet
+<p float="left">
+  <img src="/Image/questionsheet1.jpg" width="200" />
+  <img src="/Image/questionsheet2.jpg" width="200" /> 
+</p>
+
+##### 2.1.4. Quiz Result
+<img src="/Image/practiceresult.jpg" width="200" />
+
+#### 2.2. Vocaublary
+
+##### 2.2.1. Vocabulary List
+<p float="left">
+  <img src="/Image/vocabulary.jpg" width="200" />
+  <img src="/Image/vocabularytopic.jpg" width="200" />
+  <img src="/Image/vocabularylist.jpg" width="200" />
+</p>
+
+##### 2.2.2. Vocaubulary Word
+<img src="/Image/vocabularyword.jpg" width="200" />
+
+##### 2.2.3. Scramble Word Game
+<p float="left">
+  <img src="/Image/game1.jpg" width="200" />
+  <img src="/Image/game2.jpg" width="200" /> 
+  <img src="/Image/game3.jpg" width="200" /> 
+</p>
+
+#### 2.3. Statistic
+
+##### 2.3.1. Statistic
+<p float="left">
+  <img src="/Image/statistic1.jpg" width="200" />
+  <img src="/Image/statistic2.jpg" width="200" />
+</p>
+
+
+##### 2.3.2. Set Target
+<img src="/Image/settarget.jpg" width="200" />
+
+
+##### 2.3.3. History
+<p float="left">
+  <img src="/Image/history1.jpg" width="200" />
+  <img src="/Image/history2.jpg" width="200" />
+</p>
+
+#### 2.4. Favorite
+<p float="left">
+  <img src="/Image/favorite1.jpg" width="200" />
+  <img src="/Image/favorite2.jpg" width="200" />
+</p>
+
+#### 2.5. Setting
+<img src="/Image/menu.jpg" width="200" />
 
 <a name="lienhe"></a>
 ## Contact
