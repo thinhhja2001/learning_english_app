@@ -27,6 +27,15 @@ samples, guidance on mobile development, and a full API reference.
 
 You can know more information about Firebase [here](https://firebase.flutter.dev/docs/overview/)
 
+### Install
+
+```
+$ git clone https://github.com/thinhhja2001/learning_english_app.git
+$ cd learning_english_app
+$ flutter pub get
+$ flutter run lib/main.dart
+```
+
 <a name="chucnang"></a>
 ## Function List
 
